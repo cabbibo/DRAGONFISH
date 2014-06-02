@@ -1,0 +1,228 @@
+<html>
+<body>
+
+<script src = "leap.js"             ></script>
+<script src = "three.js"            ></script>
+<script src = "stats.min.js"        ></script>
+<script src = "TrackballControls.js"   ></script>
+
+<script>  
+
+  // Global Variables for THREE.JS
+  var container , camera, scene, renderer , stats;
+
+  // Global variable for leap
+  var frame, controller;
+
+  // Setting up how big we want the scene to be
+  var sceneSize = 1000;
+
+  var riggedSkeleton;
+
+
+  // Get everything set up
+  init();
+
+  // Start the frames rolling
+  animate();
+
+
+  var tmpMat;
+
+  function init(){
+
+    tmpMat = new THREE.Matrix4();
+    
+    scene = new THREE.Scene();
+    
+    camera = new THREE.PerspectiveCamera( 
+      50 ,
+      window.innerWidth / window.innerHeight,
+      sceneSize / 100 ,
+      sceneSize * 4
+    );
+
+    // placing our camera position so it can see everything
+    camera.position.z = sceneSize ;
+
+
+    controls = new THREE.TrackballControls( camera );
+
+    // Getting the container in the right location
+    container = document.createElement( 'div' );
+
+    container.style.width      = '100%';
+    container.style.height     = '100%';
+    container.style.position   = 'absolute';
+    container.style.top        = '0px';
+    container.style.left       = '0px';
+    container.style.background = '#000';
+
+    document.body.appendChild( container );
+
+
+    // Getting the stats in the right position
+    stats = new Stats();
+
+    stats.domElement.style.position  = 'absolute';
+    stats.domElement.style.bottom    = '0px';
+    stats.domElement.style.right     = '0px';
+    stats.domElement.style.zIndex    = '999';
+
+    document.body.appendChild( stats.domElement );
+
+    // Setting up our Renderer
+    renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    container.appendChild( renderer.domElement );
+
+    // Making sure our renderer is always the right size
+    window.addEventListener( 'resize', onWindowResize , false );
+
+
+    var geo = new THREE.BoxGeometry( 50 , 50 , 50 );
+    var mat = new THREE.MeshNormalMaterial()
+
+
+    p1R = new THREE.Mesh( geo , mat );
+    p2R = new THREE.Mesh( geo , mat );
+    p3R = new THREE.Mesh( geo , mat );
+    p1R.position.y = -100;
+    p2R.position.x = 200;
+    p3R.position.x = 100;
+    scene.add( p1R );
+    p1R.add( p2R );
+    p2R.add( p3R );
+
+    p1R.matrixAutoUpdate = false;
+    p1R.updateMatrix();
+    p2R.matrixAutoUpdate = false;
+    p2R.updateMatrix();
+    p3R.matrixAutoUpdate = false;
+    p3R.updateMatrix();
+
+    p1G = new THREE.Mesh( geo , mat );
+    p2G = new THREE.Mesh( geo , mat );
+    p3G = new THREE.Mesh( geo , mat );
+    p1G.position.y = 100;
+    p2G.position.x = 200;
+    p3G.position.x = 100;
+
+
+    p1G.matrixAutoUpdate = false;
+    p1G.updateMatrix();
+    p2G.matrixAutoUpdate = false;
+    p2G.updateMatrix();
+    p3G.matrixAutoUpdate = false;
+    p3G.updateMatrix();
+
+
+    scene.add( p1G );
+    p1G.add( p2G );
+    p2G.add( p3G );
+
+
+
+  }
+
+  function updateP1R(matrix){ 
+    var mat = tmpMat.multiplyMatrices( p1R.matrix , matrix.clone().transpose() );     
+    p1R.rotation.setFromRotationMatrix(mat);
+    p1R.updateMatrix();
+    
+  }
+  function updateP2R(matrix){
+    var mat = tmpMat.multiplyMatrices( p2R.matrix.clone(), matrix.clone().transpose());
+    p2R.rotation.setFromRotationMatrix(mat);
+    p2R.updateMatrix();
+
+  }
+  function updateP3R(matrix){
+
+    var mat = p3R.matrix.clone().multiply(matrix.clone().transpose());  
+  
+    p3R.rotation.setFromRotationMatrix(mat);
+    p3R.updateMatrix();
+  
+  }
+
+
+  function updateP1G(matrix){ 
+    p1G.rotation.setFromRotationMatrix(matrix);
+    p1G.updateMatrix();
+
+  }
+function updateP2G(matrix){ 
+    p2G.rotation.setFromRotationMatrix(matrix);
+    p2G.updateMatrix();
+
+  }
+function updateP3G(matrix){ 
+    p3G.rotation.setFromRotationMatrix(matrix);
+    p3G.updateMatrix();
+
+  }
+
+  function animate(){
+
+    controls.update();
+    stats.update();
+
+    //Global rotation about X of .01 radians
+    p1Mat = new THREE.Matrix4();
+    p1m = p1Mat.elements;
+    p1m[5] = Math.cos(.01); p1m[6]  = -Math.sin(.01);
+    p1m[9] = Math.sin(.01); p1m[10] =  Math.cos(.01);
+
+
+    //Global rotation about Y of .01 radians
+    p2Mat = new THREE.Matrix4();
+    p2m = p2Mat.elements;
+    p2m[0] =  Math.cos(.01); p2m[2]  = Math.sin(.01);
+    p2m[8] = -Math.sin(.01); p2m[10] = Math.cos(.01);
+
+
+    //Global rotation about Z of .01 radians
+    p3Mat = new THREE.Matrix4();
+    p3m = p3Mat.elements;
+    p3m[0] =  Math.cos(.01);  p3m[1] = -Math.sin(.01);
+    p3m[4] =  Math.sin(.01);  p3m[5] =  Math.cos(.01);
+    
+    
+    updateP1R( p1Mat );
+    updateP2R( p2Mat );
+    updateP3R( p3Mat );
+
+    updateP1G(p1R.matrixWorld);
+    updateP2G(new THREE.Matrix4().multiplyMatrices(p1R.matrixWorld.clone().transpose(), p2R.matrixWorld));
+    updateP3G(new THREE.Matrix4().multiplyMatrices(p2R.matrixWorld.clone().transpose(), p3R.matrixWorld));
+
+    
+   // p1.rotation.x += .01;
+   // p2.rotation.y += .01;
+   // p3.rotation.z += .01;
+    
+    renderer.render( scene , camera );
+    requestAnimationFrame( animate );
+
+  }
+
+  // Resets the renderer to be the proper size
+  function onWindowResize(){
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+  }
+
+
+</script>
+
+
+</body>
+</html>
+
+

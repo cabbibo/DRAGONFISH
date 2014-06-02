@@ -1,0 +1,116 @@
+<html>
+
+  <head>
+    <style>
+      #container{ position:absolute; left:0px; top:0px; }
+      body{ margin:0px; }
+    </style>
+  </head>
+
+  <body>
+
+    <script src="../lib/three.min.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/TrackballControls.js"></script>
+    <script src="../lib/ShaderLoader.js"></script>
+    
+    <script src="../ParticleUtils.js"></script>
+    <script src="../PhysicsRenderer.js"></script>
+
+    <script>
+
+
+
+      var camera, renderer, scene , controls;
+      
+      var particleSystem;
+      var physicsRenderer , uniforms;
+
+      // Using: https://github.com/cabbibo/ShaderLoader
+      // For More info: http://cabbibo.github.io/ShaderLoader/
+
+      var shaders = new ShaderLoader('../shaders');
+
+      shaders.shaderSetLoaded = function(){
+        init();
+        animate();
+      }
+
+      shaders.load( 'fs-render' , 'render'  , 'fragment'    );
+      shaders.load( 'vs-render' , 'render'  , 'vertex'      );
+      shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
+
+
+      function init(){
+
+        /*
+
+          THREE.js Initialization
+
+        */
+
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        camera = new THREE.PerspectiveCamera( 65 , w/h , 1 , 2000 );
+        camera.position.z = 100;
+
+        controls = new THREE.TrackballControls( camera );
+        scene = new THREE.Scene();
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        document.body.appendChild( renderer.domElement );
+
+        size = 512;
+
+        var sim = shaders.simulationShaders.curlSim;
+        physicsRenderer = new PhysicsRenderer( size , sim , renderer ); 
+
+        uniforms = {
+          t_pos:{ type:"t" , value:null },
+          t_oPos:{ type:"t" , value:null },
+          t_ooPos:{ type:"t" , value:null },
+        }
+        
+        var mat = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: shaders.vertexShaders.render,
+          fragmentShader: shaders.fragmentShaders.render
+        })
+
+        var geo = ParticleUtils.createLookupGeometry( size );
+
+        physicsParticles  = new THREE.ParticleSystem( geo , mat );
+
+        physicsRenderer.addBoundTexture( physicsParticles , 't_pos' , 'output' );
+        physicsRenderer.addBoundTexture( physicsParticles , 't_oPos' , 'oOutput' );
+        physicsRenderer.addBoundTexture( physicsParticles , 't_ooPos' , 'ooOutput' );
+
+        scene.add( physicsParticles );
+
+        var mesh = new THREE.Mesh( new THREE.SphereGeometry( 5 ) );
+
+        var pTexture = ParticleUtils.createPositionsTexture( size , mesh );
+        physicsRenderer.reset( pTexture );
+
+       
+      }
+
+
+
+      function animate(){
+
+        physicsRenderer.update();
+
+        requestAnimationFrame( animate );
+        controls.update();
+        renderer.render( scene , camera );
+
+      }
+
+    </script>
+
+  </body>
+</html>
