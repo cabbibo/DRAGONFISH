@@ -30,7 +30,6 @@ LEVEL_2_PARAMS.oldTypes = [
 
 ] 
 
-
 LEVEL_2_PARAMS.skybox = {
 
   geo:'totem',
