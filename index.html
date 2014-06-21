@@ -1,80 +1,58 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="main.css">
-    
-    <style>
-      #container{
-
-        
-   width      : 100%;
-   height     : 100%;
-   position   : absolute;
-   top        : 0px;
-   left       : 0px;
-   background : #000;
-
- }
-
- #hookCount{
-
-   position:absolute;
-   display:block;
-   width:100px;
-   height:100px;
-   z-index:999;
-   color:#fff;
-   opacity:.5;
-   font-size:30px;
-
- }
-    </style>
   </head>
   <body>
 
     <div id="hookCount"> HELLO </div>
 
+<script src = "lib/jquery.min.js"         ></script>
+<script src = "lib/Tween.js"              ></script>
+<script src = "lib/leap.js"               ></script>
+<script src = "lib/three.js"              ></script>
+<script src = "lib/stats.min.js"          ></script>
+<script src = "lib/TrackballControls.js"  ></script>
+<script src = "lib/FlyControls.js"        ></script>
+<script src = "lib/OBJLoader.js"          ></script>
+<script src = "lib/AudioController.js"    ></script>
+<script src = "lib/Looper.js"             ></script>
+<script src = "lib/AudioTexture.js"       ></script>
+<script src = "lib/UserAudio.js"          ></script>
+<script src = "lib/Stream.js"             ></script>
+<script src = "lib/underscore.js"         ></script>
+<script src = "lib/ShaderLoader.js"       ></script>
+<script src = "lib/Loader.js"             ></script>
+<script src = "lib/PhysicsRenderer.js"    ></script>
+<script src = "lib/ParticleUtils.js"      ></script>
+<script src = "lib/LoadedAudio.js"        ></script>
 
-<script src = "jquery.min.js"         ></script>
-<script src = "Tween.js"              ></script>
-<script src = "leap.js"               ></script>
-<script src = "three.js"              ></script>
-<script src = "stats.min.js"          ></script>
-<script src = "TrackballControls.js"  ></script>
-<script src = "FlyControls.js"        ></script>
-<script src = "Fish.js"               ></script>
-<script src = "fishSkeleton.js"       ></script>
-<script src = "place.js"              ></script>
-<script src = "DragonFish.js"         ></script>
-<script src = "AudioController.js"    ></script>
-<script src = "Looper.js"             ></script>
-<script src = "AudioTexture.js"       ></script>
-<script src = "UserAudio.js"          ></script>
-<script src = "Stream.js"             ></script>
-<script src = "underscore.js"         ></script>
-<script src = "ShaderLoader.js"       ></script>
-<script src = "Loader.js"             ></script>
-<script src = "OBJLoader.js"          ></script>
-<script src = "Hook.js"               ></script>
-<script src = "createStones.js"       ></script>
-<script src = "initHooks.js"          ></script>
-<script src = "addSocialMedia.js"     ></script>
-<script src = "PhysicsRenderer.js"    ></script>
-<script src = "ParticleUtils.js"      ></script>
-<script src = "initExplosion.js"      ></script>
-<script src = "LoadedAudio.js"        ></script>
-<script src = "initAudio.js"          ></script>
-<script src = "initThree.js"          ></script>
-<script src = "initDebug.js"          ></script>
-<script src = "initGeos.js"           ></script>
-<script src = "initMaterials.js"      ></script>
-<script src = "initShaders.js"        ></script>
-<script src = "mechanics.js"          ></script>
-<script src = "utils.js"              ></script>
-<script src = "Level.js"              ></script>
-<script src = "Level1.js"             ></script>
-<script src = "Level2.js"             ></script>
-<script src = "Level3.js"             ></script>
-<script src = "Level4.js"             ></script>
+<script src = "init/initExplosion.js"     ></script>
+<script src = "init/initHooks.js"         ></script>
+<script src = "init/initAudio.js"         ></script>
+<script src = "init/initThree.js"         ></script>
+<script src = "init/initDebug.js"         ></script>
+<script src = "init/initGeos.js"          ></script>
+<script src = "init/initMaterials.js"     ></script>
+<script src = "init/initShaders.js"       ></script>
+
+<script src = "levels/Level1.js"          ></script>
+<script src = "levels/Level2.js"          ></script>
+<script src = "levels/Level3.js"          ></script>
+<script src = "levels/Level4.js"          ></script>
+
+<script src = "js/Level.js"               ></script>
+
+<script src = "js/Fish.js"                ></script>
+<script src = "js/fishSkeleton.js"        ></script>
+<script src = "js/place.js"               ></script>
+<script src = "js/DragonFish.js"          ></script>
+<script src = "js/Hook.js"                ></script>
+<script src = "js/createStones.js"        ></script>
+<script src = "js/mechanics.js"           ></script>
+<script src = "js/utils.js"               ></script>
+
+<script src = "js/addSocialMedia.js"      ></script>
+
 
 <script>  
 
@@ -101,14 +79,13 @@
   var LEVELS = [];
 
   var loader = new Loader();
-  //loader.addToLoadBar();
   
   var audioController = new AudioController();
   var looper          = new Looper( audioController , time , {
 
-    beatsPerMinute: 176,
+    beatsPerMinute: 122,
     beatsPerMeasure: 4,
-    measuresPerLoop: 16
+    measuresPerLoop: 8
     
   });
   var particleTexture = THREE.ImageUtils.loadTexture( 'lib/flare.png');
@@ -118,80 +95,6 @@
 
   function onStart(){
 
-
-  
-    /*var geo = new THREE.IcosahedronGeometry( 300 , 3 );
-    var mat = new THREE.MeshLambertMaterial({ 
-      map: audioController.texture,
-      side: THREE.DoubleSide
-    });
-
-    assignUVs( GEOS.totemGeo );
-    GEOS.totemGeo.computeFaceNormals();
-    GEOS.totemGeo.computeVertexNormals();
-
-    mat = new THREE.MeshLambertMaterial({
-      side: THREE.DoubleSide,
-      color:0x444444,
-      map: audioController.texture,//stream.texture,
-      shading: THREE.FlatShading
-    });
-
-    skyBox = new THREE.Mesh( GEOS.totemGeo , mat );
-    skyBox.scale.multiplyScalar( 100 );
-
-    skyBox1 = new THREE.Mesh( GEOS.totemGeo , new THREE.MeshNormalMaterial() );
-    scene.add( skyBox );
-
-    createStones();
-
-    var u = {
-      uPos: { type:"v3" , value : dragonFish.leader.position },
-      uVel: { type:"v3" , value : dragonFish.leader.velocity },
-      color: { type:"v3" , value : new THREE.Vector3( 1. , 0 , 0 ) },
-      t_audio:{ type:"t" , value: audioController.texture },
-      audioLookup:{ type:"f", value: .2},
-      time:time
-    }
-
-    jellyMat = new THREE.ShaderMaterial({
-      uniforms: u,
-      vertexShader:shaders.vertexShaders.sphere,
-      fragmentShader:shaders.fragmentShaders.sphere,
-      side:THREE.DoubleSide,
-      this.dragonFish.addPrecreatedVertabrae( this.vertabrae );
-      blending:THREE.AdditiveBlending,
-      transparent:true,
-      depthWrite:false,
-    });
-
-    var beak1 = new THREE.Mesh( 
-      new THREE.CylinderGeometry( 1.3 , 1.3 , 2.3, 500 ,50,50 ),
-      jellyMat
-    );
-
-    beak1.rotation.x = -Math.PI / 2;
-    beak1.position.z = 1.3;
-
-    dragonFish.leader.body.add( beak1 );
-
-    var geo =  new THREE.CylinderGeometry( 1.45 , 0 , 1.6, 100 ,50,1 );
-
-    var body = new THREE.Mesh( 
-      geo,
-      jellyMat
-    );
-
-    for( var i = 0; i < dragonFish.spine.length; i++ ){
-
-      var b = body.clone();
-      b.rotation.x = -Math.PI / 2;
-      b.position.z = .2;
-      dragonFish.spine[i].body.add( b );
-   
-    }
-
-    initHooks();*/
 
 
 
@@ -216,6 +119,7 @@
     dragonFish = new DragonFish( bait );
     dragonFish.leader.position.copy( camera.position );
 
+    // THE DEATH FOLLOWER
     deathBait = new THREE.Object3D();
     deathBait.oldPositions = [];
     deathBait.velocity = new THREE.Vector3();
@@ -225,17 +129,11 @@
 
     //deathDragon.leader.position.copy( new THREE.Vector3( 10000000000, 0 , 0 ) );
 
-    /*var g = new THREE.IcosahedronGeometry( .5 ,1 );
-    var m = new THREE.MeshNormalMaterial({ wireframe:true });
-    var baitMarker = new THREE.Mesh( g , m );
-    bait.add( baitMarker );
-    scene.add( bait );*/
-
     loader.addToLoadBar();
-    LEVEL_1 = new Level( 'first level', dragonFish , LEVEL_1_PARAMS );
-    LEVEL_2 = new Level( 'second level' ,dragonFish , LEVEL_2_PARAMS );
-    LEVEL_3 = new Level( 'third level' ,dragonFish , LEVEL_3_PARAMS );
-    LEVEL_4 = new Level( 'fourth level' ,dragonFish , LEVEL_4_PARAMS );
+    LEVEL_1 = new Level( 'first level'  , dragonFish , LEVEL_1_PARAMS );
+    LEVEL_2 = new Level( 'second level' , dragonFish , LEVEL_2_PARAMS );
+    LEVEL_3 = new Level( 'third level'  , dragonFish , LEVEL_3_PARAMS );
+    LEVEL_4 = new Level( 'fourth level' , dragonFish , LEVEL_4_PARAMS );
 
     LEVEL_1.nextLevel = LEVEL_2;
     LEVEL_2.oldLevel  = LEVEL_1;
