@@ -1,4 +1,5 @@
 var MATS = {}
+
 function initMaterials(){
 
   MATS.phong    = new THREE.MeshPhongMaterial();

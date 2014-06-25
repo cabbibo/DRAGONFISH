@@ -96,10 +96,14 @@ Level.prototype.beginLoading = function(){
  
   this.loadNote(  this.params.death.note );
   this.loadGeo(  this.params.death.geo );
+  this.loadLoop( this.params.death.loop );
+
   this.loadGeo(   this.params.path.markerGeo  );  
   this.loadNote(  this.params.note            ); 
+  
   this.loadNote(  this.params.skybox.note     ); 
   this.loadGeo(   this.params.skybox.geo      );
+  
   this.loadGeo(   this.params.crystal.geo     );
   this.loadGeo(   this.params.stones.geo     );
 
@@ -173,7 +177,6 @@ Level.prototype.loadGeo = function( geoName ){
  
   if( typeof geoName !== 'string' ){
 
-    console.log( 'not a name' );
     return;
 
   }
@@ -296,6 +299,7 @@ Level.prototype.createStones = function(){
 Level.prototype.createDeath = function(){
 
   this.death = {};
+  this.death.loop = LOOPS[ this.params.death.loop ];
   this.death.note = NOTES[ this.params.death.note ];
   this.death.geo = GEOS[ this.params.death.geo ];
   this.death.mat = MATS[ this.params.death.mat ].clone();
@@ -305,6 +309,13 @@ Level.prototype.createDeath = function(){
   this.death.mesh.scale.multiplyScalar( this.params.death.scale );
 
   this.death.mesh.position = this.params.death.position;
+
+  if( !this.death.loop.playing ){
+
+    this.death.loop.play();
+    this.death.loop.gain.gain.value = 0;
+
+  }
 
 
 }
@@ -331,17 +342,9 @@ Level.prototype.createCrystal = function(){
 
   this.crystal.size = this.params.crystal.size || 3;
   if( this.params.crystal.rotation ){
-    console.log('sasda' );
-    console.log( this.crystal.rotation );
-    console.log( this.params.crystal.rotation );
     this.crystal.rotation.copy( this.params.crystal.rotation );
-    /*console.log( this.crystal.rotation );
-    var object = new THREE.Object3D();
-    object.add( this.crystal );
-    this.crystal = object ;*/
-
-
   }
+
 }
 
 Level.prototype.createPath = function(){
@@ -386,6 +389,7 @@ Level.prototype.createPath = function(){
     notes.push( note );
 
   }
+ 
   this.path = {};
 
   this.path.notes = notes;
@@ -395,8 +399,6 @@ Level.prototype.createPath = function(){
   this.path.guides = this.params.path.createGuides();
   this.path.markers = markers;
 
-  console.log( 'NOTESSs' );
-  console.log( this.path.notes );
 
 }
 
@@ -595,6 +597,8 @@ Level.prototype.onStart = function(){
     dragonFish.leader.body.remove( this.oldLevel.crystal );
     this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
+
+    this.oldLevel.death.loop.playing = false;
   }
 
   dragonFish.leader.body.add( this.crystal );
@@ -615,14 +619,12 @@ Level.prototype.onStart = function(){
 
 Level.prototype.startDeath = function(){
 
-  console.log( 'hello' );
   for( var i= 0; i < deathDragon.leader.body.children.length; i++){
-
-    console.log( 'EHSA');
     var c = deathDragon.leader.body.children[i];
     deathDragon.leader.body.remove( c );
 
   }
+  
   deathDragon.leader.body.add( this.death.mesh );
 
 

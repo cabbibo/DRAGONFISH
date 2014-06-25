@@ -127,7 +127,7 @@
     deathDragon.createVertabrae( deathDragon.leader );
     deathDragon.initPlume();
 
-    //deathDragon.leader.position.copy( new THREE.Vector3( 10000000000, 0 , 0 ) );
+    deathDragon.leader.position.copy( new THREE.Vector3( 100000, 0 , 0 ) );
 
     loader.addToLoadBar();
     LEVEL_1 = new Level( 'first level'  , dragonFish , LEVEL_1_PARAMS );
@@ -191,11 +191,15 @@
       var dif = dragonFish.leader.position.clone();
       dif.sub( deathDragon.leader.position );
 
+      var length = dif.length();
       if( dif.length() <= 3 ){
 
         LEVELS[ CURRENT_LEVEL ].onDeath();//deathNote.play();
 
       }
+
+      var newGain = Math.min( 1.5 , 30 / length );
+      LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
 
     }

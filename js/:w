@@ -1,16 +1,16 @@
-var LEVEL_4_PARAMS = {};
+var LEVEL_3_PARAMS = {};
 
 
-LEVEL_4_PARAMS.position = new THREE.Vector3( 1000 , 0 , 0 );
+LEVEL_3_PARAMS.position = new THREE.Vector3( 0,2000, 0 );
 
-LEVEL_4_PARAMS.note = 'clean6',
+LEVEL_3_PARAMS.note = 'clean6',
 
-LEVEL_4_PARAMS.death = {
+LEVEL_3_PARAMS.death = {
 
   note:'glassSmash',
   geo:'skull',
-  mat:'phong',
   loop:'lvl2/ambient',
+  mat:'phong',
   color:0xee6622,
   scale: 100,
   position: new THREE.Vector3( 0 , -10 , 0 )
@@ -18,19 +18,19 @@ LEVEL_4_PARAMS.death = {
 }
 
 
-LEVEL_4_PARAMS.geo = 'totem';
+LEVEL_3_PARAMS.geo = 'totem';
 
 
 
-LEVEL_4_PARAMS.oldTypes = [
+LEVEL_3_PARAMS.oldTypes = [
 
-  'lvl2_part1_drums',
-  //'lvl2_part1_synth1',
+  'lvl1_part2_drums',
+  'lvl1_part2_vox',
 
 ] 
 
 
-LEVEL_4_PARAMS.skybox = {
+LEVEL_3_PARAMS.skybox = {
 
   geo:'totem',
   note: 'srBeast1',
@@ -64,7 +64,7 @@ LEVEL_4_PARAMS.skybox = {
 
 }
 
-LEVEL_4_PARAMS.crystal = {
+LEVEL_3_PARAMS.crystal = {
 
   geo: new THREE.CylinderGeometry( 2,0,5 ),
   mat: new THREE.MeshPhongMaterial({ side:THREE.DoubleSide }),
@@ -74,7 +74,7 @@ LEVEL_4_PARAMS.crystal = {
 
 }
 
-LEVEL_4_PARAMS.stones = {
+LEVEL_3_PARAMS.stones = {
 
 
   geo:'logoGeo',
@@ -161,7 +161,7 @@ LEVEL_4_PARAMS.stones = {
    Path
 
 */
-LEVEL_4_PARAMS.path = {
+LEVEL_3_PARAMS.path = {
 
   notes:['srNight1','srNight2','srNight3','srNight4'],
   pathDetail: 0,
@@ -350,17 +350,17 @@ LEVEL_4_PARAMS.path = {
 
 }
 
-LEVEL_4_PARAMS.newTypes = [
+LEVEL_3_PARAMS.newTypes = [
 
   {
-    type: 'lvl2_part2_perc',
+    type: 'lvl2_part1_drums',
     note: 'clean1',
-    loop: 'lvl2/part2/perc',
+    loop: 'lvl2/part1/drums',
     geo:  'logoGeo',
     numOf: 1,
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0xaa5599 ),
+    color: new THREE.Color( 0xaa5599),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -420,14 +420,14 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part2_highs',
+    type: 'lvl2_part1_perc',
     note: 'clean1',
-    loop: 'lvl2/part2/highs',
+    loop: 'lvl2/part1/perc',
     geo:  'logoGeo',
     numOf: 1,
     boss: false,
     startScore: 1,
-    color: new THREE.Color(0x11aa99 ),
+    color: new THREE.Color( 0x00ff00),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -485,14 +485,14 @@ LEVEL_4_PARAMS.newTypes = [
 
  
   {
-    type: 'lvl2_part2_synth1',
+    type: 'lvl2_part1_synth1',
     note: 'clean1',
-    loop: 'lvl2/part2/synth1',
+    loop: 'lvl2/part1/synth1',
     geo:  'logoGeo',
     numOf: 1,
     boss: false,
     startScore: 2,
-    color: new THREE.Color( 0xaa5511 ),
+    color: new THREE.Color( 0x0000ff),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -551,14 +551,14 @@ LEVEL_4_PARAMS.newTypes = [
 
   
   {
-    type: 'lvl2_part2_synth2',
+    type: 'lvl2_part1_wood',
     note: 'clean1',
-    loop: 'lvl2/part2/synth2',
+    loop: 'lvl2/part1/wood',
     geo:  'logoGeo',
     numOf: 1,
     boss: false,
     startScore: 3,
-    color: new THREE.Color( 0x115599 ),
+    color: new THREE.Color( 0x0000ff),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -616,14 +616,14 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part1_drums',
+    type: 'lvl2_part1_synth2',
     note: 'clean1',
-    loop: 'lvl2/part1/drums',
+    loop: 'lvl2/part1/synth2',
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
     startScore: 4,
-    color: new THREE.Color( 0x444444 ),
+    color: new THREE.Color( 0x0000ff),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });

@@ -3,7 +3,7 @@
 var LEVEL_2_PARAMS = {};
 
 
-LEVEL_2_PARAMS.position = new THREE.Vector3( 3000 , 0 , 0 );
+LEVEL_2_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
 
 LEVEL_2_PARAMS.note = 'clean6',
 
@@ -11,9 +11,10 @@ LEVEL_2_PARAMS.death = {
 
   note:'glassSmash',
   geo:'skull',
+  loop:'lvl1/ambient',
   mat:'phong',
   color:0xee6622,
-  scale: 100,
+  scale: 1,
   position: new THREE.Vector3( 0 , -10 , 0 )
 
 }
@@ -360,10 +361,9 @@ LEVEL_2_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0xff0000),
+    color: new THREE.Color( 0xaa5555),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -393,7 +393,6 @@ LEVEL_2_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -429,10 +428,9 @@ LEVEL_2_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 1,
-    color: new THREE.Color( 0x00ff00),
+    color: new THREE.Color( 0x55aa55),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -462,7 +460,6 @@ LEVEL_2_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -496,10 +493,9 @@ LEVEL_2_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 2,
-    color: new THREE.Color( 0x0000ff),
+    color: new THREE.Color( 0x5555aa),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -529,7 +525,6 @@ LEVEL_2_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -564,10 +559,9 @@ LEVEL_2_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 3,
-    color: new THREE.Color( 0x0000ff),
+    color: new THREE.Color( 0xaa5599),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -597,7 +591,6 @@ LEVEL_2_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -631,10 +624,9 @@ LEVEL_2_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     startScore: 4,
-    color: new THREE.Color( 0x0000ff),
+    color: new THREE.Color(0x7755aa),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -664,7 +656,6 @@ LEVEL_2_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,

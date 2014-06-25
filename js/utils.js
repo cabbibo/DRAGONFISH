@@ -74,7 +74,6 @@
 
  function assignUVs( geometry ){
 
-   console.log( 'HELLOAA' );
     geometry.computeBoundingBox();
 
     var max     = geometry.boundingBox.max;

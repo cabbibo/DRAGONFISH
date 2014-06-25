@@ -9,12 +9,13 @@ LEVEL_1_PARAMS.note = 'clean6',
 
 LEVEL_1_PARAMS.death = {
 
-  note:'glassSmash',
+  note:'b7',
+  loop:'lvl1/ambient',
   geo:'skull1',
   mat:'phong',
   color:0xee6622,
-  scale: 100,
-  position: new THREE.Vector3( 0 , -10 , 0 )
+  scale: .01,
+  position: new THREE.Vector3( 0 , -3 , 0 )
 
 }
 
@@ -39,14 +40,11 @@ LEVEL_1_PARAMS.skybox = {
     geo.computeVertexNormals();
     
     assignUVs( geo );
-    console.log( geo );
 
     //this.mat.needsUpdate = true;
     
-    console.log( geo );
     var skybox = new THREE.Mesh( geo , this.mat );
 
-    console.log( this.scale );
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
 
@@ -353,25 +351,25 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0x66ccee),
+    color: new THREE.Color(0x66aacc),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
           m
       );
 
-      head.scale.multiplyScalar( .1 );
+      head.scale.multiplyScalar( .001 );
 
       var g = new THREE.IcosahedronGeometry(2);
       var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
+      //m1.rotation.x = Math.PI
+      m1.scale.x = .01;
+      m1.scale.y = .01;
+      m1.scale.z = .01;
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -386,7 +384,6 @@ LEVEL_1_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -422,10 +419,9 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 1,
-    color: new THREE.Color( 0xcc66ee),
+    color: new THREE.Color( 0xaa66cc),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -455,7 +451,6 @@ LEVEL_1_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -489,10 +484,9 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 2,
-    color: new THREE.Color( 0xccee66),
+    color: new THREE.Color( 0xaacc66),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -522,7 +516,6 @@ LEVEL_1_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -556,10 +549,9 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     startScore: 3,
-    color: new THREE.Color( 0x66eecc),
+    color: new THREE.Color( 0x66ccaa),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
-      console.log('hello');
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,
@@ -589,7 +581,6 @@ LEVEL_1_PARAMS.newTypes = [
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        console.log( 'EHSAS' );
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
@@ -622,7 +613,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     startScore: 4,
-    color: new THREE.Color( 0xee66cc ),
+    color: new THREE.Color( 0xcc66aa ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color:this.color.getHex()});
