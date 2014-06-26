@@ -430,7 +430,7 @@ LEVEL_2_PARAMS.newTypes = [
 
 
 
-/*  {
+  {
     type: 'lvl1_part2_lead',
     note: 'clean1',
     loop: 'lvl1/part2/lead',
@@ -688,7 +688,7 @@ LEVEL_2_PARAMS.newTypes = [
   
       return hooks;
     }
-  },*/
+  },
 
 ]
 

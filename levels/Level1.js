@@ -435,10 +435,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          // m1: m1,
-          // m2: m2,
-          // m3: m3,
-          // m4: m4,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -511,10 +511,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          // m1: m1,
-          // m2: m2,
-          // m3: m3,
-          // m4: m4,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -586,10 +586,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          // m1: m1,
-          // m2: m2,
-          // m3: m3,
-          // m4: m4,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -661,10 +661,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          // m1: m1,
-          // m2: m2,
-          // m3: m3,
-          // m4: m4,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -724,10 +724,10 @@ LEVEL_1_PARAMS.newTypes = [
         var hook = new Hook( dragonFish , level , this.type , {
           
           head:head.clone(),
-          // m1: m1,
-          // m2: m2,
-          // m3: m3,
-          // m4: m4,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
           note:note,
           loop:loop,
           startScore: this.startScore,            
