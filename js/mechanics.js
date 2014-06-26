@@ -23,8 +23,29 @@ function initMechanics(){
 
 
   mouse = new THREE.Vector2();
-    
+
   window.addEventListener( 'mousemove' , onMouseMove , false );
+  document.addEventListener( 'mousedown' , onMouseDown , false );
+  document.addEventListener( 'mouseup' , onMouseUp , false );
+
+
+  function onMouseMove( event ) {
+
+      event.preventDefault();
+
+      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  }
+
+  function onMouseDown( event ) {
+    distanceToIntersectPlane += 10;
+  }
+
+  function onMouseUp( event ) {
+    distanceToIntersectPlane -= 10;
+  }
+    
 
 }
 
@@ -91,14 +112,3 @@ function updateMechanics( delta ){
 
 
 
-window.addEventListener( 'mousemove' , onMouseMove , false );
-
-
-  function onMouseMove( event ) {
-
-      event.preventDefault();
-
-      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-  }

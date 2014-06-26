@@ -19,7 +19,8 @@
       m4:   fishSkeleton.flagella.child1,
       startScore: 0,
       repelDistance: 3,
-      boss: false
+      boss: false,
+      maxSpeed: .5
     
     });
 
@@ -43,7 +44,9 @@
     //
     this.head = this.params.head;
 
-    this.maxSpeed = .5;
+    console.log( 'MAXXXX' );
+    console.log( this.params.maxSpeed );
+    this.maxSpeed = this.params.maxSpeed;
 
     this.color = this.params.color;
     
@@ -189,21 +192,17 @@
 
   Hook.prototype.updatePosition = function(){
 
-     var aveVol = this.loop.averageVolume / 128;
 
     this.velocity.add( this.force );//.clone().multiplyScalar( aveVol));
    
-    var newVel = this.velocity.clone().multiplyScalar( aveVol );
 
-    var newVel = this.velocity;
-    if( newVel >= this.maxSpeed ){
+    if( this.velocity.length() >= this.maxSpeed ){
 
-      //console.log( 'maxHit' );
-      newVel.normalize().multiplyScalar( this.maxSpeed );
+      this.velocity.normalize().multiplyScalar( this.maxSpeed );
 
     }
     
-    this.position.add( newVel ); 
+    this.position.add( this.velocity ); 
 
 
     this.head.lookAt( this.position.clone().add( this.velocity ) );
@@ -260,8 +259,8 @@
   Hook.prototype.reposition = function(){
 
       this.position.x = (Math.random() -.5 )*100 + this.level.scene.position.x ;
-      this.position.y = (Math.random() -.5 )*100+ this.level.scene.position.y;
-      this.position.z = (Math.random() -.5 )*100+ this.level.scene.position.z;
+      this.position.y = (Math.random() -.5 )*100 + this.level.scene.position.y;
+      this.position.z = (Math.random() -.5 )*100 + this.level.scene.position.z;
 
       this.head.rotation.x = Math.random() * Math.PI * 2;
       this.head.rotation.y = Math.random() * Math.PI * 2;

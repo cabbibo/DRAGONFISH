@@ -4,7 +4,10 @@
   </head>
   <body>
 
-    <div id="hookCount"> HELLO </div>
+    <div id="hookInfo">
+      <div id="hookCount"> HELLO </div>
+
+    </div>
 
 <script src = "lib/jquery.min.js"         ></script>
 <script src = "lib/Tween.js"              ></script>
@@ -40,16 +43,15 @@
 <script src = "levels/Level4.js"          ></script>
 
 <script src = "js/Level.js"               ></script>
-
 <script src = "js/Fish.js"                ></script>
 <script src = "js/fishSkeleton.js"        ></script>
-<script src = "js/place.js"               ></script>
 <script src = "js/DragonFish.js"          ></script>
 <script src = "js/Hook.js"                ></script>
-<script src = "js/createStones.js"        ></script>
+
 <script src = "js/mechanics.js"           ></script>
 <script src = "js/utils.js"               ></script>
 
+<script src = "js/instructions.js"        ></script>
 <script src = "js/addSocialMedia.js"      ></script>
 
 
@@ -94,6 +96,7 @@
  
   }
   shaders.load( 'vs-planet' , 'planet' , 'vertex' );
+  shaders.load( 'vs-planetDisplace' , 'planetDisplace' , 'vertex' );
   shaders.load( 'fs-planet' , 'planet' , 'fragment' );
   shaders.load( 'fs-floor'    , 'floor'   , 'fragment'    );
   shaders.load( 'vs-floor'    , 'floor'   , 'vertex'      );
@@ -125,6 +128,8 @@
   function onStart(){
 
 
+    console.log('AGSSSSFAFA');
+    addInstructions();
 
 
   }
@@ -199,6 +204,9 @@
     counter += 1;
 
 
+    updateInstructions();
+
+
     LEVELS[ CURRENT_LEVEL ].update();
 
     audioController.update();
@@ -226,7 +234,7 @@
 
       }
 
-      var newGain = 1;
+      var newGain = 2;
       //var newGain = Math.min( 1.5 , 30 / length );
       LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
@@ -252,6 +260,8 @@
 
     looper.start();
     animate();
+
+    onStart();
   
   });
 

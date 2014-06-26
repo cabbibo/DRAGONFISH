@@ -610,7 +610,7 @@ Level.prototype.onStart = function(){
   // out with the old, in with the new
   if( this.oldLevel ){
     dragonFish.leader.body.remove( this.oldLevel.crystal );
-    //this.oldLevel.removeSkybox();
+    this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
 
     this.oldLevel.death.loop.playing = false;
@@ -825,8 +825,9 @@ Level.prototype.checkVertabraeForDestruction = function(){
 
    if( percentToLocation > verta.percentToDestruction ){
 
-     console.log( 'VERTA REMOVED' );
      console.log( verta.percentToDestruction );
+     this.removeHookUI( verta );
+
      this.dragonFish.removeVertabraeById( i );
      i--;
 
@@ -906,6 +907,7 @@ Level.prototype.onHook = function( index , hook ){
 
   }
 
+  this.updateHookUI( hook );
 
 }
 
@@ -927,7 +929,8 @@ Level.prototype.checkForNewHooks = function( score ){
 
       i--;
 
-    
+      this.addHookUI( hook );
+
     }
 
 
@@ -984,6 +987,108 @@ Level.prototype.onEnd = function(){
 
 
 }
+
+
+/*
+
+   HOOK UI
+
+*/
+
+Level.prototype.addHookUI = function( hook ){
+
+
+  var hookRow = document.getElementById( hook.type );
+
+  console.log('HOOK DOM' );
+  console.log( hookRow );
+ 
+   var color = hook.color.getHexString();
+
+  if( !hookRow ){
+    
+    console.log( 'NEW HOOK UI ADDED' );
+    console.log( hook );
+
+    hookRow = document.createElement('div');
+    hookRow.classList.add( 'hookRow');
+    hookRow.id = hook.type;
+
+    var numOf = 1 / hook.power;
+    console.log( numOf );
+
+    var hookInfo = document.getElementById('hookInfo');
+    hookInfo.appendChild( hookRow );
+
+  }
+
+  var hookCounter = document.createElement('div' );
+  hookCounter.classList.add( 'hookCounter' );
+  hookCounter.classList.add( 'inactive' );
+  hookCounter.style.border = '1px  solid #'+color;
+
+  console.log('ansnsdddd');
+
+  hookRow.appendChild( hookCounter );
+
+
+}
+
+Level.prototype.updateHookUI = function( hook ){
+
+  var hookRow = document.getElementById( hook.type );
+
+  console.log('ASDBANSA');
+  console.log( hookRow.childNodes );
+
+  for( var i = 0; i < hookRow.childNodes.length; i++ ){
+
+    var el = $( hookRow.childNodes[i] )
+
+    console.log(el.hasClass('inactive') );
+
+    var inactive = el.hasClass('inactive');
+    if( inactive ){
+ 
+      console.log('asbasddd!!!!');
+      var color = '#'+hook.color.getHexString();
+      el.removeClass('inactive');
+      el.addClass('active');
+      el.css( 'background' ,  color);
+
+      break;
+    }
+
+  }
+
+}
+
+
+Level.prototype.removeHookUI = function( hook ){
+
+  var hookRow = document.getElementById( hook.type );
+
+  for( var i = hookRow.childNodes.length; i >= 0; i-- ){
+
+   // var el = $( hookRow.childNodes[i] );
+
+    console.log(i-1);
+    console.log('REMVOSSD');
+
+    hookRow.removeChild( hookRow.childNodes[i-1] );
+    
+    if( i == 1 ){
+      hookRow.parentNode.removeChild( hookRow );
+    }
+    
+    break;
+
+
+  }
+
+
+}
+
 
 
 

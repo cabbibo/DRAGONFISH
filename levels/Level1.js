@@ -381,7 +381,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 0,
-    mat:'planet',
+    mat:'planetDisplace',
     color: new THREE.Color(0x66aacc),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -444,7 +444,8 @@ LEVEL_1_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: false,
+          maxSpeed: .1
         });
 
         var id = Math.random();
@@ -468,7 +469,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 1,
-    mat:'planet',
+    mat:'planetDisplace',
     color: new THREE.Color( 0xaa66cc),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -512,9 +513,9 @@ LEVEL_1_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
+          /*m2: m2,
           m3: m3,
-          m4: m4,
+          m4: m4,*/
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -539,9 +540,9 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/lead',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 2,
     boss: false,
-    mat:'planet',
+    mat:'planetDisplace',
     startScore: 2,
     color: new THREE.Color( 0xaacc66),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
@@ -587,9 +588,9 @@ LEVEL_1_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
+           /*m2: m2,
           m3: m3,
-          m4: m4,
+          m4: m4,*/
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -614,10 +615,10 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/drums',
     geo:  'logoGeo',
-    numOf: 1,
-    mat:'planet',
+    numOf: 2,
+    mat:'planetDisplace',
     boss: false,
-    startScore: 3,
+    startScore: 4,
     color: new THREE.Color( 0x66ccaa),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -662,15 +663,15 @@ LEVEL_1_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
+           /*m2: m2,
           m3: m3,
-          m4: m4,
+          m4: m4,*/
           note:note,
           startScore: this.startScore,
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: this.boss
         });
 
         var id = Math.random();
@@ -690,7 +691,7 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
-    mat:'planet',
+    mat:'planetDisplace',
     startScore: 4,
     color: new THREE.Color( 0xcc66aa ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
@@ -706,7 +707,6 @@ LEVEL_1_PARAMS.newTypes = [
       resetColorUniform( m.uniforms.color3 , c , 1 );
       resetColorUniform( m.uniforms.color4 , c , 1 );
 
-      var m = new THREE.MeshPhongMaterial({color:this.color.getHex()});
       var head = new THREE.Mesh(
           geo,
           m
@@ -714,9 +714,9 @@ LEVEL_1_PARAMS.newTypes = [
 
       head.scale.multiplyScalar( .1 );
 
-      var g = new THREE.IcosahedronGeometry(.3);
-      var m1 = new THREE.Mesh( g , m );
+      var m1 = new THREE.Mesh( geo , m );
 
+      m1.scale.multiplyScalar( .1 );
       var hooks = [];
 
       for( var i = 0; i < this.numOf; i++ ){
@@ -725,15 +725,16 @@ LEVEL_1_PARAMS.newTypes = [
           
           head:head.clone(),
           m1: m1,
-          m2: m2,
+           /*m2: m2,
           m3: m3,
-          m4: m4,
+          m4: m4,*/
           note:note,
           loop:loop,
           startScore: this.startScore,            
           color: this.color,
           power: 1/ this.numOf,
-          boss: true
+          boss: this.true,
+          maxSpeed: 100
             
 
         });

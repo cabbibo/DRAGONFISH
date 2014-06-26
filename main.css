@@ -16,6 +16,7 @@ body{
   overflow: hidden;
 }
 
+
 #container{
 
  width      : 100%;
@@ -27,18 +28,42 @@ body{
 
 }
 
-#hookCount{
 
- position:absolute;
+#hookInfo{
+
+  position:absolute;
  display:block;
- width:100px;
- height:100px;
+// width:100px;
+ //height:100px;
  z-index:999;
- color:#fff;
- opacity:.5;
+ opacity:.8;
  font-size:30px;
 
- }
+}
+
+#hookCount{
+
+  display:none;
+
+}
+
+.hookRow{
+
+  height :30px;
+ // width: 10000px;
+  display :block;
+
+}
+
+.hookCounter{
+
+  width: 18px;
+  height: 18px;
+  margin:5px;
+  border: 1px solid black;
+  position:relative;
+  display: inline-block;
+}
 
 @font-face {
   font-family: "GeoSans";
