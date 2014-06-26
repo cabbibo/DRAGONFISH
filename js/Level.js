@@ -234,11 +234,18 @@ Level.prototype.instantiate = function(){
 
   for( var  i = 0; i < this.newTypes.length; i++ ){
 
-    var loop = LOOPS[ this.newTypes[i].loop ];
-    var note = NOTES[ this.newTypes[i].note ];
-    var geo  = GEOS[  this.newTypes[i].geo  ];
+    var loop  = LOOPS[ this.newTypes[i].loop ];
+    var note  = NOTES[ this.newTypes[i].note ];
+    var geo   = GEOS[  this.newTypes[i].geo  ];
 
-    var hooks = this.newTypes[i].instantiate( this , this.dragonFish, note ,loop , geo );
+    var mat = this.newTypes[i].mat
+    if( typeof this.newTypes[i].mat === 'string' ){
+      mat = MATS[ this.newTypes[i].mat ].clone();
+    }
+
+
+
+    var hooks = this.newTypes[i].instantiate( this , this.dragonFish, note ,loop , geo , mat );
 
     for( var j = 0; j < hooks.length; j++ ){
 
@@ -419,6 +426,7 @@ Level.prototype.createPath = function(){
 
 Level.prototype.initialize = function(){
 
+  console.log('INITIALSSZ');
   scene.add( this.scene );
 
   if( !this.fullyLoaded || !this.prepared ){
@@ -468,7 +476,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     var verta = this.dragonFish.spine[i];
     var saved = false;
 
-    if( verta.type === 'alwaysSafe' ){
+    if(  !verta.type || verta.type === 'alwaysSafe' ){
       saved = true;
     }
     for( var j = 0; j < this.oldTypes.length; j++ ){
@@ -500,32 +508,39 @@ Level.prototype.addSkybox = function(){
 
   var marker = this.skybox;
 
-  this.scene.add( marker );
+  console.log( 'SKHNOX');
+  console.log( this.skybox );
 
-  
-    marker.init = { scale: 0 };
-    marker.target = { scale: marker.scale.x };
+  console.log( this.name );
+  //if(  this.name !== 'first level' ){
 
-    var tween = new TWEEN.Tween( marker.init ).to( marker.target , 500 );
+    console.log( 'GOING TO ADD SKYBOX' );
+    this.scene.add( this.skybox );
+  //}
 
-    tween.easing( TWEEN.Easing.Quartic.In )
-  
-    tween.marker = marker;
-    tween.note   = NOTES[ this.skybox.note ];
+  marker.init = { scale: 0 };
+  marker.target = { scale: marker.scale.x };
 
-    tween.onUpdate( function(){
+  var tween = new TWEEN.Tween( marker.init ).to( marker.target , 500 );
 
-      this.scale.x = this.init.scale;
-      this.scale.y = this.init.scale;
-      this.scale.z = this.init.scale;
+  tween.easing( TWEEN.Easing.Quartic.In )
 
-    }.bind( marker ));
+  tween.marker = marker;
+  tween.note   = NOTES[ this.skybox.note ];
 
-    tween.onComplete( function(){
-      tween.note.play();
-    }.bind( tween ));
+  tween.onUpdate( function(){
 
-    tween.start();
+    this.scale.x = this.init.scale;
+    this.scale.y = this.init.scale;
+    this.scale.z = this.init.scale;
+
+  }.bind( marker ));
+
+  tween.onComplete( function(){
+    tween.note.play();
+  }.bind( tween ));
+
+  tween.start();
 
 }
 
@@ -595,7 +610,7 @@ Level.prototype.onStart = function(){
   // out with the old, in with the new
   if( this.oldLevel ){
     dragonFish.leader.body.remove( this.oldLevel.crystal );
-    this.oldLevel.removeSkybox();
+    //this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
 
     this.oldLevel.death.loop.playing = false;
@@ -649,7 +664,7 @@ Level.prototype.removeSkybox = function(){
 
     var marker = this.skybox;
 
-    scene.add( marker );
+    //scene.add( marker );
 
   
     marker.init = { scale: marker.scale.x };
@@ -854,6 +869,24 @@ Level.prototype.onHook = function( index , hook ){
 
 
   SCORE ++;
+
+  console.log( 'HOOK' );
+
+
+  if( this.params.skybox.onHook ){
+    var func = this.params.skybox.onHook.bind( this.skybox );
+    func( hook );
+  }
+
+  if( this.params.crystal.onHook ){
+    var func = this.params.crystal.onHook.bind( this.crystal );
+    func( hook );
+  }
+
+  if( this.params.stones.onHook ){
+    var func = this.params.stones.onHook.bind( this.stones );
+    func( hook );
+  }
 
   this.currentScore = SCORE - this.startScore;
 

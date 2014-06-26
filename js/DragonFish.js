@@ -35,6 +35,8 @@ function DragonFish( bait , params ){
 
   //this.initBody();
 
+  this.firstVert = this.createVertabrae( this.leader );
+  this.addPrecreatedVertabrae(this.firstVert);
   this.addToScene( this.leader );
 
 }
@@ -175,6 +177,7 @@ DragonFish.prototype.addPrecreatedVertabrae = function( vertabrae ){
 
 DragonFish.prototype.addBoss = function( vertabrae ){
 
+  console.log( 'BOSS ADDED' );
   vertabrae.dom = this.leader;
 
   this.spine.splice( 0 , 0 , vertabrae );
@@ -303,6 +306,7 @@ DragonFish.prototype.removeVertabraeById = function( id ){
   }else{
 
     console.log( 'This Spine is out of the Loop' );
+    console.log( this.spine[id] );
 
   }
 

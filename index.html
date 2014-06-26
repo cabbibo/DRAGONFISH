@@ -33,7 +33,6 @@
 <script src = "init/initDebug.js"         ></script>
 <script src = "init/initGeos.js"          ></script>
 <script src = "init/initMaterials.js"     ></script>
-<script src = "init/initShaders.js"       ></script>
 
 <script src = "levels/Level1.js"          ></script>
 <script src = "levels/Level2.js"          ></script>
@@ -79,7 +78,37 @@
   var LEVELS = [];
 
   var loader = new Loader();
-  
+
+  var shaders = new ShaderLoader('shaders/');
+  shaders.beginLoad = function(){
+    loader.beginLoading();
+  }
+
+  shaders.endLoad = function(){
+    loader.endLoading();
+  }
+
+  shaders.shaderSetLoaded = function(){
+    init();
+
+ 
+  }
+  shaders.load( 'vs-planet' , 'planet' , 'vertex' );
+  shaders.load( 'fs-planet' , 'planet' , 'fragment' );
+  shaders.load( 'fs-floor'    , 'floor'   , 'fragment'    );
+  shaders.load( 'vs-floor'    , 'floor'   , 'vertex'      );
+  shaders.load( 'fs-sphere'   , 'sphere'  , 'fragment'    );
+  shaders.load( 'vs-sphere'   , 'sphere'  , 'vertex'      );
+
+  shaders.load( 'fs-simPos'   , 'posSim'  , 'simulation'  );
+  shaders.load( 'fs-simVel'   , 'velSim'  , 'simulation'  );
+
+  shaders.load( 'fs-render'   , 'render'  , 'fragment'    );
+  shaders.load( 'vs-render'   , 'render'  , 'vertex'      );
+  shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
+
+
+
   var audioController = new AudioController();
   var looper          = new Looper( audioController , time , {
 
@@ -101,7 +130,6 @@
   }
 
 
-  init();
 
 
   function init(){
@@ -109,10 +137,10 @@
     initThree();
     initAudio();
     initMechanics();
-    initMaterials();
     initDebug();
-    initShaders();
     initGeos();
+    initMaterials();
+
 
     // Object our dragon fish follows
     bait = new THREE.Object3D();
@@ -186,7 +214,7 @@
     
     if( !paused ){
       dragonFish.update();
-      deathDragon.update();
+
 
       var dif = dragonFish.leader.position.clone();
       dif.sub( deathDragon.leader.position );

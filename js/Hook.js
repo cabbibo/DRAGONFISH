@@ -6,7 +6,7 @@
 
     this.level = level;
 
-    this.type = type;
+    this.type = type || 'THIS HAS NO TYPE';
     this.params = _.defaults( params || {} , {
     
       color: new THREE.Color( 0xffffff ),

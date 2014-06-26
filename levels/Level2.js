@@ -12,7 +12,7 @@ LEVEL_2_PARAMS.death = {
   note:'glassSmash',
   geo:'skull',
   loop:'lvl1/ambient',
-  mat:'phong',
+  mat:'planet',
   color:0xee6622,
   scale: 1,
   position: new THREE.Vector3( 0 , -10 , 0 )
@@ -26,6 +26,7 @@ LEVEL_2_PARAMS.geo = 'totem';
 
 LEVEL_2_PARAMS.oldTypes = [
 
+  //'lvl1_part1_synth',
   'lvl1_part1_drums',
   'lvl1_part1_perc',
 
@@ -36,7 +37,7 @@ LEVEL_2_PARAMS.skybox = {
   geo:'totem',
   note: 'srBeast1',
   map: 'audioController',
-  mat: new THREE.MeshLambertMaterial({ side:THREE.DoubleSide }),
+  mat: 'planet',
   scale: 100,
   init: function(geo){
 
@@ -45,18 +46,27 @@ LEVEL_2_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-    assignUVs( geo );
     console.log( geo );
 
     //this.mat.needsUpdate = true;
-    
+    console.log( 'SKYBOX2' );
+    console.log( this.mat );
     console.log( geo );
-    var skybox = new THREE.Mesh( geo , this.mat );
+    console.log( geo );
 
-    console.log( this.scale );
+    var mat = MATS[ this.mat ].clone();
+    mat.side = THREE.DoubleSide;
+    
+    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
+    mat.uniforms.texScale.value = .1;
+    mat.uniforms.normalScale.value= .1;
+    var skybox = new THREE.Mesh( geo , mat );
+
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
 
+    //scene.add( skybox );
     return skybox;
     
 
@@ -420,7 +430,7 @@ LEVEL_2_PARAMS.newTypes = [
 
 
 
-  {
+/*  {
     type: 'lvl1_part2_lead',
     note: 'clean1',
     loop: 'lvl1/part2/lead',
@@ -678,7 +688,7 @@ LEVEL_2_PARAMS.newTypes = [
   
       return hooks;
     }
-  },
+  },*/
 
 ]
 

@@ -12,7 +12,7 @@ LEVEL_1_PARAMS.death = {
   note:'b7',
   loop:'lvl1/ambient',
   geo:'skull1',
-  mat:'phong',
+  mat:'planet',
   color:0xee6622,
   scale: .01,
   position: new THREE.Vector3( 0 , -3 , 0 )
@@ -30,7 +30,7 @@ LEVEL_1_PARAMS.skybox = {
   geo:'totem',
   note: 'srBeast1',
   map: 'audioController',
-  mat: new THREE.MeshLambertMaterial({ side:THREE.DoubleSide }),
+  mat: 'planet',
   scale: 100,
   init: function(geo){
 
@@ -39,17 +39,38 @@ LEVEL_1_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-    assignUVs( geo );
+  //  assignUVs( geo );
 
+    var mat = MATS[ this.mat ].clone();
+    mat.side = THREE.DoubleSide;
+    
+    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
+    mat.uniforms.texScale.value = .1;
+    mat.uniforms.normalScale.value= .1;
     //this.mat.needsUpdate = true;
     
-    var skybox = new THREE.Mesh( geo , this.mat );
+    var skybox = new THREE.Mesh( geo , mat );
 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
 
     return skybox;
-    
+
+  },
+  
+  onHook: function( hook ){
+
+   
+    console.log( 'basnanss');
+
+    console.log( hook );
+    console.log( this );
+    var c = hook.color.getHex();
+    resetColorUniform( this.material.uniforms.color1 , c , .4 );
+    resetColorUniform( this.material.uniforms.color2 , c , .4 );
+    resetColorUniform( this.material.uniforms.color3 , c , .4 );
+    resetColorUniform( this.material.uniforms.color4 , c , .4 );
 
 
   }
@@ -77,17 +98,10 @@ LEVEL_1_PARAMS.stones = {
     var geo = new THREE.CubeGeometry( 10 ,10,10 );
     var mat = mat || new THREE.MeshNormalMaterial();
     
-    var mat = new THREE.MeshLambertMaterial({
-      shading: THREE.FlatShading,
-      color:0xffffff,
-      map:audioController.texture,
-      //wireframe:true,
-      depthWrite:false,
-      transparent:true,
-      //opacity: .1,
-      side: THREE.DoubleSide,
-      blending:THREE.AdditiveBlending
-    });
+    var mat = MATS['planet'].clone();
+
+    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
 
     var geometry = new THREE.Geometry();
 
@@ -142,6 +156,17 @@ LEVEL_1_PARAMS.stones = {
     return stones 
 
 
+  },
+  
+
+  onHook : function ( hook ){
+
+    var c = hook.color.getHex();
+    resetColorUniform( this.material.uniforms.color1 , c , 1.4 );
+    resetColorUniform( this.material.uniforms.color2 , c , 1.4 );
+    resetColorUniform( this.material.uniforms.color3 , c , 1.4 );
+    resetColorUniform( this.material.uniforms.color4 , c , 1.4 );
+
   }
 
 
@@ -191,14 +216,19 @@ LEVEL_1_PARAMS.path = {
 
     var guides = [];
 
-        var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
-    var mat = new THREE.MeshPhongMaterial();
+    var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
+   
+    var mat = MATS[ 'planet' ].clone();
+   // mat.side = THREE.DoubleSide;
+    
+    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
 
 
 
    
     var cone = new THREE.CylinderGeometry( 1 , 0 , 3);
-    var coneMesh = new THREE.Mesh( cone);
+    var coneMesh = new THREE.Mesh( cone , mat );
     coneMesh.rotation.set(  -Math.PI / 2 , 0 ,0);
     coneMesh.position.z = 2;
     coneMesh.updateMatrix();
@@ -351,10 +381,22 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 0,
+    mat:'planet',
     color: new THREE.Color(0x66aacc),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
+      assignUVs(geo);
       var head = new THREE.Mesh(
           geo,
           m
@@ -362,14 +404,21 @@ LEVEL_1_PARAMS.newTypes = [
 
       head.scale.multiplyScalar( .001 );
 
-      var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
-      var m1 = new THREE.Mesh( geo , m );
+      var m1 = new THREE.Object3D();
+      
+      var bone = new THREE.Mesh( geo , mat );
+
+      bone.rotation.y = Math.PI / 2;
+      m1.add( bone );
 
       //m1.rotation.x = Math.PI
       m1.scale.x = .01;
       m1.scale.y = .01;
       m1.scale.z = .01;
+
+      m1.rotation.y = Math.PI / 2; 
+
+
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -386,10 +435,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          // m1: m1,
+          // m2: m2,
+          // m3: m3,
+          // m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -419,10 +468,20 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: false,
     startScore: 1,
+    mat:'planet',
     color: new THREE.Color( 0xaa66cc),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+       var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
       var head = new THREE.Mesh(
           geo,
           m
@@ -431,7 +490,6 @@ LEVEL_1_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -453,10 +511,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          // m1: m1,
+          // m2: m2,
+          // m3: m3,
+          // m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -483,11 +541,22 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: false,
+    mat:'planet',
     startScore: 2,
     color: new THREE.Color( 0xaacc66),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
       var head = new THREE.Mesh(
           geo,
           m
@@ -496,7 +565,6 @@ LEVEL_1_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -518,10 +586,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          // m1: m1,
+          // m2: m2,
+          // m3: m3,
+          // m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -547,12 +615,23 @@ LEVEL_1_PARAMS.newTypes = [
     loop: 'lvl1/part1/drums',
     geo:  'logoGeo',
     numOf: 1,
-    boss: true,
+    mat:'planet',
+    boss: false,
     startScore: 3,
     color: new THREE.Color( 0x66ccaa),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
       var head = new THREE.Mesh(
           geo,
           m
@@ -561,7 +640,6 @@ LEVEL_1_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -583,10 +661,10 @@ LEVEL_1_PARAMS.newTypes = [
 
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
-          m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          // m1: m1,
+          // m2: m2,
+          // m3: m3,
+          // m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -612,9 +690,21 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
+    mat:'planet',
     startScore: 4,
     color: new THREE.Color( 0xcc66aa ),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
+
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
 
       var m = new THREE.MeshPhongMaterial({color:this.color.getHex()});
       var head = new THREE.Mesh(
@@ -625,7 +715,6 @@ LEVEL_1_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(.3);
-      var m = new THREE.MeshPhongMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( g , m );
 
       var hooks = [];
@@ -635,12 +724,16 @@ LEVEL_1_PARAMS.newTypes = [
         var hook = new Hook( dragonFish , level , this.type , {
           
           head:head.clone(),
-          m4:m1,
+          // m1: m1,
+          // m2: m2,
+          // m3: m3,
+          // m4: m4,
           note:note,
           loop:loop,
           startScore: this.startScore,            
           color: this.color,
-          power: 1/ this.numOf
+          power: 1/ this.numOf,
+          boss: true
             
 
         });

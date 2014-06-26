@@ -72,7 +72,30 @@
 
   }
 
- function assignUVs( geometry ){
+
+  function randomColorVector( hexCode , size ){
+
+    var size = size || .5;
+
+    var c = new THREE.Color( hexCode );
+
+    var newC = new THREE.Vector3();
+
+    newC.x = c.r + (Math.random() - (size/2) ) * size;
+    newC.y = c.g + (Math.random() - (size/2) ) * size;
+    newC.z = c.b + (Math.random() - (size/2) ) * size;
+
+    return newC;
+
+  }
+
+  function resetColorUniform( uniform , color , size ){
+
+    uniform.value = randomColorVector( color , size );
+
+  }
+
+  function assignUVs( geometry ){
 
     geometry.computeBoundingBox();
 
@@ -101,4 +124,4 @@
 
     geometry.uvsNeedUpdate = true;
 
-}
+  }

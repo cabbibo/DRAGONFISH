@@ -35,7 +35,7 @@ LEVEL_3_PARAMS.skybox = {
   geo:'totem',
   note: 'srBeast1',
   map: 'audioController',
-  mat: new THREE.MeshLambertMaterial({ side:THREE.DoubleSide }),
+  mat: new THREE.MeshNormalMaterial({ side:THREE.DoubleSide }),
   scale: 100,
   init: function(geo){
 
@@ -44,12 +44,9 @@ LEVEL_3_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-    assignUVs( geo );
-    console.log( geo );
-
     //this.mat.needsUpdate = true;
     
-    console.log( geo );
+    console.log( this.mat );
     var skybox = new THREE.Mesh( geo , this.mat );
 
     console.log( this.scale );
@@ -58,8 +55,6 @@ LEVEL_3_PARAMS.skybox = {
 
     return skybox;
     
-
-
   }
 
 }

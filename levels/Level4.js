@@ -1,7 +1,7 @@
 var LEVEL_4_PARAMS = {};
 
 
-LEVEL_4_PARAMS.position = new THREE.Vector3( 1000 , 0 , 0 );
+LEVEL_4_PARAMS.position = new THREE.Vector3( 0, 1000 , 0 );
 
 LEVEL_4_PARAMS.note = 'clean6',
 
@@ -44,7 +44,7 @@ LEVEL_4_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-    assignUVs( geo );
+    //assignUVs( geo );
     console.log( geo );
 
     //this.mat.needsUpdate = true;

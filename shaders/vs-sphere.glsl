@@ -2,7 +2,6 @@
 uniform vec3 uVel;
 uniform vec3 uPos;
 uniform sampler2D t_audio;
-uniform float audioLookup;
 uniform float time;
 
 varying vec3 vNorm;
