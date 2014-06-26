@@ -353,7 +353,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/synth',
     geo:  'bone',
-    numOf: 5,
+    numOf: 1,
     boss: false,
     startScore: 0,
     mat:'lambert',
@@ -418,7 +418,7 @@ LEVEL_1_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false,
+          boss: true,
           maxSpeed: .5
         });
 
@@ -440,7 +440,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/perc',
     geo:  'logoGeo',
-    numOf: 5,
+    numOf: 1,
     boss: false,
     startScore: 1,
     mat:'planetDisplace',
@@ -495,7 +495,7 @@ LEVEL_1_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: true
         });
 
         var id = Math.random();
@@ -514,7 +514,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/lead',
     geo:  'logoGeo',
-    numOf: 5,
+    numOf: 1,
     boss: false,
     mat:'planetDisplace',
     startScore: 2,
@@ -570,7 +570,7 @@ LEVEL_1_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: true
         });
 
         var id = Math.random();
@@ -589,7 +589,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/drums',
     geo:  'logoGeo',
-    numOf: 5,
+    numOf: 1,
     mat:'planetDisplace',
     boss: false,
     startScore: 4,
@@ -645,7 +645,7 @@ LEVEL_1_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: this.boss
+          boss: true
         });
 
         var id = Math.random();
