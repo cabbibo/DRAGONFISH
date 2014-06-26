@@ -124,6 +124,7 @@ LEVEL_1_PARAMS.stones = {
     stones.material.map = audioController.texture;
     stones.material.blending = THREE.AdditiveBlending;
     stones.material.transparent = true;
+    stones.material.depthWrite = false;
     stones.material.size = 3;
     stones.material.color = new THREE.Color( 0xffffff );
     return stones 
