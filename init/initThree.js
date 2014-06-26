@@ -10,8 +10,9 @@ function initThree(){
     );
 
   // placing our camera position so it can see everything
-  camera.position.z = 50;
-  camera.position.x = 50;
+  camera.position.y = 150;
+  camera.position.z = 1;
+  camera.position.x = 1;
 
   camera.lookAt( new THREE.Vector3() );
 

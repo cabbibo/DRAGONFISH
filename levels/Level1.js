@@ -30,7 +30,7 @@ LEVEL_1_PARAMS.skybox = {
   geo:'totem',
   note: 'srBeast1',
   map: 'audioController',
-  mat: 'planet',
+  mat: 'lambert',
   scale: 100,
   init: function(geo){
 
@@ -43,11 +43,11 @@ LEVEL_1_PARAMS.skybox = {
 
     var mat = MATS[ this.mat ].clone();
     mat.side = THREE.DoubleSide;
-    
+   /* 
     mat.uniforms.tNormal.value = MATS.textures.normals.moss;
     mat.uniforms.t_audio.value = audioController.texture;
     mat.uniforms.texScale.value = .1;
-    mat.uniforms.normalScale.value= .1;
+    mat.uniforms.normalScale.value= .1;*/
     //this.mat.needsUpdate = true;
     
     var skybox = new THREE.Mesh( geo , mat );
@@ -67,10 +67,11 @@ LEVEL_1_PARAMS.skybox = {
     console.log( hook );
     console.log( this );
     var c = hook.color.getHex();
-    resetColorUniform( this.material.uniforms.color1 , c , .4 );
+    this.material.color = hook.color;
+    /*resetColorUniform( this.material.uniforms.color1 , c , .4 );
     resetColorUniform( this.material.uniforms.color2 , c , .4 );
     resetColorUniform( this.material.uniforms.color3 , c , .4 );
-    resetColorUniform( this.material.uniforms.color4 , c , .4 );
+    resetColorUniform( this.material.uniforms.color4 , c , .4 );*/
 
 
   }
@@ -94,65 +95,37 @@ LEVEL_1_PARAMS.stones = {
 
   init:function( geo  ){
 
-    
-    var geo = new THREE.CubeGeometry( 10 ,10,10 );
-    var mat = mat || new THREE.MeshNormalMaterial();
-    
-    var mat = MATS['planet'].clone();
-
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
-
-    var geometry = new THREE.Geometry();
-
-    var placingMatrix = [];
-    placingMatrix.push([[0,0,0],[0,0,0],[0,0,0]]);
-
   
-    place(placingMatrix, 0,0,0,0);
-    place(placingMatrix, 0,0,0,1);
-    place(placingMatrix, 0,0,0,2);
-    place(placingMatrix, 0,0,0,3);
-    place(placingMatrix, 0,0,0,4);
-    place(placingMatrix, 0,0,0,5);
-    place(placingMatrix, 10,0,0,0);
-    place(placingMatrix, -10,0,0,1);
-    place(placingMatrix, 0,10,0,2);
-    place(placingMatrix, 0,-10,0,3);
-    place(placingMatrix, 0,0,10,4);
-    place(placingMatrix, 0,0,-10,5);
-    place(placingMatrix, 10,10,0,0);
-    place(placingMatrix, -10,10,0,1);
-    place(placingMatrix, -10,10,0,2);
-    place(placingMatrix, -10,-10,0,3);
-    place(placingMatrix, 10,0,10,4);
-    place(placingMatrix, 10,0,-10,5);
+    var geo = new THREE.Geometry();
+    for( var i= 0; i < 50; i++ ){
 
-    for( var i=0; i < placingMatrix.length; i++ ){
+      for( var j = 0; j < 50; j++ ){
 
-      var mesh = new THREE.Mesh( geo , mat );
+        for( var k = 0; k < 50; k++ ){
 
-      var p = placingMatrix[i][0];
-      var s = placingMatrix[i][1];
-      var r = placingMatrix[i][2];
+          vert = new THREE.Vector3();
 
-      mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( s[0] , s[1] , s[2] );
-      mesh.rotation.x = r[0]//,r[1],r[2] );
-      mesh.rotation.y = r[1]//,r[1],r[2] );
-      mesh.rotation.z = r[2]//,r[1],r[2] );
+          vert.x = (i - 25)*20;
+          vert.y = (j - 25)*20;
+          vert.z = (k - 25)*20;
+  
+          geo.vertices.push( vert );
 
-      mesh.updateMatrix();
-      geometry.merge( geo , mesh.matrix );
+
+        }
+
+      }
 
     }
 
-    geometry.computeFaceNormals();
-    geometry.computeVertexNormals();
-
     //assignUVs( geometry );
-    stones = new THREE.Mesh( geometry , mat );
+    stones = new THREE.ParticleSystem( geo );
 
+    stones.material.map = audioController.texture;
+    stones.material.blending = THREE.AdditiveBlending;
+    stones.material.transparent = true;
+    stones.material.size = 3;
+    stones.material.color = new THREE.Color( 0xffffff );
     return stones 
 
 
@@ -162,10 +135,11 @@ LEVEL_1_PARAMS.stones = {
   onHook : function ( hook ){
 
     var c = hook.color.getHex();
-    resetColorUniform( this.material.uniforms.color1 , c , 1.4 );
-    resetColorUniform( this.material.uniforms.color2 , c , 1.4 );
-    resetColorUniform( this.material.uniforms.color3 , c , 1.4 );
-    resetColorUniform( this.material.uniforms.color4 , c , 1.4 );
+    this.material.color = hook.color;
+    //resetColorUniform( this.material.uniforms.color1 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color2 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color3 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color4 , c , 1.4 );
 
   }
 
