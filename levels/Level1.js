@@ -81,7 +81,7 @@ LEVEL_1_PARAMS.skybox = {
 LEVEL_1_PARAMS.crystal = {
 
   geo: new THREE.CylinderGeometry( 2,0,5 ),
-  mat: new THREE.MeshPhongMaterial({ side:THREE.DoubleSide }),
+  mat: new THREE.MeshBasicMaterial({ color:0xffffff }),
   map: 'audioController',  
   scale:.3,
   rotation: new THREE.Euler( -Math.PI / 2 , 0 , 0 )
@@ -353,31 +353,30 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/synth',
     geo:  'bone',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 0,
-    mat:'planetDisplace',
+    mat:'lambert',
     color: new THREE.Color(0x66aacc),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
       m.side = THREE.DoubleSide;
+      m.color = this.color;
     
-      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+    /*  m.uniforms.tNormal.value = MATS.textures.normals.moss;
       m.uniforms.t_audio.value = loop.texture;
       var c = this.color.getHex();
       resetColorUniform( m.uniforms.color1 , c , 1 );
       resetColorUniform( m.uniforms.color2 , c , 1 );
       resetColorUniform( m.uniforms.color3 , c , 1 );
-      resetColorUniform( m.uniforms.color4 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );*/
 
       assignUVs(geo);
       var head = new THREE.Mesh(
-          geo,
+          new THREE.BoxGeometry(1,1,1),
           m
       );
-
-      head.scale.multiplyScalar( .001 );
 
       var m1 = new THREE.Object3D();
       
@@ -420,7 +419,7 @@ LEVEL_1_PARAMS.newTypes = [
           color: this.color,
           power: 1/ this.numOf,
           boss: false,
-          maxSpeed: .1
+          maxSpeed: .5
         });
 
         var id = Math.random();

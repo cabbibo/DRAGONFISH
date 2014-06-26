@@ -346,6 +346,7 @@ Level.prototype.createCrystal = function(){
 
   this.crystal = new THREE.Mesh( g , m );
   this.crystal.scale.multiplyScalar( this.params.crystal.scale );
+  this.crystal.scale.multiplyScalar( 10 );
 
   this.crystal.size = this.params.crystal.size || 3;
   if( this.params.crystal.rotation ){
@@ -607,6 +608,7 @@ Level.prototype.onStart = function(){
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );
 
+  this.crystal.scale.multiplyScalar( .1 );
   // out with the old, in with the new
   if( this.oldLevel ){
     dragonFish.leader.body.remove( this.oldLevel.crystal );
@@ -793,7 +795,7 @@ Level.prototype.update = function(){
 
     var dif = this.scene.position.clone().sub( this.dragonFish.leader.position );
   
-    if( dif.length() <= this.crystal.size ){
+    if( dif.length() <= this.crystal.size * 3 ){
 
       this.onStart();
 
