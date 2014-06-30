@@ -2,7 +2,6 @@ function initDebug(){
 
   document.addEventListener( 'keydown' , function(e){
 
-    console.log( e.which );
     if( e.which == 32 ){
 
       paused = !paused;

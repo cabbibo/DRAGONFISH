@@ -46,13 +46,8 @@ LEVEL_2_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-    console.log( geo );
 
     //this.mat.needsUpdate = true;
-    console.log( 'SKYBOX2' );
-    console.log( this.mat );
-    console.log( geo );
-    console.log( geo );
 
     var mat = MATS[ this.mat ].clone();
     mat.side = THREE.DoubleSide;
@@ -368,7 +363,7 @@ LEVEL_2_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part2/synth',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 0,
     color: new THREE.Color( 0xaa5555),
@@ -435,7 +430,7 @@ LEVEL_2_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part2/lead',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 1,
     color: new THREE.Color( 0x55aa55),
@@ -500,7 +495,7 @@ LEVEL_2_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part2/vox',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 2,
     color: new THREE.Color( 0x5555aa),
@@ -566,7 +561,7 @@ LEVEL_2_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part2/toms',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 3,
     color: new THREE.Color( 0xaa5599),
@@ -677,7 +672,7 @@ LEVEL_2_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: true
         });
 
         var id = Math.random();

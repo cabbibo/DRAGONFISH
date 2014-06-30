@@ -31,7 +31,9 @@
     this.position = new THREE.Vector3();
     this.velocity = new THREE.Vector3();
     this.force    = new THREE.Vector3();
-    
+   
+
+ 
     
     /*this.velocity.x = (Math.random()-.5 ) * .1;
     this.velocity.y = (Math.random()-.5 ) * .1;
@@ -44,8 +46,6 @@
     //
     this.head = this.params.head;
 
-    console.log( 'MAXXXX' );
-    console.log( this.params.maxSpeed );
     this.maxSpeed = this.params.maxSpeed;
 
     this.color = this.params.color;
@@ -59,6 +59,18 @@
    
     
     this.dragonFish = dragonFish;
+
+    this.clueGeo = new THREE.Geometry();
+    this.clueGeo.vertices.push( this.position );
+    this.clueGeo.vertices.push( this.dragonFish.leader.position );
+    this.clueLine = new THREE.Line( this.clueGeo , new THREE.LineBasicMaterial({
+      color:this.color,
+      linewidth:10,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      opacity:.4
+    }));
+
     
     this.reposition();
 
@@ -104,8 +116,8 @@
 
   Hook.prototype.activate = function(){
 
-    console.log( 'activated' )
     scene.add( this.head );
+    scene.add( this.clueLine );
     this.active = true;
 
   }
@@ -144,6 +156,7 @@
       
     explosion.renderer.simulationUniforms.justHit.value = 1.;
 
+    scene.remove( this.clueLine );
     scene.remove( this.head );
     changeColor( this.color );
 
@@ -192,6 +205,7 @@
 
   Hook.prototype.updatePosition = function(){
 
+    this.clueLine.geometry.verticesNeedUpdate = true;
 
     this.velocity.add( this.force );//.clone().multiplyScalar( aveVol));
    

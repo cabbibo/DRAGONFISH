@@ -23,9 +23,6 @@ function initMaterials(){
   var color3 = new THREE.Vector3( 0. , 3 , 0. );
   var color4 = new THREE.Vector3( 1. , 1. , 4. );
 
-  console.log( 'dddddd' );
-  console.log( audioController.texture );
-  
   var uniforms = {
 
     lightPos: { type:"v3" , value: new THREE.Vector3(1000,0,0)},
@@ -60,9 +57,6 @@ function initMaterials(){
   var color3 = new THREE.Vector3( 0. , 3 , 0. );
   var color4 = new THREE.Vector3( 1. , 1. , 4. );
 
-  console.log( 'dddddd' );
-  console.log( audioController.texture );
-  
   var uniforms = {
 
     lightPos: { type:"v3" , value: new THREE.Vector3(1000,0,0)},

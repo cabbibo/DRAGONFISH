@@ -352,7 +352,7 @@ LEVEL_3_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl2/part1/drums',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 0,
     color: new THREE.Color( 0xaa5599 ),
@@ -419,7 +419,7 @@ LEVEL_3_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl2/part1/perc',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 1,
     color: new THREE.Color( 0x55aa99 ),
@@ -484,7 +484,7 @@ LEVEL_3_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl2/part1/synth1',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 2,
     color: new THREE.Color( 0x99aa55 ),
@@ -550,7 +550,7 @@ LEVEL_3_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl2/part1/wood',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 3,
     color: new THREE.Color(0x1199cc ),
@@ -661,7 +661,7 @@ LEVEL_3_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: true
         });
 
         var id = Math.random();

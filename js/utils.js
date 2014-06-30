@@ -13,7 +13,6 @@
 
 
     //jellyMat.uniforms.color.value = vecColor;
-    console.log( explosion );
     explosion.particles.material.uniforms.color.value = vecColor;
 
 

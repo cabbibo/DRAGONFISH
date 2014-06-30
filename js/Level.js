@@ -427,7 +427,6 @@ Level.prototype.createPath = function(){
 
 Level.prototype.initialize = function(){
 
-  console.log('INITIALSSZ');
   scene.add( this.scene );
 
   if( !this.fullyLoaded || !this.prepared ){
@@ -480,7 +479,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     if(  !verta.type || verta.type === 'alwaysSafe' ){
       saved = true;
     }
-    for( var j = 0; j < this.oldTypes.length; j++ ){
+    for( var j = 1; j < this.oldTypes.length; j++ ){
 
       console.log('VERTA TYPE' );
       console.log( verta.type );
@@ -492,7 +491,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     if( !saved ){
 
       console.log( 'NOT SAVED' );
-        verta.percentToDestruction = Math.random();
+      verta.percentToDestruction = Math.random();
         //this.dragonFish.removeVertabraeById( i );
         
     }else{
@@ -509,15 +508,7 @@ Level.prototype.addSkybox = function(){
 
   var marker = this.skybox;
 
-  console.log( 'SKHNOX');
-  console.log( this.skybox );
-
-  console.log( this.name );
-  //if(  this.name !== 'first level' ){
-
-    console.log( 'GOING TO ADD SKYBOX' );
-    this.scene.add( this.skybox );
-  //}
+  this.scene.add( this.skybox );
 
   marker.init = { scale: 0 };
   marker.target = { scale: marker.scale.x };
@@ -614,7 +605,6 @@ Level.prototype.onStart = function(){
     dragonFish.leader.body.remove( this.oldLevel.crystal );
     this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
-
     this.oldLevel.death.loop.playing = false;
   }
 
@@ -828,10 +818,11 @@ Level.prototype.checkVertabraeForDestruction = function(){
    if( percentToLocation > verta.percentToDestruction ){
 
      console.log( verta.percentToDestruction );
+   
+     this.dragonFish.removeVertabraeById( i );
      this.removeHookUI( verta );
 
-     this.dragonFish.removeVertabraeById( i );
-     i--;
+     //i--;
 
 
    }
@@ -872,8 +863,6 @@ Level.prototype.onHook = function( index , hook ){
 
 
   SCORE ++;
-
-  console.log( 'HOOK' );
 
 
   if( this.params.skybox.onHook ){
@@ -1002,22 +991,17 @@ Level.prototype.addHookUI = function( hook ){
 
   var hookRow = document.getElementById( hook.type );
 
-  console.log('HOOK DOM' );
-  console.log( hookRow );
  
    var color = hook.color.getHexString();
 
   if( !hookRow ){
     
-    console.log( 'NEW HOOK UI ADDED' );
-    console.log( hook );
 
     hookRow = document.createElement('div');
     hookRow.classList.add( 'hookRow');
     hookRow.id = hook.type;
 
     var numOf = 1 / hook.power;
-    console.log( numOf );
 
     var hookInfo = document.getElementById('hookInfo');
     hookInfo.appendChild( hookRow );
@@ -1029,8 +1013,6 @@ Level.prototype.addHookUI = function( hook ){
   hookCounter.classList.add( 'inactive' );
   hookCounter.style.border = '1px  solid #'+color;
 
-  console.log('ansnsdddd');
-
   hookRow.appendChild( hookCounter );
 
 
@@ -1040,19 +1022,14 @@ Level.prototype.updateHookUI = function( hook ){
 
   var hookRow = document.getElementById( hook.type );
 
-  console.log('ASDBANSA');
-  console.log( hookRow.childNodes );
 
   for( var i = 0; i < hookRow.childNodes.length; i++ ){
 
     var el = $( hookRow.childNodes[i] )
 
-    console.log(el.hasClass('inactive') );
-
     var inactive = el.hasClass('inactive');
     if( inactive ){
  
-      console.log('asbasddd!!!!');
       var color = '#'+hook.color.getHexString();
       el.removeClass('inactive');
       el.addClass('active');
@@ -1070,16 +1047,20 @@ Level.prototype.removeHookUI = function( hook ){
 
   var hookRow = document.getElementById( hook.type );
 
+  console.log( hook.type );
+
+  console.log( hook );
+  console.log( hookRow );
+
   for( var i = hookRow.childNodes.length; i >= 0; i-- ){
 
    // var el = $( hookRow.childNodes[i] );
 
-    console.log(i-1);
-    console.log('REMVOSSD');
 
     hookRow.removeChild( hookRow.childNodes[i-1] );
     
     if( i == 1 ){
+      console.log('WHAOSSSDASSD');
       hookRow.parentNode.removeChild( hookRow );
     }
     

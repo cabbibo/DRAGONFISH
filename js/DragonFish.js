@@ -65,7 +65,7 @@ DragonFish.prototype.removeFromScene = function( object ){
 DragonFish.prototype.update = function(){
 
 
-  for( var i= 3; i< this.spine.length; i++ ){
+  for( var i= 1; i< this.spine.length; i++ ){
 
     var c1 = this.spine[i];
 
@@ -296,6 +296,7 @@ DragonFish.prototype.addVertabrae = function( m1 , m2 , m3 , m4 ){
 
 
 }
+
 DragonFish.prototype.removeVertabraeById = function( id ){
 
   if( this.spine[id].loop ){
@@ -311,36 +312,59 @@ DragonFish.prototype.removeVertabraeById = function( id ){
   }
 
   var newDom = this.spine[id-1];
+
   if( id === 0 ){
+    console.log('new dom is leader');
     newDom = this.leader;
   }
 
+  if( !newDom ){
+  
+    console.log('New Dom Not Defined' );
 
-  this.spine[id].dom = undefined;
+  }else{
+
+    console.log( 'New Dom Defined' );
+    console.log( newDom );
+
+  }
+
+
+
+
+  //this.spine[id].dom = undefined;
   if( this.spine[id+1] ){
 
+    console.log( 'There is a next spine' );
     this.spine[id+1].dom = newDom;
     newDom.sub.push( this.spine[id+1] );
 
+  }else{
+
+    console.log(' there is not a next spine' );
+
   }
+
 
   for( var i =0; i <  newDom.sub.length; i++ ){
 
     if(  newDom.sub[i] == this.spine[id] ){
 
-       newDom.sub.splice( i , 1 );
+      console.log( 'Splicing out spine' );
+      newDom.sub.splice( i , 1 );
 
-      console.log( 'SPLACES' );
+
     }
 
   }
 
   for( var i = 0; i < this.spine[id].sub.length; i++ ){
 
-    if( this.spine[id].sub[i] === this.spine[id+1] ){
+    if( this.spine[id].sub[i] == this.spine[id+1] ){
 
-      console.log('YUS');
+      console.log('splicing out next spine from spine');
       this.spine[id].sub.splice( i , 1 ); 
+      i--;
 
     }
 
@@ -350,16 +374,30 @@ DragonFish.prototype.removeVertabraeById = function( id ){
   var i = { x:1 };
   var t = { x:0 };
 
-  var tween = new TWEEN.Tween( i ).to( t , 1 * 1000 );
+  var tween = new TWEEN.Tween( i ).to( t , 2 * 1000 );
 
   tween.spine = this.spine[id];
   tween.dragonFish = this;
-  tween.onUpdate(function( ){
+
+  this.recursiveCall( this.spine[id] , function( body ){
+
+    var v = new THREE.Vector3();
+    v.x = (Math.random() - .5 );
+    v.y = (Math.random() - .5 );
+    v.z = (Math.random() - .5 );
+    body.explodeVelocity = v;
+
+  });
+
+  tween.onUpdate(function(){
 
 
     this.dragonFish.recursiveCall( this.spine , function( body ){
 
-      body.scale.multiplyScalar(  i.x );
+      //body.scale.multiplyScalar(  (1/(i.x * )) );
+    
+      body.position.add( body.explodeVelocity.clone().multiplyScalar( (2/(i.x+.1)) * .5) );
+
       
     });
    
