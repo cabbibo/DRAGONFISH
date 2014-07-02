@@ -110,6 +110,9 @@
   shaders.load( 'fs-simPos'   , 'posSim'  , 'simulation'  );
   shaders.load( 'fs-simVel'   , 'velSim'  , 'simulation'  );
 
+  shaders.load( 'fs-clueLine'   , 'clueLine'  , 'fragment'    );
+  shaders.load( 'vs-clueLine'   , 'clueLine'  , 'vertex'      );
+  
   shaders.load( 'fs-render'   , 'render'  , 'fragment'    );
   shaders.load( 'vs-render'   , 'render'  , 'vertex'      );
   shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
@@ -231,6 +234,7 @@
     
     if( !paused ){
       dragonFish.update();
+      deathDragon.update();
 
 
       var dif = dragonFish.leader.position.clone();
@@ -244,7 +248,7 @@
       }
 
       var newGain = 2;
-      //var newGain = Math.min( 1.5 , 30 / length );
+      var newGain = Math.min( 1.5 , 30 / length );
       LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
 

@@ -85,6 +85,40 @@ function initMaterials(){
 
   });
 
- 
+
+    var color1 = new THREE.Vector3( 3. , .4 , 1. );
+  var color2 = new THREE.Vector3( .5 , 1. , 5. );
+  var color3 = new THREE.Vector3( 0. , 3 , 0. );
+  var color4 = new THREE.Vector3( 1. , 1. , 4. );
+
+  var uniforms = {
+
+    time:time,
+    t_audio:{ type:"t" , value: audioController.texture },
+    to:{ type:"v3" , value: new THREE.Vector3() },
+    from:{ type:"v3" , value: new THREE.Vector3() },
+    color:{ type:"v3", value: new THREE.Vector3(1,1,1)}
+
+  }
+
+
+
+  vertexShader   = shaders.vertexShaders.clueLine;
+  fragmentShader = shaders.fragmentShaders.clueLine;
+
+
+   MATS.clueLine = new THREE.ShaderMaterial({
+
+    uniforms: uniforms,
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    linewidth:10,
+    blending:THREE.AdditiveBlending,
+    transparent:true
+
+  });
+
+
+  
 
 }

@@ -10,8 +10,9 @@
     this.params = _.defaults( params || {} , {
     
       color: new THREE.Color( 0xffffff ),
-     // note: 'clean1.wav',
-     // loop: 'clean_heavyBeat.wav',
+     // audioTexture: audioController.texture,
+      //note: 'clean1.wav',
+      //loop: 'clean_heavyBeat.wav',
       head: new THREE.Object3D(),
       m1:   fishSkeleton.flagella.child1,
       m2:   fishSkeleton.flagella.child2,
@@ -60,16 +61,36 @@
     
     this.dragonFish = dragonFish;
 
-    this.clueGeo = new THREE.Geometry();
-    this.clueGeo.vertices.push( this.position );
-    this.clueGeo.vertices.push( this.dragonFish.leader.position );
-    this.clueLine = new THREE.Line( this.clueGeo , new THREE.LineBasicMaterial({
-      color:this.color,
-      linewidth:10,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      opacity:.4
-    }));
+    this.clueGeo = new THREE.BufferGeometry();
+
+    this.clueGeo.addAttribute( 'position', new Float32Array( 1024 * 3 ), 3 );
+    var positions = this.clueGeo.getAttribute( 'position' ).array;
+
+    for( var i = 0; i < 1024; i++ ){
+
+      positions[i*3] = i / 1024;
+      positions[i*3+1] = i / 1024;
+      positions[i*3+2] = i / 1024;
+
+    }
+
+    
+    var mat = MATS.clueLine.clone();
+    mat.uniforms.to.value = this.dragonFish.leader.position;
+    mat.uniforms.from.value = this.position;
+
+    if( this.params.loop ){
+      mat.uniforms.t_audio.value = this.params.loop.texture;
+    }else{
+      mat.uniforms.t_audio.value = audioController.texture;
+    }
+
+    var c = new THREE.Vector3();
+    c.x = this.params.color.r;
+    c.y = this.params.color.g;
+    c.z = this.params.color.b;
+    mat.uniforms.color.value = c;
+    this.clueLine = new THREE.Line( this.clueGeo , mat );
 
     
     this.reposition();
