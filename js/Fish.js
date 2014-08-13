@@ -1,5 +1,4 @@
 
-
   function Fish( dom , level, mesh ){
     
     this.dom  = dom;
@@ -35,6 +34,9 @@
     this.counter = 0;
 
     this.body.scale.multiplyScalar( level );
+
+    this.lookAtVector = new THREE.Vector3();
+
   }
 
 
@@ -61,7 +63,8 @@
 
       this.velocity.set( 0 , 0 , 0 );
 
-      var dif = this.dom.position.clone().sub( this.position );
+      TMP_VECTOR_3.copy( this.dom.position );
+      var dif = TMP_VECTOR_3.sub( this.position );
 
       var dis = dif.length();
       var dir = dif.normalize();
@@ -71,8 +74,10 @@
       this.position.add( this.velocity );
 
       //this.velocity.multiplyScalar( .96 );
-    
-      this.body.lookAt( this.position.clone().add( this.velocity ));
+   
+      this.lookAtVector.copy( this.position );
+      this.lookAtVector.add( this.velocity );
+      this.body.lookAt( this.lookAtVector );
 
     }
 
@@ -85,17 +90,19 @@
       for( var j = 0; j < this.sub.length; j++ ){
 
         if( i != j ){
-          var c2 = this.sub[j];
-          var dif = c1.position.clone().sub( c2.position );
 
-          var l = dif.length();
+          TMP_VECTOR_3.copy( c1.position );
+          var c2 = this.sub[j];
+          TMP_VECTOR_3.sub( c2.position );
+
+          var l = TMP_VECTOR_3.length();
 
           var c = (l-this.sibRepelDist);
 
           var sign = c >= 0 ? 1 : -1;
           var x = sign * Math.abs(Math.pow( Math.abs(c) , this.sibRepelPow ))/ this.sibRepelDiv;
 
-          c1.velocity.sub( dif.normalize().multiplyScalar( x ) );
+          c1.velocity.sub( TMP_VECTOR_3.normalize().multiplyScalar( x ) );
 
         }
 
@@ -103,7 +110,8 @@
 
 
 
-      var dif = this.position.clone().sub( c1.position );
+      TMP_VECTOR_3.copy( this.position );
+      var dif = TMP_VECTOR_3.sub( c1.position );
 
       if( isNaN( this.position.x ) ){
         console.log( 'posNAN' );
@@ -135,11 +143,12 @@
 
       }
       c1.position.add( c1.velocity );
-      
-      var d1 = c1.velocity.clone().normalize();
-      var d2 = this.position.clone().sub( c1.position.clone() ).normalize();
+     
+      TMP_VECTOR_3.copy( this.position );
+      TMP_VECTOR_3_2.copy( c1.position );
+      var d2 = TMP_VECTOR_3.sub( TMP_VECTOR_3_2 ).normalize();
 
-      c1.body.lookAt( c1.position.clone().add(d2) );
+      c1.body.lookAt( TMP_VECTOR_3_2.add(d2) );
 
       c1.update();
 

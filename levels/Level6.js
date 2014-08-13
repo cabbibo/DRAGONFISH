@@ -1,17 +1,17 @@
 
 
-var LEVEL_2_PARAMS = {};
+var LEVEL_6_PARAMS = {};
 
 
-LEVEL_2_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
+LEVEL_6_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
 
-LEVEL_2_PARAMS.note = 'clean6',
+LEVEL_6_PARAMS.note = 'clean6',
 
-LEVEL_2_PARAMS.death = {
+LEVEL_6_PARAMS.death = {
 
-  note:'glassSmash',
-  geo:'skull1',
+  note:'b7',
   loop:'lvl1/ambient',
+  geo:'skull1',
   mat:'planet',
   color:0xee6622,
   scale: .01,
@@ -20,24 +20,17 @@ LEVEL_2_PARAMS.death = {
 }
 
 
-LEVEL_2_PARAMS.geo = 'totem';
+LEVEL_6_PARAMS.geo = 'totem';
 
 
 
-LEVEL_2_PARAMS.oldTypes = [
 
-  //'lvl1_part1_synth',
-  'lvl1_part1_drums',
-  'lvl1_part1_perc',
-
-] 
-
-LEVEL_2_PARAMS.skybox = {
+LEVEL_6_PARAMS.skybox = {
 
   geo:'totem',
   note: 'srBeast1',
   map: 'audioController',
-  mat: 'planet',
+  mat: 'lambert',
   scale: 100,
   init: function(geo){
 
@@ -46,115 +39,104 @@ LEVEL_2_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     
-
-    //this.mat.needsUpdate = true;
+  //  assignUVs( geo );
 
     var mat = MATS[ this.mat ].clone();
     mat.side = THREE.DoubleSide;
-    
+   /* 
     mat.uniforms.tNormal.value = MATS.textures.normals.moss;
     mat.uniforms.t_audio.value = audioController.texture;
     mat.uniforms.texScale.value = .1;
-    mat.uniforms.normalScale.value= .1;
+    mat.uniforms.normalScale.value= .1;*/
+    //this.mat.needsUpdate = true;
+    
     var skybox = new THREE.Mesh( geo , mat );
 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
 
-    //scene.add( skybox );
     return skybox;
-    
+
+  },
+  
+  onHook: function( hook ){
+
+   
+    var c = hook.color.getHex();
+    this.material.color = hook.color;
+    /*resetColorUniform( this.material.uniforms.color1 , c , .4 );
+    resetColorUniform( this.material.uniforms.color2 , c , .4 );
+    resetColorUniform( this.material.uniforms.color3 , c , .4 );
+    resetColorUniform( this.material.uniforms.color4 , c , .4 );*/
 
 
   }
 
 }
 
-LEVEL_2_PARAMS.crystal = {
+LEVEL_6_PARAMS.crystal = {
 
   geo: new THREE.CylinderGeometry( 2,0,5 ),
-  mat: new THREE.MeshPhongMaterial({ side:THREE.DoubleSide }),
+  mat: new THREE.MeshBasicMaterial({ color:0xffffff }),
   map: 'audioController',  
   scale:.3,
   rotation: new THREE.Euler( -Math.PI / 2 , 0 , 0 )
 
 }
 
-LEVEL_2_PARAMS.stones = {
+LEVEL_6_PARAMS.stones = {
 
 
   geo:'logoGeo',
 
   init:function( geo  ){
 
-    
-    var geo = new THREE.CubeGeometry( 10 ,10,10 );
-    var mat = mat || new THREE.MeshNormalMaterial();
-    
-    var mat = new THREE.MeshLambertMaterial({
-      shading: THREE.FlatShading,
-      color:0xffffff,
-      map:audioController.texture,
-      //wireframe:true,
-      depthWrite:false,
-      transparent:true,
-      //opacity: .1,
-      side: THREE.DoubleSide,
-      blending:THREE.AdditiveBlending
-    });
-
-    var geometry = new THREE.Geometry();
-
-    var placingMatrix = [];
-    placingMatrix.push([[0,0,0],[0,0,0],[0,0,0]]);
-
   
-    place(placingMatrix, 0,0,0,0);
-    place(placingMatrix, 0,0,0,1);
-    place(placingMatrix, 0,0,0,2);
-    place(placingMatrix, 0,0,0,3);
-    place(placingMatrix, 0,0,0,4);
-    place(placingMatrix, 0,0,0,5);
-    place(placingMatrix, 10,0,0,0);
-    place(placingMatrix, -10,0,0,1);
-    place(placingMatrix, 0,10,0,2);
-    place(placingMatrix, 0,-10,0,3);
-    place(placingMatrix, 0,0,10,4);
-    place(placingMatrix, 0,0,-10,5);
-    place(placingMatrix, 10,10,0,0);
-    place(placingMatrix, -10,10,0,1);
-    place(placingMatrix, -10,10,0,2);
-    place(placingMatrix, -10,-10,0,3);
-    place(placingMatrix, 10,0,10,4);
-    place(placingMatrix, 10,0,-10,5);
+    var geo = new THREE.Geometry();
+    for( var i= 0; i < 50; i++ ){
 
-    for( var i=0; i < placingMatrix.length; i++ ){
+      for( var j = 0; j < 50; j++ ){
 
-      var mesh = new THREE.Mesh( geo , mat );
+        for( var k = 0; k < 50; k++ ){
 
-      var p = placingMatrix[i][0];
-      var s = placingMatrix[i][1];
-      var r = placingMatrix[i][2];
+          vert = new THREE.Vector3();
 
-      mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( s[0] , s[1] , s[2] );
-      mesh.rotation.x = r[0]//,r[1],r[2] );
-      mesh.rotation.y = r[1]//,r[1],r[2] );
-      mesh.rotation.z = r[2]//,r[1],r[2] );
+          vert.x = (i - 25)*20;
+          vert.y = (j - 25)*20;
+          vert.z = (k - 25)*20;
+  
+          geo.vertices.push( vert );
 
-      mesh.updateMatrix();
-      geometry.merge( geo , mesh.matrix );
+
+        }
+
+      }
 
     }
 
-    geometry.computeFaceNormals();
-    geometry.computeVertexNormals();
-
     //assignUVs( geometry );
-    stones = new THREE.Mesh( geometry , mat );
+    stones = new THREE.ParticleSystem( geo );
 
+    stones.material.map = audioController.texture;
+    stones.material.blending = THREE.AdditiveBlending;
+    stones.material.transparent = true;
+    stones.material.depthWrite = false;
+    stones.material.size = 3;
+    stones.material.color = new THREE.Color( 0xffffff );
     return stones 
 
+
+  },
+  
+
+  onHook : function ( hook ){
+
+    var c = hook.color.getHex();
+    this.material.color = hook.color;
+    //resetColorUniform( this.material.uniforms.color1 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color2 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color3 , c , 1.4 );
+    //resetColorUniform( this.material.uniforms.color4 , c , 1.4 );
 
   }
 
@@ -167,7 +149,7 @@ LEVEL_2_PARAMS.stones = {
    Path
 
 */
-LEVEL_2_PARAMS.path = {
+LEVEL_6_PARAMS.path = {
 
   notes:['srNight1','srNight2','srNight3','srNight4'],
   pathDetail: 0,
@@ -205,14 +187,19 @@ LEVEL_2_PARAMS.path = {
 
     var guides = [];
 
-        var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
-    var mat = new THREE.MeshPhongMaterial();
+    var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
+   
+    var mat = MATS[ 'planet' ].clone();
+   // mat.side = THREE.DoubleSide;
+    
+    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
 
 
 
    
     var cone = new THREE.CylinderGeometry( 1 , 0 , 3);
-    var coneMesh = new THREE.Mesh( cone);
+    var coneMesh = new THREE.Mesh( cone , mat );
     coneMesh.rotation.set(  -Math.PI / 2 , 0 ,0);
     coneMesh.position.z = 2;
     coneMesh.updateMatrix();
@@ -355,35 +342,53 @@ LEVEL_2_PARAMS.path = {
 
 
 }
-
-LEVEL_2_PARAMS.newTypes = [
+LEVEL_6_PARAMS.newTypes = [
 
   {
-    type: 'lvl1_part2_synth',
+    type: 'lvl3_part2_kick',
     note: 'clean1',
-    loop: 'lvl1/part2/synth',
-    geo:  'logoGeo',
+    loop: 'lvl3/part2/kick',
+    geo:  'bone',
     numOf: 3,
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0xaa5555),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    mat:'lambert',
+    color: new THREE.Color(0x66aacc),
+    instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+      m.color = this.color;
+    
+    /*  m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );*/
+
+      assignUVs(geo);
       var head = new THREE.Mesh(
-          geo,
+          new THREE.BoxGeometry(1,1,1),
           m
       );
 
-      head.scale.multiplyScalar( .1 );
+      var m1 = new THREE.Object3D();
+      
+      var bone = new THREE.Mesh( geo , mat );
 
-      var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
-      var m1 = new THREE.Mesh( geo , m );
+      bone.rotation.y = Math.PI / 2;
+      m1.add( bone );
 
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
+      //m1.rotation.x = Math.PI
+      m1.scale.x = .01;
+      m1.scale.y = .01;
+      m1.scale.z = .01;
+
+      m1.rotation.y = Math.PI / 2; 
+
+
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -409,7 +414,8 @@ LEVEL_2_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: false,//true,
+          maxSpeed: .5
         });
 
         var id = Math.random();
@@ -426,17 +432,27 @@ LEVEL_2_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl1_part2_lead',
+    type: 'lvl3_part2_squishy',
     note: 'clean1',
-    loop: 'lvl1/part2/lead',
+    loop: 'lvl3/part2/squishy',
     geo:  'logoGeo',
     numOf: 3,
     boss: false,
     startScore: 1,
-    color: new THREE.Color( 0x55aa55),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    mat:'planetDisplace',
+    color: new THREE.Color( 0xaa66cc),
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+       var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
       var head = new THREE.Mesh(
           geo,
           m
@@ -445,7 +461,6 @@ LEVEL_2_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -468,15 +483,15 @@ LEVEL_2_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
+          /*m2: m2,
           m3: m3,
-          m4: m4,
+          m4: m4,*/
           note:note,
           startScore: this.startScore,
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: false
+          boss: false 
         });
 
         var id = Math.random();
@@ -491,17 +506,28 @@ LEVEL_2_PARAMS.newTypes = [
 
  
   {
-    type: 'lvl1_part2_vox',
+    type: 'lvl3_part2_vox',
     note: 'clean1',
-    loop: 'lvl1/part2/vox',
+    loop: 'lvl3/part2/vox',
     geo:  'logoGeo',
     numOf: 3,
     boss: false,
+    mat:'planetDisplace',
     startScore: 2,
-    color: new THREE.Color( 0x5555aa),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    color: new THREE.Color( 0xaacc66),
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
       var head = new THREE.Mesh(
           geo,
           m
@@ -510,7 +536,6 @@ LEVEL_2_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -533,9 +558,9 @@ LEVEL_2_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          //m2: m2,
+          //m3: m3,
+          //m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -555,19 +580,29 @@ LEVEL_2_PARAMS.newTypes = [
   },
 
 
-  
   {
-    type: 'lvl1_part2_toms',
+    type: 'lvl3_part2_drums',
     note: 'clean1',
-    loop: 'lvl1/part2/toms',
+    loop: 'lvl3/part2/drums',
     geo:  'logoGeo',
     numOf: 3,
+    mat:'planetDisplace',
     boss: false,
     startScore: 3,
-    color: new THREE.Color( 0xaa5599),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    color: new THREE.Color( 0x66ccaa),
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
       var head = new THREE.Mesh(
           geo,
           m
@@ -576,7 +611,6 @@ LEVEL_2_PARAMS.newTypes = [
       head.scale.multiplyScalar( .1 );
 
       var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = .1;
@@ -599,9 +633,9 @@ LEVEL_2_PARAMS.newTypes = [
         var hook = new Hook( dragonFish, level , this.type , {
           head:head.clone(),
           m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          //m2: m2,
+          //m3: m3,
+          //m4: m4,
           note:note,
           startScore: this.startScore,
           loop:loop,
@@ -620,19 +654,29 @@ LEVEL_2_PARAMS.newTypes = [
     }
   },
 
-
-  {
-    type: 'lvl1_part2_drums',
-    note: 'clean1',
-    loop: 'lvl1/part2/drums',
+   {
+    type: 'lvl3_part2_brush',
+    note: 'clean4',
+    loop: 'lvl3/part2/bass',
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
+    mat:'planetDisplace',
     startScore: 4,
-    color: new THREE.Color(0x7755aa),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    color: new THREE.Color( 0xcc66aa ),
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
+      var m = mat;
+      m.side = THREE.DoubleSide;
+    
+      m.uniforms.tNormal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = loop.texture;
+      var c = this.color.getHex();
+      resetColorUniform( m.uniforms.color1 , c , 1 );
+      resetColorUniform( m.uniforms.color2 , c , 1 );
+      resetColorUniform( m.uniforms.color3 , c , 1 );
+      resetColorUniform( m.uniforms.color4 , c , 1 );
+
       var head = new THREE.Mesh(
           geo,
           m
@@ -640,50 +684,42 @@ LEVEL_2_PARAMS.newTypes = [
 
       head.scale.multiplyScalar( .1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
-      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
-
-      m2 = m1.clone();
-      m2.scale.multiplyScalar( .6);
-
-      m3 = m2.clone();
-      m3.scale.multiplyScalar( .6 );
-
-      m4 = m3.clone();
-      m4.scale.multiplyScalar( .6 );
-
+      m1.scale.multiplyScalar( .1 );
       var hooks = [];
 
       for( var i = 0; i < this.numOf; i++ ){
 
-        var hook = new Hook( dragonFish, level , this.type , {
+        var hook = new Hook( dragonFish , level , this.type , {
+          
           head:head.clone(),
           m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
+          //m2: m2,
+          //m3: m3,
+          //m4: m4,
           note:note,
-          startScore: this.startScore,
           loop:loop,
+          startScore: this.startScore,            
           color: this.color,
           power: 1/ this.numOf,
-          boss: true
+          boss: true,
+          maxSpeed: 100
+            
+
         });
 
         var id = Math.random();
         hook.id = id;
 
         hooks.push( hook );
+
       }
   
       return hooks;
     }
   },
+
 
 ]
 

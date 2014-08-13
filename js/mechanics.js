@@ -61,14 +61,16 @@ function updateMechanics( delta ){
     var m =  ( controls.speed / controls.maxSpeed ); 
     var d = dT + m * m * dT * 3;
     var vector = new THREE.Vector3( 0, 0, -d );
-    vector.applyQuaternion( camera.quaternion );
-    intersectPlane.position.add( vector );
+
+    TMP_VECTOR_3.set( 0 , 0, -d );
+    TMP_VECTOR_3.applyQuaternion( camera.quaternion );
+    intersectPlane.position.add( TMP_VECTOR_3 );
 
     intersectPlane.lookAt( camera.position );
-     var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-    projector.unprojectVector( vector, camera );
+    TMP_VECTOR_3.set( mouse.x, mouse.y, 1 );
+    projector.unprojectVector(  TMP_VECTOR_3, camera );
 
-    raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+    raycaster.set( camera.position, TMP_VECTOR_3.sub( camera.position ).normalize() );
 
     var intersects = raycaster.intersectObject( intersectPlane );
 
@@ -84,17 +86,17 @@ function updateMechanics( delta ){
 
     }
 
-    var avePosition = new THREE.Vector3();
+    /*TMP_VECTOR_3.set( 0 , 0 , 0 );
     for(var i = 0; i< deathBait.oldPositions.length; i++ ){
 
-      avePosition.add( deathBait.oldPositions[i] );
+       TMP_VECTOR_3.add( deathBait.oldPositions[i] );
 
     }
 
-    avePosition.multiplyScalar( 1/ deathBait.oldPositions.length );
+    TMP_VECTOR_3.multiplyScalar( 1/ deathBait.oldPositions.length );*/
 
-    var dif = deathBait.position.clone().sub( bait.position );
-    deathBait.velocity.add( dif.normalize().multiplyScalar( -.003 ) );
+    TMP_VECTOR_3.copy( deathBait.position ).sub( bait.position );
+    deathBait.velocity.add( TMP_VECTOR_3.normalize().multiplyScalar( -.003 ) );
 
     deathBait.position.add( deathBait.velocity );
 

@@ -209,12 +209,12 @@ DragonFish.prototype.createVertabrae = function( dom , m1 , m2 , m3 , m4 ){
       var child2 = new Fish( child1 , .6 , m3 );
       child2.position.copy( vertabrae.position );
 
-      for( var k = 0; k < 3; k++ ){
+     /* for( var k = 0; k < 3; k++ ){
 
         var child3 = new Fish( child2 , .5 , m4 );
         child3.position.copy( vertabrae.position );
 
-      }
+      }*/
 
     }
 
