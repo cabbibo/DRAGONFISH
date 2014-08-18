@@ -204,11 +204,12 @@ Level.prototype.loadGeo = function( geoName ){
 
 
 Level.prototype.onLoad = function(){
-  
+ 
   this.totalLoaded ++;
 
   if( this.totalLoaded == this.totalNeededToLoad ){
 
+    console.log('TOTASZ LOADES');
     this.fullyLoaded = true;
 
     this.instantiate();
@@ -427,6 +428,7 @@ Level.prototype.createPath = function(){
 
 Level.prototype.initialize = function(){
 
+  console.log('INITIALIZED' );
   scene.add( this.scene );
 
   if( !this.fullyLoaded || !this.prepared ){
@@ -464,7 +466,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
   var from;
 
   if( this.oldLevel ){
-   from = this.oldLevel.scene.position.clone();
+    from = this.oldLevel.scene.position.clone();
   }else{
     from = new THREE.Vector3();
   }
@@ -658,7 +660,8 @@ Level.prototype.removeSkybox = function(){
 
     //scene.add( marker );
 
-  
+ 
+    console.log( this.skybox );
     marker.init = { scale: marker.scale.x };
     marker.target = { scale: 0 };
 

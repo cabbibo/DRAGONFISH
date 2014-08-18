@@ -44,6 +44,8 @@
 <script src = "levels/Level4.js"          ></script>
 <script src = "levels/Level5.js"          ></script>
 <script src = "levels/Level6.js"          ></script>
+<script src = "levels/Level7.js"          ></script>
+<script src = "levels/Level8.js"          ></script>
 <script src = "levels/Credits.js"         ></script>
 
 <script src = "js/Level.js"               ></script>
@@ -103,9 +105,8 @@
 
   shaders.shaderSetLoaded = function(){
     init();
-
- 
   }
+
   shaders.load( 'vs-planet' , 'planet' , 'vertex' );
   shaders.load( 'vs-planetDisplace' , 'planetDisplace' , 'vertex' );
   shaders.load( 'fs-planet' , 'planet' , 'fragment' );
@@ -137,7 +138,7 @@
   var particleTexture = THREE.ImageUtils.loadTexture( 'lib/flare.png');
 
 
-  var LEVEL_1,LEVEL_2;
+  var LEVEL_1,LEVEL_2,LEVEL_3 ,LEVEL_4,LEVEL_5,LEVEL_6;
 
   function onStart(){
 
@@ -176,12 +177,15 @@
     deathDragon.leader.position.copy( new THREE.Vector3( 100000, 0 , 0 ) );
 
     loader.addToLoadBar();
+    
     LEVEL_1 = new Level( 'first level'  , dragonFish , LEVEL_1_PARAMS );
     LEVEL_2 = new Level( 'second level' , dragonFish , LEVEL_2_PARAMS );
     LEVEL_3 = new Level( 'third level'  , dragonFish , LEVEL_3_PARAMS );
     LEVEL_4 = new Level( 'fourth level' , dragonFish , LEVEL_4_PARAMS );
     LEVEL_5 = new Level( 'fifth level' , dragonFish , LEVEL_5_PARAMS );
     LEVEL_6 = new Level( 'sixth level' , dragonFish , LEVEL_6_PARAMS );
+    LEVEL_7 = new Level( 'sixth level' , dragonFish , LEVEL_7_PARAMS );
+    LEVEL_8 = new Level( 'sixth level' , dragonFish , LEVEL_8_PARAMS );
     CREDITS = new Level( 'Credit level' , dragonFish , CREDITS_PARAMS );
 
     
@@ -199,11 +203,16 @@
 
     LEVEL_5.nextLevel = LEVEL_6;
     LEVEL_6.oldLevel  = LEVEL_5;
+    
+    LEVEL_6.nextLevel = LEVEL_7;
+    LEVEL_7.oldLevel  = LEVEL_6;
+
+    LEVEL_7.nextLevel = LEVEL_8;
+    LEVEL_8.oldLevel  = LEVEL_7;
 
 
-
-    LEVEL_6.nextLevel = CREDITS;
-    CREDITS.oldLevel  = LEVEL_6;
+    LEVEL_8.nextLevel = CREDITS;
+    CREDITS.oldLevel  = LEVEL_8;
     
     LEVELS.push( LEVEL_1 );
     LEVELS.push( LEVEL_2 );
@@ -211,14 +220,28 @@
     LEVELS.push( LEVEL_4 );
     LEVELS.push( LEVEL_5 );
     LEVELS.push( LEVEL_6 );
+    LEVELS.push( LEVEL_7 );
+    LEVELS.push( LEVEL_8 );
     LEVELS.push( CREDITS );
-    
-    LEVEL_1.beginLoading();
-    LEVEL_1.onPrepared = function(){
 
+
+
+    var loc = window.location.hash.substring(1);
+    console.log( loc );
+    CURRENT_LEVEL = loc || 0;
+    var firstLevel = LEVELS[ CURRENT_LEVEL ];
+
+    firstLevel.beginLoading();
+    firstLevel.onPrepared = function(){
       loader.loadBarAdd();
-
     }
+    firstLevel.oldLevel = null;
+
+    console.log( firstLevel );
+    camera.position.copy( firstLevel.scene.position );
+    camera.position.x += 50;
+    console.log( camera.position );
+
 
     // Hooks
     recreateLights( 0x777777 );
@@ -288,7 +311,7 @@
     loader.liftCurtain();
 
     initExplosion( dragonFish );
-    LEVEL_1.initialize();
+    LEVELS[ CURRENT_LEVEL ].initialize();
 
     looper.start();
     animate();
