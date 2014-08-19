@@ -95,7 +95,7 @@ LEVEL_1_PARAMS.skybox = {
 
 LEVEL_1_PARAMS.crystal = {
 
-  geo: new THREE.CylinderGeometry( 2,0,5 ),
+  geo: new THREE.CylinderGeometry( 2,0,5 , 50 ),
   mat: new THREE.MeshBasicMaterial({ color:0xffffff, wireframe:true }),
   map: 'audioController',  
   scale:.3,

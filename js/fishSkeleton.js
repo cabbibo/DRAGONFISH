@@ -146,8 +146,8 @@ var shinyRed2 = new THREE.MeshPhongMaterial({
     mesh.add( eye2 );
 
     beak = new THREE.Mesh( 
-      new THREE.CylinderGeometry( .8 , 0 , 2.3, 50 ),
-      headMat 
+      new THREE.CylinderGeometry( .8 , 0 , 2.3, 10 ),
+      new THREE.MeshBasicMaterial({color:0xffffff , wireframe:true}) 
     );
 
     beak.rotation.x = -Math.PI / 2;

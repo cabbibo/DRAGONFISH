@@ -316,7 +316,7 @@ Level.prototype.createDeath = function(){
   this.death.mesh = new THREE.Mesh( this.death.geo , this.death.mat );
   this.death.mesh.scale.multiplyScalar( this.params.death.scale );
 
-  this.death.mesh.position = this.params.death.position;
+  this.death.mesh.position.copy(this.params.death.position);
 
   if( !this.death.loop.playing ){
 
