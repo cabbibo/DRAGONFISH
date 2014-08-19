@@ -131,7 +131,7 @@
 
   var audioController = new AudioController();
 
-  audioController.mute.gain.value = 0;
+  //audioController.mute.gain.value = 0;
 
   var looper          = new Looper( audioController , time , {
 
@@ -143,7 +143,7 @@
   var particleTexture = THREE.ImageUtils.loadTexture( 'lib/flare.png');
 
 
-  var LEVEL_1,LEVEL_2,LEVEL_3 ,LEVEL_4,LEVEL_5,LEVEL_6;
+  var LEVEL_1,LEVEL_2,LEVEL_3 ,LEVEL_4,LEVEL_5,LEVEL_6,LEVEL_7,LEVEL_8;
 
   function onStart(){
 
@@ -179,7 +179,10 @@
     deathBait.velocity = new THREE.Vector3();
     deathDragon = new DragonFish( deathBait );
     deathDragon.createVertabrae( deathDragon.leader );
-    deathDragon.initPlume();
+
+    var m = new THREE.Mesh( GEOS['cube'] , MATS['normal'] );
+
+    deathDragon.initPlume(m);
 
     deathDragon.leader.position.copy( new THREE.Vector3( 100000, 0 , 0 ) );
 
@@ -196,7 +199,7 @@
 
     }
 
-    deathDragon.attack();
+    //deathDragon.attack();
 
 
     loader.addToLoadBar();

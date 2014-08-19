@@ -19,7 +19,7 @@ function initExplosion( dragonFish ){
     t_ooPos:{ type:"t" , value:null },
     t_audio:{ type:"t" , value:audioController.texture},
     sprite:{ type:"t" , value:sprite},
-    color:{ type:"v3" , value: new THREE.Vector3( 1. ,0., 0.) }
+    color:{ type:"v3" , value: new THREE.Vector3( 1. ,1., 1.) }
   }
   
   var mat = new THREE.ShaderMaterial({
@@ -34,7 +34,8 @@ function initExplosion( dragonFish ){
 
   var geo = ParticleUtils.createLookupGeometry( size );
 
-  physicsParticles  = new THREE.ParticleSystem( geo , mat );
+  physicsParticles  = new THREE.PointCloud( geo , mat );
+  physicsParticles.frustumCulled = false;
 
   physicsRenderer.addBoundTexture( physicsParticles , 't_pos' , 'output' );
   physicsRenderer.addBoundTexture( physicsParticles , 't_oPos' , 'oOutput' );
@@ -42,7 +43,7 @@ function initExplosion( dragonFish ){
 
   scene.add( physicsParticles );
 
-  var mesh = new THREE.Mesh( new THREE.SphereGeometry( 5 ) );
+  var mesh = new THREE.Mesh( new THREE.SphereGeometry( .1 ) );
 
   var pTexture = ParticleUtils.createPositionsTexture( size , mesh );
   physicsRenderer.reset( pTexture );

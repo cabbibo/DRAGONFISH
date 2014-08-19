@@ -90,15 +90,12 @@ DragonFish.prototype.update = function(){
 
 }
 
-DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
+DragonFish.prototype.initPlume = function( m1 , m2 , m3 , m4 ){
 
-  console.log( m1 );
   var m1 = m1 || fishSkeleton.plume.spine;
-
-  console.log( m1 );
-
   var m2 = m2 || fishSkeleton.plume.child1;
   var m3 = m3 || fishSkeleton.plume.child2;
+  var m4 = m4 || fishSkeleton.plume.spine;
 
   this.plumeBabies = [];
 
@@ -127,11 +124,11 @@ DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
       f1.sibRepelDist = 2;
       f1.sibRepelPow = 1;
 
-      for( var l = 0; l <10; l++ ){
-        var f2 = new Fish( f1 , .8 , m2 );
+      for( var l = 0; l <5; l++ ){
+        var f2 = new Fish( f1 , .8 , m3 );
         
-        for( var m = 0; m < 10; m++ ){
-          var f3 = new Fish( f2 , .4 , m3 );
+        for( var m = 0; m < 5; m++ ){
+          var f3 = new Fish( f2 , .4 , m4 );
           f3.sibRepelDist = 2;
 
         }

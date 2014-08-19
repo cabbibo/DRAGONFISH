@@ -3,7 +3,13 @@
     
     this.dom  = dom;
     this.level = level;
-    this.position = new THREE.Vector3();
+
+    var newMesh = mesh.clone();
+   
+    this.body = mesh.clone();
+    //this.body.position = this.position;
+
+    this.position = this.body.position;
     this.velocity = new THREE.Vector3();
 
     // API
@@ -24,8 +30,8 @@
 
     var newMesh = mesh.clone();
    
-    this.body = mesh.clone();
-    this.body.position = this.position;
+   // this.body = mesh.clone();
+  //  this.body.position = this.position;
 
     if( this.dom.sub ){
       this.dom.sub.push( this );

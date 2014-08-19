@@ -28,13 +28,7 @@
     this.startScore = this.params.startScore;
 
     this.boss = this.params.boss;
-    
-    this.position = new THREE.Vector3();
-    this.velocity = new THREE.Vector3();
-    this.force    = new THREE.Vector3();
    
-
- 
     
     /*this.velocity.x = (Math.random()-.5 ) * .1;
     this.velocity.y = (Math.random()-.5 ) * .1;
@@ -56,15 +50,21 @@
 
     this.power=this.params.power;
 
-    this.head.position = this.position;
+    //this.head.position = this.position;
    
     
     this.dragonFish = dragonFish;
 
+    this.position = this.head.position;
+    this.velocity = new THREE.Vector3();
+    this.force    = new THREE.Vector3();
+
+
     this.clueGeo = new THREE.BufferGeometry();
 
-    this.clueGeo.addAttribute( 'position', new Float32Array( 1024 * 3 ), 3 );
-    var positions = this.clueGeo.getAttribute( 'position' ).array;
+    var pos = new THREE.BufferAttribute(  new Float32Array( 1024 * 3 ), 3  );
+    this.clueGeo.addAttribute( 'position', pos );
+    var positions =  pos.array;//this.clueGeo.getAttribute( 'position' ).array;
 
     for( var i = 0; i < 1024; i++ ){
 
@@ -91,7 +91,7 @@
     c.z = this.params.color.b;
     mat.uniforms.color.value = c;
     this.clueLine = new THREE.Line( this.clueGeo , mat );
-
+    this.clueLine.frustumCulled = false;
     
     this.reposition();
 

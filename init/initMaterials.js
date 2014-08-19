@@ -110,7 +110,6 @@ function initMaterials(){
   vertexShader   = shaders.vertexShaders.clueLine;
   fragmentShader = shaders.fragmentShaders.clueLine;
 
-
    MATS.clueLine = new THREE.ShaderMaterial({
 
     uniforms: uniforms,

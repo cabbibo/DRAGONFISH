@@ -65,7 +65,7 @@ http://cabbibo.github.io/learningRotations/
   this.dragonFish = dragonFish;
   this.scene = new THREE.Object3D();
 
-  this.scene.position = params.position;
+  this.scene.position.copy( params.position );
 
 
   this.hooksOnDeck = [];
@@ -327,7 +327,23 @@ Level.prototype.createDeath = function(){
 
   this.death.plume = []
 
-  //for( var i = 0; i < 
+  if( this.params.death.plumeGeos ){
+    
+    for( var i = 0; i < this.params.death.plumeGeos.length; i++ ){
+
+      var p = this.params.death;
+      var geo = GEOS[p.plumeGeos[i]];
+      var mat = MATS[p.plumeMats[i]];
+      var scale = p.plumeScales[i];
+
+      var m = new THREE.Mesh( geo , mat );
+      m.scale.multiplyScalar( scale );
+      //console.log( m );
+      this.death.plume.push( m );
+
+    }
+
+  }
 
 }
 Level.prototype.createSkybox = function(){
@@ -647,14 +663,23 @@ Level.prototype.startDeath = function(){
 
   deathDragon.removePlume();
  
-  if( this.params.death.plume ){
-    console.log( this.params.death.plume );
-    var p = this.params.death.plume;
-    deathDragon.initPlume(p[0],p[1],p[2]);
 
-    //deathDragon.initPlume();
+  var p = this.death.plume;
+  
+  var p1 = p[0];
+  var p2 = p[1];
+  var p3 = p[2];
+  var p4 = p[3];
+
+  if( this.params.death.plumeGeos ){
+
+     deathDragon.initPlume( p1 , p2 , p3 , p4  );
+
+
   }else{
+  //deathDragon.initPlume( undefined , p2 , p3);
     deathDragon.initPlume();
+
   }
   
   deathDragon.attack();
