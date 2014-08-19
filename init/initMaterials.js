@@ -4,6 +4,10 @@ function initMaterials(){
 
   MATS.phong    = new THREE.MeshPhongMaterial();
   MATS.basic    = new THREE.MeshBasicMaterial();
+ 
+  MATS.basicWF    = new THREE.MeshBasicMaterial();
+  MATS.basicWF.wireframe = true;
+  
   MATS.lambert  = new THREE.MeshLambertMaterial();
   MATS.normal  = new THREE.MeshNormalMaterial();
 

@@ -325,6 +325,9 @@ Level.prototype.createDeath = function(){
 
   }
 
+  this.death.plume = []
+
+  //for( var i = 0; i < 
 
 }
 Level.prototype.createSkybox = function(){
@@ -348,8 +351,9 @@ Level.prototype.createCrystal = function(){
   this.crystal = new THREE.Mesh( g , m );
   this.crystal.scale.multiplyScalar( this.params.crystal.scale );
   this.crystal.scale.multiplyScalar( 10 );
+  //this.crystal.position.z = 2;
 
-  this.crystal.size = this.params.crystal.size || 3;
+  this.crystal.size = this.params.crystal.size || 4;
   if( this.params.crystal.rotation ){
     this.crystal.rotation.copy( this.params.crystal.rotation );
   }
@@ -601,15 +605,21 @@ Level.prototype.onStart = function(){
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );
 
-  this.crystal.scale.multiplyScalar( .1 );
+  this.crystal.scale.multiplyScalar( .16 );
   // out with the old, in with the new
   if( this.oldLevel ){
-    dragonFish.leader.body.remove( this.oldLevel.crystal );
     this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
     this.oldLevel.death.loop.playing = false;
   }
 
+  for( var i= 0; i < dragonFish.leader.body.children.length; i++){
+    var c = dragonFish.leader.body.children[i];
+    dragonFish.leader.body.remove( c );
+  }
+
+  this.crystal.position.z = 1
+  
   dragonFish.leader.body.add( this.crystal );
 
   this.note.play();
@@ -631,12 +641,23 @@ Level.prototype.startDeath = function(){
   for( var i= 0; i < deathDragon.leader.body.children.length; i++){
     var c = deathDragon.leader.body.children[i];
     deathDragon.leader.body.remove( c );
-
   }
-  
+
   deathDragon.leader.body.add( this.death.mesh );
 
+  deathDragon.removePlume();
+ 
+  if( this.params.death.plume ){
+    console.log( this.params.death.plume );
+    var p = this.params.death.plume;
+    deathDragon.initPlume(p[0],p[1],p[2]);
 
+    //deathDragon.initPlume();
+  }else{
+    deathDragon.initPlume();
+  }
+  
+  deathDragon.attack();
 
 }
 Level.prototype.startHooks = function(){
@@ -956,9 +977,10 @@ Level.prototype.onDeath = function(){
 
 Level.prototype.onComplete = function(){
 
-  console.log( 'MUTHAFUCKIN COMPLETE' );
   //TODO:
   //PLAY FINISH NOISE
+
+  deathDragon.retreat();
 
   if( this.nextLevel ){
     this.nextLevel.initialize();

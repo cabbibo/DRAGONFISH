@@ -90,6 +90,8 @@
   var CURRENT_LEVEL = 0;
   var LEVELS = [];
 
+  var startingCrystal;
+
   var textCreator = new TextCreator( 100 );
 
   var loader = new Loader();
@@ -128,6 +130,9 @@
 
 
   var audioController = new AudioController();
+
+  audioController.mute.gain.value = 0;
+
   var looper          = new Looper( audioController , time , {
 
     beatsPerMinute: 122,
@@ -142,9 +147,7 @@
 
   function onStart(){
 
-
     addInstructions();
-
 
   }
 
@@ -166,6 +169,10 @@
     dragonFish = new DragonFish( bait );
     dragonFish.leader.position.copy( camera.position );
 
+    startingCrystal = new THREE.Mesh( GEOS['icosa'] , MATS['basic'] );
+
+    //dragonFish.leader.add( startingCrystal );
+
     // THE DEATH FOLLOWER
     deathBait = new THREE.Object3D();
     deathBait.oldPositions = [];
@@ -175,6 +182,22 @@
     deathDragon.initPlume();
 
     deathDragon.leader.position.copy( new THREE.Vector3( 100000, 0 , 0 ) );
+
+    deathDragon.attacking = false;
+    deathDragon.attack = function(){
+
+      this.attacking = true;
+
+    }
+
+    deathDragon.retreat = function(){
+
+      this.attacking = false;
+
+    }
+
+    deathDragon.attack();
+
 
     loader.addToLoadBar();
     
@@ -275,9 +298,9 @@
 
     
     if( !paused ){
+      
       dragonFish.update();
       deathDragon.update();
-
 
       var dif = dragonFish.leader.position.clone();
       dif.sub( deathDragon.leader.position );

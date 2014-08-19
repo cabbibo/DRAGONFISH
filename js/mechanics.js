@@ -78,13 +78,13 @@ function updateMechanics( delta ){
      bait.position.copy( intersects[0].point );
     }
 
-    deathBait.oldPositions.unshift( bait.position );
+    /*deathBait.oldPositions.unshift( bait.position );
 
     if( deathBait.oldPositions.length > 50 ){
 
       deathBait.oldPositions.pop();
 
-    }
+    }*/
 
     /*TMP_VECTOR_3.set( 0 , 0 , 0 );
     for(var i = 0; i< deathBait.oldPositions.length; i++ ){
@@ -95,11 +95,15 @@ function updateMechanics( delta ){
 
     TMP_VECTOR_3.multiplyScalar( 1/ deathBait.oldPositions.length );*/
 
-    TMP_VECTOR_3.copy( deathBait.position ).sub( bait.position );
+    if( deathDragon.attacking === true ){
+      TMP_VECTOR_3.copy( deathBait.position ).sub( bait.position );
+    }else{
+      TMP_VECTOR_3.set( 0 , 10000 , 0 );
+    }
+
+
     deathBait.velocity.add( TMP_VECTOR_3.normalize().multiplyScalar( -.003 ) );
-
     deathBait.position.add( deathBait.velocity );
-
     deathBait.velocity.multiplyScalar( .99 );
 
 

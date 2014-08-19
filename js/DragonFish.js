@@ -35,8 +35,8 @@ function DragonFish( bait , params ){
 
   //this.initBody();
 
-  this.firstVert = this.createVertabrae( this.leader );
-  this.addPrecreatedVertabrae(this.firstVert);
+ // this.firstVert = this.createVertabrae( this.leader );
+ // this.addPrecreatedVertabrae(this.firstVert);
   this.addToScene( this.leader );
 
 }
@@ -92,13 +92,21 @@ DragonFish.prototype.update = function(){
 
 DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
 
+  console.log( m1 );
   var m1 = m1 || fishSkeleton.plume.spine;
+
+  console.log( m1 );
+
   var m2 = m2 || fishSkeleton.plume.child1;
   var m3 = m3 || fishSkeleton.plume.child2;
 
+  this.plumeBabies = [];
+
   for( var j = 0; j < 3; j++ ){
 
-    var f = new Fish( this.leader , .9 , fishSkeleton.plume.spine );
+    var f = new Fish( this.leader , .9 , m1 );
+
+    this.plumeBabies.push( f );
 
     var column1 = [];
 
@@ -110,9 +118,9 @@ DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
 
       var f1;
       if( k === 0 ){           
-        f1 = new Fish( f ,  .9 , fishSkeleton.plume.child1 );
+        f1 = new Fish( f ,  .9 , m2 );
       }else{
-        f1 = new Fish( column1[k-1] , .3, fishSkeleton.plume.child1 );
+        f1 = new Fish( column1[k-1] , .3, m2 );
       }
 
       f1.sibRepelDiv = 40;
@@ -120,10 +128,10 @@ DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
       f1.sibRepelPow = 1;
 
       for( var l = 0; l <10; l++ ){
-        var f2 = new Fish( f1 , .8 , fishSkeleton.plume.child2);
+        var f2 = new Fish( f1 , .8 , m2 );
         
         for( var m = 0; m < 10; m++ ){
-          var f3 = new Fish( f2 , .4 , fishSkeleton.plume.spine );
+          var f3 = new Fish( f2 , .4 , m3 );
           f3.sibRepelDist = 2;
 
         }
@@ -134,10 +142,39 @@ DragonFish.prototype.initPlume = function( m1 , m2 , m3 ){
 
     }
 
+    this.addToScene( f );
   }
 
-  this.addToScene( this.leader );
+ // this.addToScene( this.leader );
 
+}
+
+DragonFish.prototype.removePlume = function(){
+
+  for( var i = 0; i < this.leader.sub.length; i++ ){
+
+    var sub = this.leader.sub[i];
+
+    console.log('sub');
+    for( var j = 0; j < this.plumeBabies.length; j++ ){
+
+      var baby = this.plumeBabies[j];
+
+      console.log('adb');
+      if( sub === baby ){
+
+        console.log('BABY' );
+        this.removeFromScene( this.leader.sub[i] );
+        this.leader.sub.splice( i , 1 );
+        i --;
+
+      }
+
+    }
+
+  }
+
+  // this.plumeBabies = [];
 
 }
 
