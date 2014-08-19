@@ -176,9 +176,16 @@
       fragmentShader:shaders.fragmentShaders.text, 
     });
 
-    MAIN_TEXT = new PhysicsText( 'HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,' ); 
-
-
+    var startingText = [
+    'You can live.',
+    '','',
+    'Remember this miracle on your journey, and realize that no matter how far you go, already you have made it here.',
+    '','',
+    'Find joy in the short existance you have, because even if you make it, it will not be enough'
+    ].join("\n");
+    MAIN_TEXT = new PhysicsText( startingText , {
+     offset: new THREE.Vector3( -200 , 500 , 0 ) 
+    });
     MAIN_TEXT.activate();
 
 
