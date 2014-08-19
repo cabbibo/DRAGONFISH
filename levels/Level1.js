@@ -17,7 +17,7 @@ LEVEL_1_PARAMS.death = {
   scale: 50,
   position: new THREE.Vector3( 0 , -5 , 0 ),
   plume:[
-    0,// fishSkeleton.plume.spine,
+    new THREE.Mesh( GEOS['bone'] , MATS['basicWF'] ),// fishSkeleton.plume.spine,
     0,//new THREE.Mesh( GEOS['cube'] , MATS['normal'] ),
     0,//new THREE.Mesh( GEOS['cube'] , MATS['normal'] ),
   ]

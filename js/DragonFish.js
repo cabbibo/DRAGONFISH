@@ -155,15 +155,12 @@ DragonFish.prototype.removePlume = function(){
 
     var sub = this.leader.sub[i];
 
-    console.log('sub');
     for( var j = 0; j < this.plumeBabies.length; j++ ){
 
       var baby = this.plumeBabies[j];
 
-      console.log('adb');
       if( sub === baby ){
 
-        console.log('BABY' );
         this.removeFromScene( this.leader.sub[i] );
         this.leader.sub.splice( i , 1 );
         i --;
