@@ -30,6 +30,9 @@
 <script src = "lib/ParticleUtils.js"      ></script>
 <script src = "lib/LoadedAudio.js"        ></script>
 
+<script src = "lib/TextParticles.js"      ></script>
+<script src = "lib/PhysicsText.js"        ></script>
+
 <script src = "init/initExplosion.js"     ></script>
 <script src = "init/initHooks.js"         ></script>
 <script src = "init/initAudio.js"         ></script>
@@ -93,10 +96,10 @@
   var startingCrystal;
 
   var textCreator = new TextCreator( 100 );
-
+  var textParticles; 
   var loader = new Loader();
 
-  var shaders = new ShaderLoader('shaders/');
+  var shaders = new ShaderLoader('shaders');
   shaders.beginLoad = function(){
     loader.beginLoading();
   }
@@ -126,6 +129,11 @@
   shaders.load( 'fs-render'   , 'render'  , 'fragment'    );
   shaders.load( 'vs-render'   , 'render'  , 'vertex'      );
   shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
+  
+  
+  shaders.load( 'ss-text'   , 'text' , 'simulation'  );
+  shaders.load( 'fs-text'   , 'text' , 'fragment'  );
+  shaders.load( 'vs-text'   , 'text' , 'vertex'  );
 
 
 
@@ -162,6 +170,18 @@
     initDebug();
     initGeos();
     initMaterials();
+
+    textParticles = new TextParticles({
+      vertexShader:shaders.vertexShaders.text, 
+      fragmentShader:shaders.fragmentShaders.text, 
+    });
+
+    MAIN_TEXT = new PhysicsText( 'HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,HELLO , HELLO , HELLO ,' ); 
+
+
+    MAIN_TEXT.activate();
+
+
 
 
     // Object our dragon fish follows
@@ -286,6 +306,7 @@
 
     updateInstructions();
 
+    MAIN_TEXT.update();
 
     LEVELS[ CURRENT_LEVEL ].update();
 
