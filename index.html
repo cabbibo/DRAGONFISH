@@ -139,7 +139,7 @@
 
   var audioController = new AudioController();
 
-  audioController.mute.gain.value = 0;
+  //audioController.mute.gain.value = 0;
 
   var looper          = new Looper( audioController , time , {
 
@@ -325,13 +325,17 @@
       dif.sub( deathDragon.leader.position );
 
       var length = dif.length();
-      if( dif.length() <= 3 ){
+     
+      if( deathDragon.attacking === true ){
 
-        LEVELS[ CURRENT_LEVEL ].onDeath();//deathNote.play();
+        if( dif.length() <= 3 ){
+
+          LEVELS[ CURRENT_LEVEL ].onDeath();//deathNote.play();
+
+        }
 
       }
 
-      var newGain = 2;
       var newGain = Math.min( 1.5 , 30 / length );
       LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 

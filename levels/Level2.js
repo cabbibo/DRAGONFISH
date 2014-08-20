@@ -7,8 +7,29 @@ LEVEL_2_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
 
 LEVEL_2_PARAMS.note = 'clean6',
 
+LEVEL_2_PARAMS.startText = [
+  
+  'Every moment you survive, vibrantly remember what it took to get here',
+  '','',
+  'It is not chance that makes you are, it is the will to be more than you are.'
+
+].join("\n");
+
+
+LEVEL_2_PARAMS.deathText = [
+
+  'Do not doubt for a moment that you can rest.',
+  '','',
+  'Even the ones smaller than you will soon grow, until they can consume you, even when you are at your strongest.',
+  '','',
+  'So keep running, because only than will you be able to continue to exist'
+
+].join("\n");
+
+
 LEVEL_2_PARAMS.death = {
 
+  startScore:3,  
   note:'glassSmash',
   geo:'skull1',
   loop:'lvl1/ambient',
