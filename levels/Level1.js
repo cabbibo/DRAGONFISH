@@ -356,12 +356,12 @@ LEVEL_1_PARAMS.path = {
 }
 LEVEL_1_PARAMS.newTypes = [
 
-  {
+  /*{
     type: 'lvl1_part1_synth',
     note: 'clean1',
     loop: 'lvl1/part1/synth',
     geo:  'cube',
-    numOf: 3,
+    numOf: 1,
     boss: false,
     startScore: 0,
     mat:'basic',
@@ -416,7 +416,7 @@ LEVEL_1_PARAMS.newTypes = [
   
       return hooks;
     }
-  },
+  },*/
 
 
 
@@ -426,9 +426,9 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/perc',
     geo:  'icosa',
-    numOf: 3,
+    numOf: 1,
     boss: false,
-    startScore: 3,
+    startScore: 1,
     mat:'basic',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -486,14 +486,14 @@ LEVEL_1_PARAMS.newTypes = [
   },
 
  
-  {
+  /*{
     type: 'lvl1_part1_lead',
     note: 'clean1',
     loop: 'lvl1/part1/lead',
     geo:  'tetra',
-    numOf: 3,
+    numOf: 1,
     boss: false,
-    startScore: 6,
+    startScore: 2,
     mat:'basic',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -548,7 +548,7 @@ LEVEL_1_PARAMS.newTypes = [
   
       return hooks;
     }
-  },
+  },*/
 
 
   {
@@ -556,10 +556,10 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/drums',
     geo:  'octa',
-    numOf: 3,
+    numOf: 1,
     mat:'basic',
     boss: false,
-    startScore: 9,
+    startScore: 0,
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -623,7 +623,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'basic',
-    startScore: 12,
+    startScore: 0,
     color: new THREE.Color( 0xffffff ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 

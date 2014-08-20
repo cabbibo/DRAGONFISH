@@ -4,6 +4,7 @@
   function Hook( dragonFish, level, type , params ){
    
 
+    this.id = Math.random();
     this.level = level;
 
     this.type = type || 'THIS HAS NO TYPE';
@@ -111,6 +112,8 @@
 
   Hook.prototype.activate = function(){
 
+    this.reposition();
+
     if( !this.params.boss ){
       
       this.vertabrae = this.dragonFish.createVertabrae( 
@@ -168,6 +171,7 @@
     if( this.boss ){
     
       this.vertabrae.ui = this.ui;
+      this.vertabrae.id = this.id;
       this.dragonFish.addBoss( this.vertabrae );
       looper.tweenGain( this.loop.gain , 1 );
       
@@ -175,6 +179,7 @@
     }else{
 
       this.vertabrae.ui = this.ui;
+      this.vertabrae.id = this.id;
       this.dragonFish.addPrecreatedVertabrae( this.vertabrae );
       this.loop.gain.gain.value += this.power;
       

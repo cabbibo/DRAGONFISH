@@ -488,6 +488,15 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
   if( this.oldLevel ){
     from = this.oldLevel.scene.position.clone();
+
+    var oldH = this.oldLevel.hookedHooks;
+    for( var i = 0; i < oldH.length; i++ ){
+      //oldH[i].level = this;
+      this.hookedHooks.push( oldH[i] );
+    }
+
+
+
   }else{
     from = new THREE.Vector3();
   }
@@ -630,6 +639,12 @@ Level.prototype.onStart = function(){
     this.oldLevel.death.loop.playing = false;
   }
 
+  for( var i =0; i < this.hookedHooks.length; i++ ){
+
+    this.hookedHooks[i].level = this;
+
+  }
+
   for( var i= 0; i < dragonFish.leader.body.children.length; i++){
     var c = dragonFish.leader.body.children[i];
     dragonFish.leader.body.remove( c );
@@ -649,6 +664,8 @@ Level.prototype.onStart = function(){
   this.startDeath();
 
   this.active = true;
+
+
 
 }
 
@@ -872,6 +889,17 @@ Level.prototype.checkVertabraeForDestruction = function(){
      this.dragonFish.removeVertabraeById( i );
      this.removeHookUI( verta );
 
+     for( var j=0; j < this.hookedHooks.length; j++ ){
+
+       if( this.hookedHooks[j].id === verta.id ){
+
+         console.log('hook removed');
+         this.hookedHooks.splice( j , 1 );
+         j--;
+
+       }
+
+     }
      //i--;
 
 
@@ -996,18 +1024,21 @@ Level.prototype.onDeath = function(){
         i--;
       }
 
+      this.tmpHooks = [];
       for( var  i =0; i < this.hookedHooks.length; i++ ){
         
         var h = this.hookedHooks[i];
         this.deactivateHookUI( h );
 
+        this.tmpHooks.push( h );
+
       }
 
       window.setTimeout( function(){
         
-        for( var  i =0; i < this.hookedHooks.length; i++ ){
+        for( var  i =0; i < this.tmpHooks.length; i++ ){
 
-          var h = this.hookedHooks[i];
+          var h = this.tmpHooks[i];
 
           this.hooks.push( h );
 
@@ -1017,6 +1048,7 @@ Level.prototype.onDeath = function(){
 
         }
 
+        this.tmpHooks = null;
         this.hookedHooks = [];
 
       }.bind( this ) , 5000 );
@@ -1050,7 +1082,7 @@ Level.prototype.onComplete = function(){
   //TODO:
   //PLAY FINISH NOISE
 
-  deathDragon.retreat();
+  //deathDragon.retreat();
 
   if( this.nextLevel ){
     this.nextLevel.initialize();
