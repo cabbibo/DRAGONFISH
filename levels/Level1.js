@@ -7,8 +7,32 @@ LEVEL_1_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
 LEVEL_1_PARAMS.note = 'clean6',
 
+
+LEVEL_1_PARAMS.startText = [
+  'You can live.',
+  '','',
+  'Remember this miracle on your journey, and realize that no matter how far you go, already you have made it here.',
+  '','',
+  'Find joy in the short existance you have, because even if you make it, it will not be enough'
+
+].join("\n");
+
+
+LEVEL_1_PARAMS.deathText = [
+
+  'There will always be those who are bigger than you. Ones you should fear. Ones that you should run from. Ones that should make you tremble.',
+  '','',
+  'Ones that will follow you through the miracle, until you are too tired to move, too tired to fear.',
+  '','',
+  'But until that day comes, RUN!'
+
+].join("\n");
+
+
+
 LEVEL_1_PARAMS.death = {
 
+  startScore:3,
   note:'b7',
   loop:'lvl1/ambient',
   geo:'skull',
@@ -356,12 +380,12 @@ LEVEL_1_PARAMS.path = {
 }
 LEVEL_1_PARAMS.newTypes = [
 
-  /*{
+  {
     type: 'lvl1_part1_synth',
     note: 'clean1',
     loop: 'lvl1/part1/synth',
     geo:  'cube',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 0,
     mat:'basic',
@@ -416,7 +440,7 @@ LEVEL_1_PARAMS.newTypes = [
   
       return hooks;
     }
-  },*/
+  },
 
 
 
@@ -426,7 +450,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/perc',
     geo:  'icosa',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 1,
     mat:'basic',
@@ -486,12 +510,12 @@ LEVEL_1_PARAMS.newTypes = [
   },
 
  
-  /*{
+  {
     type: 'lvl1_part1_lead',
     note: 'clean1',
     loop: 'lvl1/part1/lead',
     geo:  'tetra',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 2,
     mat:'basic',
@@ -548,7 +572,7 @@ LEVEL_1_PARAMS.newTypes = [
   
       return hooks;
     }
-  },*/
+  },
 
 
   {
@@ -556,7 +580,7 @@ LEVEL_1_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl1/part1/drums',
     geo:  'octa',
-    numOf: 1,
+    numOf: 3,
     mat:'basic',
     boss: false,
     startScore: 0,

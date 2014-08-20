@@ -29,8 +29,8 @@ void main(){
   vec4 pos  = texture2D( t_pos  , vUv );
   vec4 to   = texture2D( t_to   , vUv );
 
-  vec2 offset = vec2( timer * 100. , timer * 10.  );
-  float displace =  1. * snoise( (to.xy + offset ) * .001 );
+  vec2 offset = vec2( timer * 1. , timer * 1.2  );
+  float displace =  1. * snoise( (to.xy*5. + offset ) * .1 );
   //float displace = snoise( to.xy * .1 );
 
 //  vec4 rotPos = vec4( to.x , to.y , -5. 
@@ -44,7 +44,8 @@ void main(){
 
   normalize( newDir );
   vec3 newTo1 = ( cameraMat * vec4( to.xyz , 0. )  ).xyz;
-  vec3 newTo = newTo1 + (cameraPos+offsetPos) - newDir * distToCam -  20.  * newDir * displace; 
+  vec3 offsetCam = ( cameraMat * vec4( offsetPos , 0. ) ).xyz; 
+  vec3 newTo = newTo1 + (cameraPos+offsetCam) - newDir * distToCam -  .3  * newDir * displace; 
  /* vec3 newP = cameraPos - offsetPos;
   newTo = -(normalize(cameraPos.xyz) * distToCam ) + (cameraMat * vec4( to.xyz + newP , 1. )).xyz;*/
 
@@ -64,7 +65,7 @@ void main(){
   float distToHand = length( toHand );
 
   vel += normalize(toHand) * 1000. / (distToHand);*/
-  
+ /* 
   for( int i = 0; i < 20; i++ ){
     //if( repelPos[i] != vec3( 0. , 0. , 0. )){
       vec3 toFriend = (repelPos[i] - pos.xyz) + pagePos;
@@ -78,7 +79,7 @@ void main(){
       vel -= normalize(toFriend) * repelForce / (length( toFriend * toFriend));
     //}
   }
-
+*/
 
 
   //vel.y += abs( displace ) * speed.y;
@@ -97,7 +98,7 @@ void main(){
     }else{
 
       vec3 curlForce = curlNoise( pos.xyz * noiseSize );
-      newPos = pos.xyz - curlForce * 1.1;
+      newPos = pos.xyz - curlForce * .01;
 
     }
   

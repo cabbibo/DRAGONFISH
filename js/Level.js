@@ -45,6 +45,7 @@ function Level( name , dragonFish , params ){
 
 
   this.dead = false;
+  this.deathStarted = false;
 
   
   this.totalNeededToLoad = 0;
@@ -54,8 +55,8 @@ function Level( name , dragonFish , params ){
   this.crystalAdded = false;
   this.active = false;
 
-http://cabbibo.github.io/learningRotations/
   this.startScore = 0;
+  this.restartScore = 0;
   this.currentScore = 0;
   this.endScore = 0;
   this.length = 0;
@@ -210,7 +211,6 @@ Level.prototype.onLoad = function(){
 
   if( this.totalLoaded == this.totalNeededToLoad ){
 
-    console.log('TOTASZ LOADES');
     this.fullyLoaded = true;
 
     this.instantiate();
@@ -449,8 +449,10 @@ Level.prototype.createPath = function(){
 
 Level.prototype.initialize = function(){
 
-  console.log('INITIALIZED' );
   scene.add( this.scene );
+
+  this.startText = new PhysicsText( this.params.startText );
+  this.deathText = new PhysicsText( this.params.deathText );
 
   if( !this.fullyLoaded || !this.prepared ){
 
@@ -477,7 +479,6 @@ Level.prototype.initialize = function(){
     }
 
   }
-
 
 }
 
@@ -511,10 +512,11 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     if(  !verta.type || verta.type === 'alwaysSafe' ){
       saved = true;
     }
-    for( var j = 1; j < this.oldTypes.length; j++ ){
+    for( var j = 0; j < this.oldTypes.length; j++ ){
 
       console.log('VERTA TYPE' );
       console.log( verta.type );
+      console.log( this.oldTypes[j] );
       if( verta.type == this.oldTypes[j] ){
         saved = true;      
       }
@@ -631,6 +633,8 @@ Level.prototype.onStart = function(){
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );
 
+  this.startText.activate();
+
   this.crystal.scale.multiplyScalar( .16 );
   // out with the old, in with the new
   if( this.oldLevel ){
@@ -644,6 +648,8 @@ Level.prototype.onStart = function(){
     this.hookedHooks[i].level = this;
 
   }
+
+  this.restartScore = this.startScore - this.hookedHooks.length;
 
   for( var i= 0; i < dragonFish.leader.body.children.length; i++){
     var c = dragonFish.leader.body.children[i];
@@ -661,7 +667,6 @@ Level.prototype.onStart = function(){
   this.checkForNewHooks( this.currentScore );
 
   this.startHooks();
-  this.startDeath();
 
   this.active = true;
 
@@ -671,6 +676,9 @@ Level.prototype.onStart = function(){
 
 
 Level.prototype.startDeath = function(){
+
+  this.deathStarted = true;
+  this.deathText.activate();
 
   for( var i= 0; i < deathDragon.leader.body.children.length; i++){
     var c = deathDragon.leader.body.children[i];
@@ -725,7 +733,7 @@ Level.prototype.removeSkybox = function(){
     //scene.add( marker );
 
  
-    console.log( this.skybox );
+    //console.log( this.skybox );
     marker.init = { scale: marker.scale.x };
     marker.target = { scale: 0 };
 
@@ -862,6 +870,8 @@ Level.prototype.update = function(){
 
   if( this.active ){
 
+    this.startText.update();
+    this.deathText.update();
     this.updateHooks();
 
   }
@@ -884,7 +894,7 @@ Level.prototype.checkVertabraeForDestruction = function(){
 
    if( percentToLocation > verta.percentToDestruction ){
 
-     console.log( verta.percentToDestruction );
+     //console.log( verta.percentToDestruction );
    
      this.dragonFish.removeVertabraeById( i );
      this.removeHookUI( verta );
@@ -893,7 +903,7 @@ Level.prototype.checkVertabraeForDestruction = function(){
 
        if( this.hookedHooks[j].id === verta.id ){
 
-         console.log('hook removed');
+         //console.log('hook removed');
          this.hookedHooks.splice( j , 1 );
          j--;
 
@@ -964,6 +974,23 @@ Level.prototype.onHook = function( index , hook ){
 
   this.checkForNewHooks( this.currentScore );
 
+  var cs = this.currentScore;
+  if( cs == 2 && this.startText.active === true ){
+    this.startText.kill();
+  }
+
+  if( cs === this.params.death.startScore && this.deathStarted === false ){
+
+    this.startDeath();
+
+  }
+
+  if( cs === (this.params.death.startScore + 2 ) && this.deathText.active === true ){
+
+    this.deathText.kill();
+
+  }
+
   document.getElementById( 'hookCount' ).innerHTML = SCORE;
 
   hook.explode();
@@ -1016,10 +1043,12 @@ Level.prototype.onDeath = function(){
     this.dead = true;
     this.death.note.play();
 
+    this.deathText.kill();
+    
     if( this.dragonFish.spine[0] ){
    
       for( var i=0; i < this.dragonFish.spine.length; i++ ){
-        console.log('removeds');
+        //console.log('removeds');
         this.dragonFish.removeVertabraeById( i );
         i--;
       }
@@ -1053,8 +1082,8 @@ Level.prototype.onDeath = function(){
 
       }.bind( this ) , 5000 );
 
-      this.currentScore = this.startScore;
-      SCORE = this.startScore;
+      SCORE = this.restartScore;
+      this.currentScore = SCORE - this.startScore;
 
 
      // this.hookedHooks = [];
@@ -1147,13 +1176,11 @@ Level.prototype.addHookUI = function( hook ){
   }
 
 
-  console.log('HOOK UI');
-  console.log( hook.ui );
 }
 
 Level.prototype.deactivateHookUI = function( hook ){
 
-  console.log( hook );
+  //console.log( hook );
   var el = $( hook.ui );
   el.removeClass( 'active' );
   el.addClass( 'inactive' );
@@ -1187,10 +1214,10 @@ Level.prototype.removeHookUI = function( hook ){
 
   var hookRow = document.getElementById( hook.type );
 
-  console.log( hook.type );
+  /*console.log( hook.type );
 
   console.log( hook );
-  console.log( hookRow );
+  console.log( hookRow );*/
 
  // for( var i = hookRow.childNodes.length; i >= 0; i-- ){
 
@@ -1198,7 +1225,7 @@ Level.prototype.removeHookUI = function( hook ){
     hookRow.removeChild( hook.ui );
     
     if( hookRow.childNodes.length == 0 ){
-      console.log('WHAOSSSDASSD');
+      //console.log('WHAOSSSDASSD');
       hookRow.parentNode.removeChild( hookRow );
     }
     

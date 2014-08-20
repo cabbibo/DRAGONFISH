@@ -174,19 +174,11 @@
     textParticles = new TextParticles({
       vertexShader:shaders.vertexShaders.text, 
       fragmentShader:shaders.fragmentShaders.text, 
+     // lineHeight:1,
+     // letterWidth:1
     });
 
-    var startingText = [
-    'You can live.',
-    '','',
-    'Remember this miracle on your journey, and realize that no matter how far you go, already you have made it here.',
-    '','',
-    'Find joy in the short existance you have, because even if you make it, it will not be enough'
-    ].join("\n");
-    MAIN_TEXT = new PhysicsText( startingText , {
-     offset: new THREE.Vector3( -200 , 500 , 0 ) 
-    });
-    MAIN_TEXT.activate();
+
 
 
 
@@ -280,7 +272,6 @@
 
 
     var loc = window.location.hash.substring(1);
-    console.log( loc );
     CURRENT_LEVEL = loc || 0;
     var firstLevel = LEVELS[ CURRENT_LEVEL ];
 
@@ -290,11 +281,9 @@
     }
     firstLevel.oldLevel = null;
 
-    console.log( firstLevel );
     camera.position.copy( firstLevel.scene.position );
     camera.position.z += 50;
     camera.lookAt( firstLevel.scene.position );
-    console.log( camera.position );
 
 
     // Hooks
@@ -313,8 +302,6 @@
 
 
     updateInstructions();
-
-    MAIN_TEXT.update();
 
     LEVELS[ CURRENT_LEVEL ].update();
 

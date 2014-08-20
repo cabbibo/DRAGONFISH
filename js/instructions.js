@@ -95,7 +95,7 @@ function updateInstructions(){
 
 function zMovementComplete(){
 
-  console.log( 'zMovementComplete' );
+  //console.log( 'zMovementComplete' );
 
   instructionsZMovementComplete = true;
 
@@ -107,7 +107,7 @@ function zMovementComplete(){
 
 function xyMovementComplete(){
 
-  console.log( 'xyMovementComplete' );
+ // console.log( 'xyMovementComplete' );
   instructionsXYMovementComplete = true;
 
   if( instructionsZMovementComplete ){

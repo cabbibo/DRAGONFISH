@@ -208,7 +208,6 @@ DragonFish.prototype.addPrecreatedVertabrae = function( vertabrae ){
 
 DragonFish.prototype.addBoss = function( vertabrae ){
 
-  console.log( 'BOSS ADDED' );
   vertabrae.dom = this.leader;
 
   this.spine.splice( 0 , 0 , vertabrae );
@@ -447,8 +446,6 @@ DragonFish.prototype.removeVertabraeById = function( id ){
 
 
   tween.start();
-
-
   this.spine.splice( id , 1 );
 
 }
