@@ -996,6 +996,13 @@ Level.prototype.onDeath = function(){
         i--;
       }
 
+      for( var  i =0; i < this.hookedHooks.length; i++ ){
+        
+        var h = this.hookedHooks[i];
+        this.deactivateHookUI( h );
+
+      }
+
       window.setTimeout( function(){
         
         for( var  i =0; i < this.hookedHooks.length; i++ ){
@@ -1076,58 +1083,70 @@ Level.prototype.onEnd = function(){
 
 Level.prototype.addHookUI = function( hook ){
 
+  if( !hook.ui ){
 
-  var hookRow = document.getElementById( hook.type );
+    var hookRow = document.getElementById( hook.type );
 
- 
-   var color = hook.color.getHexString();
+   
+    var color = hook.color.getHexString();
 
-  if( !hookRow ){
-    
+    if( !hookRow ){
+      
 
-    hookRow = document.createElement('div');
-    hookRow.classList.add( 'hookRow');
-    hookRow.id = hook.type;
+      hookRow = document.createElement('div');
+      hookRow.classList.add( 'hookRow');
+      hookRow.id = hook.type;
 
-    var numOf = 1 / hook.power;
+      var numOf = 1 / hook.power;
 
-    var hookInfo = document.getElementById('hookInfo');
-    hookInfo.appendChild( hookRow );
+      var hookInfo = document.getElementById('hookInfo');
+      hookInfo.appendChild( hookRow );
 
-  }
-
-  var hookCounter = document.createElement('div' );
-  hookCounter.classList.add( 'hookCounter' );
-  hookCounter.classList.add( 'inactive' );
-  hookCounter.style.border = '1px  solid #'+color;
-
-  hook.counter = hookCounter;
-  hookRow.appendChild( hookCounter );
-
-
-}
-
-Level.prototype.updateHookUI = function( hook ){
-
-  var hookRow = document.getElementById( hook.type );
-
-
-  for( var i = 0; i < hookRow.childNodes.length; i++ ){
-
-    var el = $( hookRow.childNodes[i] )
-
-    var inactive = el.hasClass('inactive');
-    if( inactive ){
- 
-      var color = '#'+hook.color.getHexString();
-      el.removeClass('inactive');
-      el.addClass('active');
-      el.css( 'background' ,  color);
-
-      break;
     }
 
+    var hookCounter = document.createElement('div' );
+    hookCounter.classList.add( 'hookCounter' );
+    hookCounter.classList.add( 'inactive' );
+    hookCounter.style.border = '1px  solid #'+color;
+
+    hook.ui = hookCounter;
+    hookRow.appendChild( hookCounter );
+
   }
+
+
+  console.log('HOOK UI');
+  console.log( hook.ui );
+}
+
+Level.prototype.deactivateHookUI = function( hook ){
+
+  console.log( hook );
+  var el = $( hook.ui );
+  el.removeClass( 'active' );
+  el.addClass( 'inactive' );
+  el.css( 'background' , 'none' );
+
+}
+Level.prototype.updateHookUI = function( hook ){
+
+ // var hookRow = document.getElementById( hook.type );
+
+
+ // for( var i = 0; i < hookRow.childNodes.length; i++ ){
+
+  var el = $( hook.ui )
+
+  var inactive = el.hasClass('inactive');
+  if( inactive ){
+
+    var color = '#'+hook.color.getHexString();
+    el.removeClass('inactive');
+    el.addClass('active');
+    el.css( 'background' ,  color);
+   // break;
+  }
+
 
 }
 
@@ -1141,22 +1160,19 @@ Level.prototype.removeHookUI = function( hook ){
   console.log( hook );
   console.log( hookRow );
 
-  for( var i = hookRow.childNodes.length; i >= 0; i-- ){
+ // for( var i = hookRow.childNodes.length; i >= 0; i-- ){
 
    // var el = $( hookRow.childNodes[i] );
-
-
-    hookRow.removeChild( hookRow.childNodes[i-1] );
+    hookRow.removeChild( hook.ui );
     
-    if( i == 1 ){
+    if( hookRow.childNodes.length == 0 ){
       console.log('WHAOSSSDASSD');
       hookRow.parentNode.removeChild( hookRow );
     }
     
-    break;
 
 
-  }
+ // }
 
 
 }
