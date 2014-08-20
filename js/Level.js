@@ -71,6 +71,7 @@ http://cabbibo.github.io/learningRotations/
   this.hooksOnDeck = [];
 
   this.hooks = [];
+  this.hookedHooks = [];
 
 }
 
@@ -941,6 +942,8 @@ Level.prototype.onHook = function( index , hook ){
 
   this.hooks.splice( index , 1 );
 
+  this.hookedHooks.push( hook );
+
   if( this.percentComplete == 1 ){
 
     this.onComplete();
@@ -986,7 +989,42 @@ Level.prototype.onDeath = function(){
     this.death.note.play();
 
     if( this.dragonFish.spine[0] ){
-     this.dragonFish.removeVertabraeById( 0 );
+   
+      for( var i=0; i < this.dragonFish.spine.length; i++ ){
+        console.log('removeds');
+        this.dragonFish.removeVertabraeById( i );
+        i--;
+      }
+
+      window.setTimeout( function(){
+        
+        for( var  i =0; i < this.hookedHooks.length; i++ ){
+
+          var h = this.hookedHooks[i];
+
+          this.hooks.push( h );
+
+          h.activate();
+          this.dragonFish.addToScene( h.vertabrae );
+
+
+        }
+
+        this.hookedHooks = [];
+
+      }.bind( this ) , 5000 );
+
+      this.currentScore = this.startScore;
+      SCORE = this.startScore;
+
+
+     // this.hookedHooks = [];
+
+
+    }else{
+
+      alert('totally dead');
+
     }
 
     setTimeout( function(){
@@ -1063,6 +1101,7 @@ Level.prototype.addHookUI = function( hook ){
   hookCounter.classList.add( 'inactive' );
   hookCounter.style.border = '1px  solid #'+color;
 
+  hook.counter = hookCounter;
   hookRow.appendChild( hookCounter );
 
 

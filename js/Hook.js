@@ -95,6 +95,22 @@
     
     this.reposition();
 
+
+
+    document.getElementById( 'hookCount' ).innerHTML = SCORE;
+    
+
+  }
+
+  Hook.prototype.createVertabrae = function( mesh ){
+
+    this.vertabrae = this.dragonFish.createVertabrae( this.head , mesh , materials );
+
+  }
+
+
+  Hook.prototype.activate = function(){
+
     if( !this.params.boss ){
       
       this.vertabrae = this.dragonFish.createVertabrae( 
@@ -123,19 +139,6 @@
     this.vertabrae.loop   = this.loop;
     this.vertabrae.power  = this.power;
 
-    document.getElementById( 'hookCount' ).innerHTML = SCORE;
-    
-
-  }
-
-  Hook.prototype.createVertabrae = function( mesh ){
-
-    this.vertabrae = this.dragonFish.createVertabrae( this.head , mesh , materials );
-
-  }
-
-
-  Hook.prototype.activate = function(){
 
     scene.add( this.head );
     scene.add( this.clueLine );
