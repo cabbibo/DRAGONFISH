@@ -33,7 +33,7 @@ LEVEL_1_PARAMS.deathText = [
 LEVEL_1_PARAMS.death = {
 
   startScore:3,
-  note:'b7',
+  note:'glassSmash',
   loop:'lvl1/ambient',
   geo:'skull',
   mat:'basicWF',
@@ -452,7 +452,7 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'icosa',
     numOf: 3,
     boss: false,
-    startScore: 1,
+    startScore: 3,
     mat:'basic',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -517,7 +517,7 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'tetra',
     numOf: 3,
     boss: false,
-    startScore: 2,
+    startScore: 6,
     mat:'basic',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -583,7 +583,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 3,
     mat:'basic',
     boss: false,
-    startScore: 0,
+    startScore: 9,
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -647,7 +647,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'basic',
-    startScore: 0,
+    startScore: 12,
     color: new THREE.Color( 0xffffff ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 

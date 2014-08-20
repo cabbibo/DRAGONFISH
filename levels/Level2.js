@@ -64,6 +64,7 @@ LEVEL_2_PARAMS.skybox = {
 
     //this.mat.map = audioController.texture;
 
+    console.log('Face Normals computed');
     geo.computeFaceNormals();
     geo.computeVertexNormals();
     

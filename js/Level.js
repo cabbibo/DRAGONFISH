@@ -1111,7 +1111,7 @@ Level.prototype.onComplete = function(){
   //TODO:
   //PLAY FINISH NOISE
 
-  //deathDragon.retreat();
+  deathDragon.retreat();
 
   if( this.nextLevel ){
     this.nextLevel.initialize();
