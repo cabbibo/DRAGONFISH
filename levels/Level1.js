@@ -78,8 +78,8 @@ LEVEL_1_PARAMS.skybox = {
 
     //this.mat.map = audioController.texture;
 
-    geo.computeFaceNormals();
-    geo.computeVertexNormals();
+    //geo.computeFaceNormals();
+    //geo.computeVertexNormals();
     
   //  assignUVs( geo );
 
