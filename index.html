@@ -74,6 +74,9 @@
   var TMP_VECTOR_3_2  = new THREE.Vector3();
 
 
+  var tv = TMP_VECTOR_3;
+  var tv1 = TMP_VECTOR_3_2;
+
   // color that defines everything
   var baseColor;
   var sceneSize = 10;
@@ -130,6 +133,11 @@
   shaders.load( 'vs-render'   , 'render'  , 'vertex'      );
   shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
   
+  shaders.load( 'fs-deathParticles'   , 'deathParticles'  , 'fragment'    );
+  shaders.load( 'vs-deathParticles'   , 'deathParticles'  , 'vertex'      );
+  shaders.load( 'deathSim'            , 'deathSim'        , 'simulation'  );
+      
+  
   
   shaders.load( 'ss-text'   , 'text' , 'simulation'  );
   shaders.load( 'fs-text'   , 'text' , 'fragment'  );
@@ -139,7 +147,7 @@
 
   var audioController = new AudioController();
 
-  //audioController.mute.gain.value = 0;
+  audioController.mute.gain.value = 0;
 
   var looper          = new Looper( audioController , time , {
 
@@ -170,16 +178,6 @@
     initDebug();
     initGeos();
     initMaterials();
-
-    textParticles = new TextParticles({
-      vertexShader:shaders.vertexShaders.text, 
-      fragmentShader:shaders.fragmentShaders.text, 
-     // lineHeight:1,
-     // letterWidth:1
-    });
-
-
-
 
 
 
@@ -218,6 +216,12 @@
 
     }
 
+    deathDragon.reset = function(){
+
+      this.leader.position.add( new THREE.Vector3( 50000 , 0 , 0 ) );
+
+
+    }
     //deathDragon.attack();
 
 
@@ -321,16 +325,17 @@
       dragonFish.update();
       deathDragon.update();
 
-      var dif = dragonFish.leader.position.clone();
-      dif.sub( deathDragon.leader.position );
+      tv.copy( dragonFish.leader.position );
+      tv.sub( deathDragon.leader.position );
 
-      var length = dif.length();
+      var length = tv.length();
      
       if( deathDragon.attacking === true ){
 
-        if( dif.length() <= 3 ){
+        if( tv.length() <= 3 ){
 
           LEVELS[ CURRENT_LEVEL ].onDeath();//deathNote.play();
+          deathDragon.reset();
 
         }
 
@@ -343,7 +348,9 @@
     }
 
     // Updates our explosion particles
-    explosion.renderer.update();
+    //explosion.renderer.update();
+    soulSucker.renderer.update();
+    
     renderer.render( scene , camera );
     requestAnimationFrame( animate );
 
@@ -357,6 +364,7 @@
     loader.liftCurtain();
 
     initExplosion( dragonFish );
+    initSoulSucker( dragonFish , deathDragon );
     LEVELS[ CURRENT_LEVEL ].initialize();
 
     looper.start();

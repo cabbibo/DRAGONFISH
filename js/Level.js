@@ -451,8 +451,8 @@ Level.prototype.initialize = function(){
 
   scene.add( this.scene );
 
-  this.startText = new PhysicsText( this.params.startText );
-  this.deathText = new PhysicsText( this.params.deathText );
+ // this.startText = new PhysicsText( this.params.startText );
+ // this.deathText = new PhysicsText( this.params.deathText );
 
   if( !this.fullyLoaded || !this.prepared ){
 
@@ -633,7 +633,7 @@ Level.prototype.onStart = function(){
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );
 
-  this.startText.activate();
+  //this.startText.activate();
 
   this.crystal.scale.multiplyScalar( .16 );
   // out with the old, in with the new
@@ -678,7 +678,7 @@ Level.prototype.onStart = function(){
 Level.prototype.startDeath = function(){
 
   this.deathStarted = true;
-  this.deathText.activate();
+  //this.deathText.activate();
 
   for( var i= 0; i < deathDragon.leader.body.children.length; i++){
     var c = deathDragon.leader.body.children[i];
@@ -870,8 +870,8 @@ Level.prototype.update = function(){
 
   if( this.active ){
 
-    this.startText.update();
-    this.deathText.update();
+    //this.startText.update();
+    //this.deathText.update();
     this.updateHooks();
 
   }
@@ -975,9 +975,9 @@ Level.prototype.onHook = function( index , hook ){
   this.checkForNewHooks( this.currentScore );
 
   var cs = this.currentScore;
-  if( cs == 2 && this.startText.active === true ){
+  /*if( cs == 2 && this.startText.active === true ){
     this.startText.kill();
-  }
+  }*/
 
   if( cs === this.params.death.startScore && this.deathStarted === false ){
 
@@ -985,11 +985,11 @@ Level.prototype.onHook = function( index , hook ){
 
   }
 
-  if( cs === (this.params.death.startScore + 2 ) && this.deathText.active === true ){
+  /*if( cs === (this.params.death.startScore + 2 ) && this.deathText.active === true ){
 
     this.deathText.kill();
 
-  }
+  }*/
 
   document.getElementById( 'hookCount' ).innerHTML = SCORE;
 
@@ -1043,7 +1043,7 @@ Level.prototype.onDeath = function(){
     this.dead = true;
     this.death.note.play();
 
-    this.deathText.kill();
+    //this.deathText.kill();
     
     if( this.dragonFish.spine[0] ){
    
@@ -1062,6 +1062,8 @@ Level.prototype.onDeath = function(){
         this.tmpHooks.push( h );
 
       }
+
+
 
       window.setTimeout( function(){
         

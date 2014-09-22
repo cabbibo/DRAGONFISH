@@ -9,7 +9,7 @@ uniform sampler2D t_start;
 uniform float time;
 uniform float delta;
 
-uniform vec3 deathPos;
+uniform vec3 uDeathPos;
 uniform vec3 uPos;
 uniform vec3 uVel;
 
@@ -31,7 +31,7 @@ void main(){
 
   float life = pos.w;
 
-  vec3 dif = pos.xyz - deathPos;
+  vec3 dif = pos.xyz - uDeathPos;
 
 
 
@@ -50,13 +50,15 @@ void main(){
    // vel = uVel.xyz * 10. *  normalize( uVel ) * r;
     vel = 1. * vec3( sin( r * 3.14159 ) , cos( r * 3.142 ) , cos( sin( r * 10.0 ) ));
 
+    vel = vec3( 0. );
+
   }
 
 
   vec3 p = pos.xyz + vel * .6 * audioX.x * audioX.y* audioX.x * audioX.y  ; 
 
 
-  p = pos.xyz + vel + normalize( dif );
+  p = pos.xyz + vel - normalize( dif )*(abs(sin(vUv.x*100.))+10.)/40.;
 
 
   life -= .004 * audioX.x * audioY.y ;
