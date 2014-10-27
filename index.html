@@ -4,6 +4,8 @@
   </head>
   <body>
 
+      <div id="GUI">
+  </div>
     <div id="hookInfo">
       <div id="hookCount"> HELLO </div>
 
@@ -29,6 +31,7 @@
 <script src = "lib/PhysicsRenderer.js"    ></script>
 <script src = "lib/ParticleUtils.js"      ></script>
 <script src = "lib/LoadedAudio.js"        ></script>
+<script src = "lib/dat.gui.min.js"        ></script>
 
 <script src = "lib/TextParticles.js"      ></script>
 <script src = "lib/PhysicsText.js"        ></script>
@@ -63,6 +66,9 @@
 <script src = "js/instructions.js"        ></script>
 <script src = "js/addSocialMedia.js"      ></script>
 
+<script src = "js/GEM.js"                      ></script>
+<script src = "js/GUI.js"                      ></script>
+<script src = "js/CurlMesh.js"                 ></script>
 
 <script>  
 
@@ -73,6 +79,8 @@
   var TMP_VECTOR_3    = new THREE.Vector3();
   var TMP_VECTOR_3_2  = new THREE.Vector3();
 
+  var levelDebug = false;
+  //levelDebug = true;
 
   var tv = TMP_VECTOR_3;
   var tv1 = TMP_VECTOR_3_2;
@@ -88,6 +96,10 @@
   var mouse =  new THREE.Vector2();
   var counter = 0;
   var time = { type:"f" , value:0 }
+  var dT = { type:"f" , value:0 }
+  var t_audio = { type:"t" , value:null }
+  var lightColors = { type:"v3v" , value:[] }; 
+  var lightDirections = { type:"v3v" , value:[] }; 
   var intersectPlane;
   var projector , raycaster;
   var paused = false;
@@ -96,6 +108,12 @@
   var CURRENT_LEVEL = 0;
   var LEVELS = [];
 
+  for( var i  =0; i < 6; i++ ){
+
+    lightColors.value.push( new THREE.Vector3() );
+    lightDirections.value.push( new THREE.Vector3() );
+
+  }
   var startingCrystal;
 
   var textCreator = new TextCreator( 100 );
@@ -144,10 +162,18 @@
   shaders.load( 'vs-text'   , 'text' , 'vertex'  );
 
 
+    
+  shaders.load( 'ss-curlMesh'   , 'curlMesh'  , 'simulation'  );
+  shaders.load( 'vs-curl1'      , 'curl1'     , 'vertex'      );
+  shaders.load( 'fs-curl1'      , 'curl1'     , 'fragment'    );
+
+
 
   var audioController = new AudioController();
 
   audioController.mute.gain.value = 0;
+
+  t_audio.value = audioController.texture;
 
   var looper          = new Looper( audioController , time , {
 
@@ -291,7 +317,7 @@
 
 
     // Hooks
-    recreateLights( 0x777777 );
+    recreateLights( 0x777777 , .1 );
     
     addSocialMedia( SOCIAL_MEDIA );
     
@@ -316,6 +342,7 @@
     // updates the dragonFish
     updateMechanics( delta );
 
+    dT.value = delta;
     time.value += delta;
     stats.update();
 

@@ -5,8 +5,8 @@ function initThree(){
   camera = new THREE.PerspectiveCamera( 
     50 ,
     window.innerWidth / window.innerHeight,
-    sceneSize / 100 ,
-    sceneSize * 400
+    sceneSize / 10 ,
+    sceneSize * 1000
     );
 
   // placing our camera position so it can see everything

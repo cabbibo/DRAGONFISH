@@ -91,13 +91,26 @@ function initSoulSucker( dragonFish , death){
 
   var physicsRenderer = new PhysicsRenderer( size , sim , renderer ); 
 
+  
+  var beingChased =  {
+    type:"f" , value: 0.0
+  };
+    var justHit =  {
+    type:"f" , value: 0.0
+  };
+
   uniforms = {
     t_pos:{ type:"t" , value:null },
     t_oPos:{ type:"t" , value:null },
     t_ooPos:{ type:"t" , value:null },
     t_audio:{ type:"t" , value:audioController.texture},
     sprite:{ type:"t" , value:sprite},
-    color:{ type:"v3" , value: new THREE.Vector3( 1. ,1., 1.) }
+    color:{ type:"v3" , value: new THREE.Vector3( 1. ,1., 1.) },
+    uDeathPos:{ type:"v3" , value: death.leader.position  },
+    uPos:{ type:"v3" , value: dragonFish.leader.position },
+    beingChased: beingChased,
+    justHit: justHit
+
   }
   
   var mat = new THREE.ShaderMaterial({
@@ -143,15 +156,18 @@ function initSoulSucker( dragonFish , death){
     type:"v3" , value: dragonFish.leader.velocity
   });
 
-  var justHit =  {
-    type:"f" , value: 0.0
-   };
+
   physicsRenderer.setUniform( 'justHit' , justHit );
+  physicsRenderer.setUniform( 'beingChased' , beingChased );
+
+
 
 
   soulSucker.renderer = physicsRenderer;
   soulSucker.particles = physicsParticles;
   soulSucker.justHit = justHit;
+  soulSucker.beingChased = beingChased;
+
 
   return soulSucker;
 

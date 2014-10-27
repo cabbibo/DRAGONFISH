@@ -340,3 +340,13 @@ display:none;
 #startButton:hover{
 //background:#f00;
 }
+
+    #GUI{
+
+      position:fixed;
+      right:0px;
+      top:0px;
+      z-index:999;
+
+    }
+    

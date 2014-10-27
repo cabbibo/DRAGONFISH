@@ -2,6 +2,7 @@
 
 var LEVEL_1_PARAMS = {};
 
+LEVEL_1_PARAMS.lightUncertainty = .001;
 
 LEVEL_1_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
@@ -389,7 +390,7 @@ LEVEL_1_PARAMS.newTypes = [
     boss: false,
     startScore: 0,
     mat:'basic',
-    color: new THREE.Color(0xffffff),
+    color: new THREE.Color(0x777777),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -648,12 +649,12 @@ LEVEL_1_PARAMS.newTypes = [
     boss: true,
     mat:'basic',
     startScore: 12,
-    color: new THREE.Color( 0xffffff ),
+    color: new THREE.Color( 0x555555 ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
       var m = mat;
       m.side = THREE.DoubleSide;
-      m.wireframe = true;
+      m.wireframe = false;
     
       var head = new THREE.Mesh(
           geo,

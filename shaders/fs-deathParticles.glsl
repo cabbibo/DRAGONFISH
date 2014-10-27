@@ -2,6 +2,7 @@ uniform sampler2D t_audio;
 uniform sampler2D sprite;
 uniform vec3  color;
 uniform float id;
+uniform vec3 uDeathPos;
 uniform vec3 uPos;
 uniform vec3 uVel;
 
@@ -40,17 +41,17 @@ void main(){
   gl_FragColor = vec4( shimmer * (1. / vPos.w ) , (.5 / vPos.w ) * s.w * s.x * .6);*/
 
   vec4 s = texture2D( sprite , vec2( gl_PointCoord.x , 1.0 - gl_PointCoord.y) );
-  
   vec2 sample = vec2( abs( vPos.y / 20. ) , 0.0 );
  
   if( s.a < .1 ){
     discard;
   }
   
+  float l = 2000. /  length( uPos - uDeathPos );
   vec4 a = texture2D( t_audio , sample );
-  
+ 
   //gl_FragColor = vec4( a * s * vec4(color , 1.0 ));
-  gl_FragColor = vec4( 1. , 0. , 0. , 1.);
+  gl_FragColor = s *  a + vec4( l * 1. , 0. , 0. , 0.);
 
 
 }

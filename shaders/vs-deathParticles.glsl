@@ -1,10 +1,14 @@
 uniform sampler2D t_pos;
 uniform sampler2D t_vel;
 uniform sampler2D t_audio;
+uniform vec3 uPos;
+uniform vec3 uDeathPos;
 
 varying vec4 vVel;
 varying vec4 vPos;
 varying vec4 vAudio;
+
+
 
 varying vec2 vUv;
 
@@ -25,8 +29,8 @@ void main(){
   //gl_PointSize =  min( 100. ,3.+ 10. * abs(vAudio.x* vAudio.x* vAudio.x)) / length( mvPos) ;
 
   //gl_PointSize = gl_PointSize * 50.;
-
-  gl_PointSize = min( 100. , 500. * vAudio.x * vAudio.x * vAudio.y / length( mvPos ));
+  float l = 2000. /  (length( uPos - uDeathPos ) * length( uPos - uDeathPos ));
+  gl_PointSize = min( 100. , l * 500. * vAudio.x * vAudio.x * vAudio.y / length( mvPos ));
   //gl_PointSize = 10.;
   gl_Position = projectionMatrix * mvPos;
 

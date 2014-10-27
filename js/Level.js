@@ -44,6 +44,7 @@ function Level( name , dragonFish , params ){
   this.oldTypes = params.oldTypes || [];
 
 
+  this.lightUncertainty = params.lightUncertainty;
   this.dead = false;
   this.deathStarted = false;
 
@@ -73,6 +74,9 @@ function Level( name , dragonFish , params ){
 
   this.hooks = [];
   this.hookedHooks = [];
+
+
+  this.allHooks = [];
 
 }
 
@@ -234,7 +238,9 @@ Level.prototype.instantiate = function(){
   this.note = NOTES[ this.params.note ];
   
 
-  for( var  i = 0; i < this.newTypes.length; i++ ){
+  var l = this.newTypes.length;
+  if( levelDebug ) l = 1;
+  for( var  i = 0; i < l; i++ ){
 
     var loop  = LOOPS[ this.newTypes[i].loop ];
     var note  = NOTES[ this.newTypes[i].note ];
@@ -543,6 +549,7 @@ Level.prototype.addSkybox = function(){
   var marker = this.skybox;
 
   this.scene.add( this.skybox );
+  if( this.skybox.gem ) this.skybox.gem.active = true;
 
   marker.init = { scale: 0 };
   marker.target = { scale: marker.scale.x };
@@ -677,9 +684,11 @@ Level.prototype.onStart = function(){
 
 Level.prototype.startDeath = function(){
 
+  console.log( 'DEATH START' );
   this.deathStarted = true;
   //this.deathText.activate();
 
+  soulSucker.beingChased.value = 1; 
   for( var i= 0; i < deathDragon.leader.body.children.length; i++){
     var c = deathDragon.leader.body.children[i];
     deathDragon.leader.body.remove( c );
@@ -858,6 +867,7 @@ Level.prototype.update = function(){
     this.path.update();
     this.checkVertabraeForDestruction();
 
+    if( this.skybox.gem ) this.skybox.gem.update();
     var dif = this.scene.position.clone().sub( this.dragonFish.leader.position );
   
     if( dif.length() <= this.crystal.size * 3 ){
@@ -870,6 +880,7 @@ Level.prototype.update = function(){
 
   if( this.active ){
 
+    if( this.skybox.gem ) this.skybox.gem.update();
     //this.startText.update();
     //this.deathText.update();
     this.updateHooks();
@@ -1114,6 +1125,7 @@ Level.prototype.onComplete = function(){
   //PLAY FINISH NOISE
 
   deathDragon.retreat();
+  soulSucker.beingChased.value = 0; 
 
   if( this.nextLevel ){
     this.nextLevel.initialize();

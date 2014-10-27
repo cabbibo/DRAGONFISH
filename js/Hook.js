@@ -189,7 +189,7 @@
 
     scene.remove( this.clueLine );
     scene.remove( this.head );
-    changeColor( this.color );
+    changeColor( this.color , this.level.lightUncertainty );
 
   }
 

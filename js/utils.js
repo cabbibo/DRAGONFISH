@@ -1,7 +1,10 @@
- function changeColor( color ){
+ function changeColor( color , uncertainty ){
 
 
-    recreateLights( color.getHex() );
+   console.log('WE CAN BEGIN AGAIN');
+   console.log( uncertainty );
+    recreateLights( color.getHex(), uncertainty );
+    
 
     baseColor = color;
 
@@ -19,8 +22,9 @@
   }
 
 
-  function recreateLights( color ){
+  function recreateLights( color , uncertainty ){
 
+    var u = uncertainty || .4;
     for( var i = 0; i< lights.length; i++ ){
 
       scene.remove( lights[i] );
@@ -29,27 +33,46 @@
 
     lights = [];
 
-    lights[0] = createLightCluster( color , new THREE.Vector3( 0 , 0 , 1 ) );
-    lights[1] = createLightCluster( color , new THREE.Vector3( 0 , 1 , 0 ) );
-    lights[2] = createLightCluster( color , new THREE.Vector3( 1 , 0 , 0 ) );
-    lights[3] = createLightCluster( color , new THREE.Vector3( 0 , 0 , -1 ) );
-    lights[4] = createLightCluster( color , new THREE.Vector3( 0 , -1 , 0 ) );
-    lights[5] = createLightCluster( color , new THREE.Vector3( -1 , 0 , 0 ) );
-    
+    lights[0] = createLightCluster( color , new THREE.Vector3( 0 , 0 , 1 )  , u);
+    lights[1] = createLightCluster( color , new THREE.Vector3( 0 , 1 , 0 ) ,u);
+    lights[2] = createLightCluster( color , new THREE.Vector3( 1 , 0 , 0 ) ,u);
+    lights[3] = createLightCluster( color , new THREE.Vector3( 0 , 0 , -1 ) ,u);
+    lights[4] = createLightCluster( color , new THREE.Vector3( 0 , -1 , 0 ) ,u);
+    lights[5] = createLightCluster( color , new THREE.Vector3( -1 , 0 , 0 ) ,u);
+   
+
+    var l = lights;
+   
+    console.log( l[0] );
+    lightDirections.value[0].copy( l[0].position );
+    lightDirections.value[1].copy( l[1].position );
+    lightDirections.value[2].copy( l[2].position );
+    lightDirections.value[3].copy( l[3].position );
+    lightDirections.value[4].copy( l[4].position );
+    lightDirections.value[5].copy( l[5].position );
+
+    lightColors.value[0].set( l[0].color.r , l[0].color.g , l[0].color.b );
+    lightColors.value[1].set( l[1].color.r , l[1].color.g , l[1].color.b );
+    lightColors.value[2].set( l[2].color.r , l[2].color.g , l[2].color.b );
+    lightColors.value[3].set( l[3].color.r , l[3].color.g , l[3].color.b );
+    lightColors.value[4].set( l[4].color.r , l[4].color.g , l[4].color.b );
+    lightColors.value[5].set( l[5].color.r , l[5].color.g , l[5].color.b );
+
+
 
   }
 
 
-  function createLightCluster(  baseColor , baseDir ){
+  function createLightCluster(  baseColor , baseDir , uncertainty ){
 
 
     var mainColor = new THREE.Color( baseColor );
     var mainDir = baseDir.clone();
 
     var c = mainColor.clone();
-    c.r = c.r + ( (Math.random() -.9) )*.5;
-    c.g = c.g + ( (Math.random() -.9))*.5;
-    c.b = c.b + ( (Math.random() -.9) )*.5;
+    c.r = c.r + ( (Math.random() -.9) )*uncertainty;
+    c.g = c.g + ( (Math.random() -.9))*uncertainty;
+    c.b = c.b + ( (Math.random() -.9) )*uncertainty;
 
     var d = mainDir.clone();
     d.x = d.x + ( (Math.random()-.5) * .5 );
