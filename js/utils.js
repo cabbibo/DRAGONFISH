@@ -1,8 +1,8 @@
  function changeColor( color , uncertainty ){
 
 
-   console.log('WE CAN BEGIN AGAIN');
-   console.log( uncertainty );
+  // console.log('WE CAN BEGIN AGAIN');
+  // console.log( uncertainty );
     recreateLights( color.getHex(), uncertainty );
     
 
@@ -43,7 +43,7 @@
 
     var l = lights;
    
-    console.log( l[0] );
+   // console.log( l[0] );
     lightDirections.value[0].copy( l[0].position );
     lightDirections.value[1].copy( l[1].position );
     lightDirections.value[2].copy( l[2].position );

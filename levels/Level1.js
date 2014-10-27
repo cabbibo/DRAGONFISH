@@ -37,7 +37,7 @@ LEVEL_1_PARAMS.death = {
   note:'glassSmash',
   loop:'lvl1/ambient',
   geo:'skull',
-  mat:'basicWF',
+  mat:'lambertWF',
   color:0xffffff,
   scale: 50,
   position: new THREE.Vector3( 0 , -5 , 0 ),
@@ -385,11 +385,11 @@ LEVEL_1_PARAMS.newTypes = [
     type: 'lvl1_part1_synth',
     note: 'clean1',
     loop: 'lvl1/part1/synth',
-    geo:  'cube',
+    geo:  'box',
     numOf: 3,
     boss: false,
     startScore: 0,
-    mat:'basic',
+    mat:'lambertWF',
     color: new THREE.Color(0x777777),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -397,7 +397,8 @@ LEVEL_1_PARAMS.newTypes = [
       m.side = THREE.DoubleSide;
       m.color = this.color;
       m.wireframe = true; 
- 
+
+     // var m = new THREE.MeshNormalMaterial();
       var head = new THREE.Mesh(
           geo,
           m
@@ -454,7 +455,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 3,
-    mat:'basic',
+    mat:'lambertWF',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -519,7 +520,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 6,
-    mat:'basic',
+    mat:'lambertWF',
     color: new THREE.Color(0xdddddd),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -582,7 +583,7 @@ LEVEL_1_PARAMS.newTypes = [
     loop: 'lvl1/part1/drums',
     geo:  'octa',
     numOf: 3,
-    mat:'basic',
+    mat:'lambertWF',
     boss: false,
     startScore: 9,
     color: new THREE.Color(0xdddddd),
@@ -591,7 +592,7 @@ LEVEL_1_PARAMS.newTypes = [
       var m = mat;
       m.side = THREE.DoubleSide;
       m.color = this.color;
-      m.wireframe = true;
+    //  m.wireframe = true;
       m.needsUpdate = true;
     
  
@@ -647,7 +648,7 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
-    mat:'basic',
+    mat:'lambert',
     startScore: 12,
     color: new THREE.Color( 0x555555 ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){

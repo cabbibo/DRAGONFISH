@@ -344,18 +344,18 @@ DragonFish.prototype.removeVertabraeById = function( id ){
   var newDom = this.spine[id-1];
 
   if( id === 0 ){
-    console.log('new dom is leader');
+    //console.log('new dom is leader');
     newDom = this.leader;
   }
 
   if( !newDom ){
   
-    console.log('New Dom Not Defined' );
+   // console.log('New Dom Not Defined' );
 
   }else{
 
-    console.log( 'New Dom Defined' );
-    console.log( newDom );
+    //console.log( 'New Dom Defined' );
+    //console.log( newDom );
 
   }
 
@@ -365,13 +365,13 @@ DragonFish.prototype.removeVertabraeById = function( id ){
   //this.spine[id].dom = undefined;
   if( this.spine[id+1] ){
 
-    console.log( 'There is a next spine' );
+   // console.log( 'There is a next spine' );
     this.spine[id+1].dom = newDom;
     newDom.sub.push( this.spine[id+1] );
 
   }else{
 
-    console.log(' there is not a next spine' );
+   // console.log(' there is not a next spine' );
 
   }
 
@@ -380,7 +380,7 @@ DragonFish.prototype.removeVertabraeById = function( id ){
 
     if(  newDom.sub[i] == this.spine[id] ){
 
-      console.log( 'Splicing out spine' );
+      //console.log( 'Splicing out spine' );
       newDom.sub.splice( i , 1 );
 
 
@@ -392,7 +392,7 @@ DragonFish.prototype.removeVertabraeById = function( id ){
 
     if( this.spine[id].sub[i] == this.spine[id+1] ){
 
-      console.log('splicing out next spine from spine');
+      //console.log('splicing out next spine from spine');
       this.spine[id].sub.splice( i , 1 ); 
       i--;
 

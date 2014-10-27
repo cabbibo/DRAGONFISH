@@ -186,16 +186,24 @@ Level.prototype.loadGeo = function( geoName ){
     return;
 
   }
+
+
   if( geoName && !GEOS[geoName] ){
     
     GEOS[geoName] == 'LOADING';
     var newName = 'models/' + geoName + '.obj'; 
     this.totalNeededToLoad ++;
 
+    console.log('NEASEASD'); console.log( geoName );
     loader.OBJLoader.load( newName , function( object ){
       object.traverse( function ( child ) {
           if ( child instanceof THREE.Mesh ) {
-            GEOS[geoName] = child.geometry;       
+            GEOS[geoName] = child.geometry;     
+            GEOS[geoName].computeFaceNormals();
+            GEOS[geoName].computeVertexNormals();
+            var m = new THREE.Mesh( GEOS[geoName] , new THREE.MeshNormalMaterial() );
+            m.scale.multiplyScalar( .00001 );
+            scene.add( m );
           }
       });
 
@@ -313,6 +321,7 @@ Level.prototype.createStones = function(){
 
 Level.prototype.createDeath = function(){
 
+  console.log( this.params.death.mat );
   this.death = {};
   this.death.loop = LOOPS[ this.params.death.loop ];
   this.death.note = NOTES[ this.params.death.note ];
@@ -520,9 +529,9 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     }
     for( var j = 0; j < this.oldTypes.length; j++ ){
 
-      console.log('VERTA TYPE' );
-      console.log( verta.type );
-      console.log( this.oldTypes[j] );
+      //console.log('VERTA TYPE' );
+      //console.log( verta.type );
+      //console.log( this.oldTypes[j] );
       if( verta.type == this.oldTypes[j] ){
         saved = true;      
       }
@@ -530,13 +539,13 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
     if( !saved ){
 
-      console.log( 'NOT SAVED' );
+     // console.log( 'NOT SAVED' );
       verta.percentToDestruction = Math.random();
         //this.dragonFish.removeVertabraeById( i );
         
     }else{
 
-      console.log( 'SAVED' );
+     // console.log( 'SAVED' );
 
     }
 
@@ -1033,6 +1042,8 @@ Level.prototype.checkForNewHooks = function( score ){
       this.hooksOnDeck.splice( i , 1 );
       this.hooks.push( hook );
 
+      console.log('HOOKS');
+      console.log( hook );
       hook.activate();
       this.dragonFish.addToScene( hook.vertabrae );
 

@@ -64,11 +64,11 @@ function GUI( PARAMS ,  params ){
 // Need to create an extra varible call tmp_color1  to be able to use
 GUI.prototype.addColor = function( folder , object , name ){
 
-  console.log('ass');
+ // console.log('ass');
   var actualObject = name.split( 'tmp_' )[1];
-  console.log( actualObject );
+ // console.log( actualObject );
 
-  console.log( object );
+ // console.log( object );
   this[folder].addColor( object , 'value' ).name( actualObject ).onChange(function(v){
     this.PARAMS[folder][actualObject].value.setHex( v )
 

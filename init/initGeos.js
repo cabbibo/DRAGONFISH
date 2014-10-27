@@ -11,7 +11,7 @@ function initGeos(){
   GEOS.icosa6 = new THREE.IcosahedronGeometry( 1 , 6 );
   GEOS.icosa4 = new THREE.IcosahedronGeometry( 1 , 4 );
   GEOS.octa = new THREE.OctahedronGeometry( 1 , 0 );
- /* loader.addToLoadBar();
+  /*loader.addToLoadBar();
   loader.OBJLoader.load( 'lib/totem_6.obj' , function( object ){
     object.traverse( function ( child ) {
         if ( child instanceof THREE.Mesh ) {
@@ -19,18 +19,22 @@ function initGeos(){
         }
     });
     loader.loadBarAdd();
-  });
+  });*/
 
   
-  loader.OBJLoader.load( 'lib/cabbibo_1824.obj' , function( object ){
+    
+ /* loader.addToLoadBar();
+  loader.OBJLoader.load( 'models/logoGeo.obj' , function( object ){
     object.traverse( function ( child ) {
         if ( child instanceof THREE.Mesh ) {
           GEOS.logoGeo = child.geometry;
+                GEOS[geoName].computeFaceNormals();
+            GEOS[geoName].computeVertexNormals();
         }
     });
     loader.loadBarAdd();
-  });
-*/
+  });*/
+
 
 
 

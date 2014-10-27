@@ -440,74 +440,10 @@ LEVEL_2_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl1_part2_drums',
-    note: 'clean1',
-    loop: 'lvl1/part2/drums',
-    geo:  'logoGeo',
-    numOf: 1,
-    boss: true,
-     mat: 'planet',
-    startScore: 0,
-    color: new THREE.Color( 0x307755 ),
-    instantiate: function( level , dragonFish , note , loop , geo , mat ){
-
-
-      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
-      var head = new THREE.Mesh(
-          geo,
-          mat
-      );
-
-      head.scale.multiplyScalar( .1 );
-
-      var m1 = new THREE.Mesh( geo , m );
-
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
-
-      m2 = m1.clone();
-      m2.scale.multiplyScalar( .6);
-
-      m3 = m2.clone();
-      m3.scale.multiplyScalar( .6 );
-
-      m4 = m3.clone();
-      m4.scale.multiplyScalar( .6 );
-
-      var hooks = [];
-
-      for( var i = 0; i < this.numOf; i++ ){
-
-        var hook = new Hook( dragonFish, level , this.type , {
-          head:head.clone(),
-          m1: m1,
-          m2: m2,
-          m3: m3,
-          m4: m4,
-          note:note,
-          startScore: this.startScore,
-          loop:loop,
-          color: this.color,
-          power: 1/ this.numOf,
-          boss: true
-        });
-
-        var id = Math.random();
-        hook.id = id;
-
-        hooks.push( hook );
-      }
-  
-      return hooks;
-    }
-  },
-
-  {
     type: 'lvl1_part2_synth',
     note: 'clean1',
     loop: 'lvl1/part2/synth',
-    geo:  'logoGeo',
+    geo:  'box',
     numOf: 3,
     boss: false,
     startScore: 0,

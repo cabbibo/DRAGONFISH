@@ -9,6 +9,9 @@ function initMaterials(){
   MATS.basicWF.wireframe = true;
   
   MATS.lambert  = new THREE.MeshLambertMaterial();
+  MATS.lambertWF  = new THREE.MeshLambertMaterial();
+  MATS.lambertWF.wireframe = true;
+
   MATS.normal  = new THREE.MeshNormalMaterial();
 
 
