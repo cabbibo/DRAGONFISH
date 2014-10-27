@@ -1065,6 +1065,7 @@ Level.prototype.onDeath = function(){
     this.dead = true;
     this.death.note.play();
 
+    deathDragon.retreat();
     //this.deathText.kill();
     
     if( this.dragonFish.spine[0] ){
@@ -1100,6 +1101,8 @@ Level.prototype.onDeath = function(){
 
 
         }
+
+        deathDragon.attack();
 
         this.tmpHooks = null;
         this.hookedHooks = [];

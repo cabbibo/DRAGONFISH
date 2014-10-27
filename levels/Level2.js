@@ -88,7 +88,7 @@ LEVEL_2_PARAMS.skybox = {
     geo.computeFaceNormals();
     geo.computeVertexNormals();
    
-    var curlMesh = new CurlMesh( 'Space Puppy' , new THREE.Mesh(geo) , {
+    var curlMesh = new CurlMesh( 'LEVEL 2' , new THREE.Mesh(geo) , {
 
       soul:{
   
