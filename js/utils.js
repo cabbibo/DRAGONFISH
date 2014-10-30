@@ -70,9 +70,9 @@
     var mainDir = baseDir.clone();
 
     var c = mainColor.clone();
-    c.r = c.r + ( (Math.random() -.9) )*uncertainty;
-    c.g = c.g + ( (Math.random() -.9))*uncertainty;
-    c.b = c.b + ( (Math.random() -.9) )*uncertainty;
+    c.r = c.r + ( (Math.random()) )*uncertainty;
+    c.g = c.g + ( (Math.random())) *uncertainty;
+    c.b = c.b + ( (Math.random()) )*uncertainty;
 
     var d = mainDir.clone();
     d.x = d.x + ( (Math.random()-.5) * .5 );
@@ -83,7 +83,7 @@
     //c.normalize();
 
    // c.r = d.x;
-    var light = new THREE.DirectionalLight(c.getHex() , 1);
+    var light = new THREE.DirectionalLight(c.getHex() , .5 );
     
     light.position.copy( d );
     lights.push( light );

@@ -1,7 +1,7 @@
 var LEVEL_3_PARAMS = {};
 
 
-LEVEL_3_PARAMS.lightUncertainty = .5;
+LEVEL_3_PARAMS.lightUncertainty = .3;
 
 LEVEL_3_PARAMS.position = new THREE.Vector3( 0,2000, 0 );
 
@@ -130,24 +130,24 @@ LEVEL_3_PARAMS.crystal = {
 LEVEL_3_PARAMS.stones = {
 
 
-  geo:'logoGeo',
+  geo:'feather1',
 
   init:function( geo  ){
 
     
-    var geo = new THREE.CubeGeometry( 10 ,10,10 );
+    //var geo = new THREE.CubeGeometry( 3 ,3,3 );
     var mat = mat || new THREE.MeshNormalMaterial();
     
     var mat = new THREE.MeshLambertMaterial({
       shading: THREE.FlatShading,
       color:0xffffff,
-      map:audioController.texture,
+      //map:audioController.texture,
       //wireframe:true,
-      depthWrite:false,
-      transparent:true,
+    //  depthWrite:false,
+     // transparent:true,
       //opacity: .1,
-      side: THREE.DoubleSide,
-      blending:THREE.AdditiveBlending
+      //side: THREE.DoubleSide,
+      //blending:THREE.AdditiveBlending
     });
 
     var geometry = new THREE.Geometry();
@@ -168,12 +168,12 @@ LEVEL_3_PARAMS.stones = {
     place(placingMatrix, 0,-10,0,3);
     place(placingMatrix, 0,0,10,4);
     place(placingMatrix, 0,0,-10,5);
-    place(placingMatrix, 10,10,0,0);
+    /*place(placingMatrix, 10,10,0,0);
     place(placingMatrix, -10,10,0,1);
     place(placingMatrix, -10,10,0,2);
     place(placingMatrix, -10,-10,0,3);
     place(placingMatrix, 10,0,10,4);
-    place(placingMatrix, 10,0,-10,5);
+    place(placingMatrix, 10,0,-10,5);*/
 
     for( var i=0; i < placingMatrix.length; i++ ){
 
@@ -184,7 +184,7 @@ LEVEL_3_PARAMS.stones = {
       var r = placingMatrix[i][2];
 
       mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( s[0] , s[1] , s[2] );
+      mesh.scale.set( 5, 5, 5 );//s[0] *5, s[1] * 5 , s[2] *5);
       mesh.rotation.x = r[0]//,r[1],r[2] );
       mesh.rotation.y = r[1]//,r[1],r[2] );
       mesh.rotation.z = r[2]//,r[1],r[2] );
@@ -264,14 +264,14 @@ LEVEL_3_PARAMS.path = {
     coneMesh.position.z = 2;
     coneMesh.updateMatrix();
 
-
     geo.merge(  cone , coneMesh.matrix );
 
 
 
-    for( var  i = 0; i < 300; i++ ){
+    for( var  i = 0; i < 30; i++ ){
 
       var guide = new THREE.Mesh( geo , mat );
+      guide.scale.multiplyScalar( 10 );
       guide.lifeTime = 0;
       guide.lifeSpeed = Math.random() * .5 + .5;
       guide.velocity = new THREE.Vector3();
@@ -413,7 +413,7 @@ LEVEL_3_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0xaa5599 ),
+    color: new THREE.Color( 0xA67F00 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -479,7 +479,7 @@ LEVEL_3_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 1,
-    color: new THREE.Color( 0x55aa99 ),
+    color: new THREE.Color( 0xA64100 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -541,7 +541,7 @@ LEVEL_3_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 2,
-    color: new THREE.Color( 0x99aa55 ),
+    color: new THREE.Color( 0x970026 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -604,7 +604,7 @@ LEVEL_3_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     startScore: 3,
-    color: new THREE.Color(0x1199cc ),
+    color: new THREE.Color(0xA61700 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
@@ -662,11 +662,12 @@ LEVEL_3_PARAMS.newTypes = [
     note: 'clean1',
     loop: 'lvl2/part1/synth2',
     geo:  'logoGeo',
+    mat: 'rainbowLambert',
     numOf: 1,
     boss: true,
     startScore: 4,
-    color: new THREE.Color( 0xaa5599 ),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    color: new THREE.Color( 0x3C6C67 ),
+    instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
@@ -691,7 +692,7 @@ LEVEL_3_PARAMS.newTypes = [
       m3.scale.multiplyScalar( .6 );
 
       m4 = m3.clone();
-      m4.scale.multiplyScalar( .6 );
+      m4.scale.multiplyScalar( 1.6 );
 
       var hooks = [];
 

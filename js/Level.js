@@ -736,8 +736,12 @@ Level.prototype.startHooks = function(){
 
     var hook = this.hooks[i];
 
+    this.dragonFish.addToScene( hook.vertabrae );
     hook.activate();
     this.dragonFish.addToScene( hook.vertabrae );
+    this.dragonFish.addToScene( hook.vertabrae );
+    //setTimeout( function(){
+   // }.bind( this ) , 1000 )
 
   }
 

@@ -29,8 +29,8 @@ function initGeos(){
       b.position.z  = -i * .3;//*.1 + .3 * Math.random();
       b.position.x = (Math.random()-.5) * i *.1;
       b.position.y = (Math.random()-.5) * i *.1;
-      b.rotation.x = (Math.random()-.5) * i / 20;
-      b.rotation.y = (Math.random()-.5)* i / 20;
+      b.rotation.x = (Math.random()-.5) * i / 10;
+      b.rotation.y = (Math.random()-.5)* i / 10;
 
 
       b.updateMatrix();

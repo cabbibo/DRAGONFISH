@@ -56,7 +56,7 @@ void main(){
   vec3 fColor = vec3( 0. );
   for( int i = 0; i < 6; i++ ){
 
-    fColor += max( 0., dot( vNorm , normalize( lightDirections[i] ) )) * lightColors[i];
+    fColor += max( 0., dot( vNorm , normalize( lightDirections[i] ) )) * lightColors[i] * .5;
 
   }
 
