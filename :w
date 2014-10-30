@@ -1,67 +1,113 @@
-var LEVEL_4_PARAMS = {};
+var LEVEL_3_PARAMS = {};
 
 
-LEVEL_4_PARAMS.position = new THREE.Vector3( 0, 1000 , 0 );
+LEVEL_3_PARAMS.lightUncertainty = .3;
 
-LEVEL_4_PARAMS.note = 'clean6',
+LEVEL_3_PARAMS.position = new THREE.Vector3( 0,2000, 0 );
 
-LEVEL_4_PARAMS.death = {
+LEVEL_3_PARAMS.note = 'clean6',
 
+LEVEL_3_PARAMS.death = {
+
+  startScore:3,  
   note:'glassSmash',
   geo:'skull',
-  mat:'phong',
   loop:'lvl2/ambient',
+  mat:'phong',
   color:0xee6622,
   scale: 100,
-  position: new THREE.Vector3( 0 , -10 , 0 )
+  position: new THREE.Vector3( 0 , -10 , 0 ),
+  plumeGeos:[
+    'box',
+    'box',
+    'box',
+    'box'
+  ],
+  plumeMats:[
+    'basic',
+    'basic',
+    'basic',
+    'basic'
+  ],
+  plumeScales:[
+    1,
+    .5,
+    .1,
+    .1
+  ]
+
 
 }
 
 
-LEVEL_4_PARAMS.geo = 'totem';
+LEVEL_3_PARAMS.geo = 'totem';
 
 
 
-LEVEL_4_PARAMS.oldTypes = [
+LEVEL_3_PARAMS.oldTypes = [
 
-  'lvl2_part1_drums',
-  //'lvl2_part1_synth1',
+  'lvl1_part2_drums',
+  'lvl1_part2_vox',
 
 ] 
 
 
-LEVEL_4_PARAMS.skybox = {
+LEVEL_3_PARAMS.skybox = {
 
-  geo:'totem',
+  geo: 'box80_80_80',
   note: 'srBeast1',
   map: 'audioController',
-  mat:'audioLambert',
-  scale: 100,
+  mat: 'planet',
+  scale: 500,
   init: function(geo){
 
     //this.mat.map = audioController.texture;
 
+    console.log('Face Normals computed');
     geo.computeFaceNormals();
     geo.computeVertexNormals();
-    
-    //assignUVs( geo );
-    console.log( geo );
-
-    //this.mat.needsUpdate = true;
    
-    console.log( this.mat );
-    console.log( geo );
+    var curlMesh = new CurlMesh( 'LEVEL 2' , new THREE.Mesh(geo) , {
 
-    var m =  MATS[this.mat].clone();
-    m.side = THREE.DoubleSide;
-    m.uniforms.t_audio.value = audioController.texture;
-    m.uniforms.color.value =  new THREE.Vector3( 1 , 1, 1 );
-    var skybox = new THREE.Mesh( geo , m );
+      soul:{
+  
+        noiseSize:{ type:"f" , value: 3. , constraints:[.0001 , .01] },
+        noiseVariation:     { type:"f" , value: .1   , constraints:[.01 , 1.] },
+        dampening:          { type:"f" , value: .9 , constraints:[.8 , .999] },
+        noisePower:         { type:"f" , value: 3   , constraints:[0 , 200.] },
+        returnPower:        { type:"f" , value: 10.   , constraints:[ .0 ,2. ] },
+        audioVelMultiplier: { type:"f" , value: .8   , constraints:[ 0 , 1 ] },
+    
+      },
+      
+      body:{
+      
+        audioDisplacement:{ type:"f" , value : 0.0 ,  constraints:[ 0 , 100 ]},
 
-    console.log( this.scale );
+        tmp_color1:{ type:"color" , value: 0xff0000 },
+        tmp_color2:{ type:"color" , value: 0x00ffe1 },
+        tmp_color3:{ type:"color" , value: 0x5500ff },
+
+        lightDirections:  lightDirections,
+        lightColors:      lightColors,
+        
+        color1:{ type:"c" , value : new THREE.Color( 0xff0000 ) },
+        color2:{ type:"c" , value : new THREE.Color( 0x00ffe1 ) },
+        color3:{ type:"c" , value : new THREE.Color( 0x5500ff ) },
+      },
+
+      //type:'points'
+
+      
+    }); 
+
+    var skybox = curlMesh.body;
+    skybox.gem = curlMesh;
+ 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
 
+    //scene.add( skybox );
     return skybox;
     
 
@@ -70,7 +116,8 @@ LEVEL_4_PARAMS.skybox = {
 
 }
 
-LEVEL_4_PARAMS.crystal = {
+
+LEVEL_3_PARAMS.crystal = {
 
   geo: new THREE.CylinderGeometry( 2,0,5 ),
   mat: new THREE.MeshPhongMaterial({ side:THREE.DoubleSide }),
@@ -80,27 +127,27 @@ LEVEL_4_PARAMS.crystal = {
 
 }
 
-LEVEL_4_PARAMS.stones = {
+LEVEL_3_PARAMS.stones = {
 
 
-  geo:'feather2',
+  geo:'feather1',
 
   init:function( geo  ){
 
     
-  //  var geo = new THREE.CubeGeometry( 10 ,10,10 );
+    //var geo = new THREE.CubeGeometry( 3 ,3,3 );
     var mat = mat || new THREE.MeshNormalMaterial();
     
     var mat = new THREE.MeshLambertMaterial({
       shading: THREE.FlatShading,
       color:0xffffff,
-      map:audioController.texture,
+      //map:audioController.texture,
       //wireframe:true,
-      depthWrite:false,
-      transparent:true,
+    //  depthWrite:false,
+     // transparent:true,
       //opacity: .1,
-      side: THREE.DoubleSide,
-      blending:THREE.AdditiveBlending
+      //side: THREE.DoubleSide,
+      //blending:THREE.AdditiveBlending
     });
 
     var geometry = new THREE.Geometry();
@@ -117,11 +164,11 @@ LEVEL_4_PARAMS.stones = {
     place(placingMatrix, 0,0,0,5);
     place(placingMatrix, 10,0,0,0);
     place(placingMatrix, -10,0,0,1);
-    /*place(placingMatrix, 0,10,0,2);
+    place(placingMatrix, 0,10,0,2);
     place(placingMatrix, 0,-10,0,3);
     place(placingMatrix, 0,0,10,4);
     place(placingMatrix, 0,0,-10,5);
-    place(placingMatrix, 10,10,0,0);
+    /*place(placingMatrix, 10,10,0,0);
     place(placingMatrix, -10,10,0,1);
     place(placingMatrix, -10,10,0,2);
     place(placingMatrix, -10,-10,0,3);
@@ -137,12 +184,10 @@ LEVEL_4_PARAMS.stones = {
       var r = placingMatrix[i][2];
 
       mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( 20 , 20 , 20 );
-
-      mesh.lookAt( new THREE.Vector3() );
-      //mesh.rotation.x = r[0]//,r[1],r[2] );
-      //mesh.rotation.y = r[1]//,r[1],r[2] );
-      //mesh.rotation.z = r[2]//,r[1],r[2] );
+      mesh.scale.set( 5, 5, 5 );//s[0] *5, s[1] * 5 , s[2] *5);
+      mesh.rotation.x = r[0]//,r[1],r[2] );
+      mesh.rotation.y = r[1]//,r[1],r[2] );
+      mesh.rotation.z = r[2]//,r[1],r[2] );
 
       mesh.updateMatrix();
       geometry.merge( geo , mesh.matrix );
@@ -169,7 +214,7 @@ LEVEL_4_PARAMS.stones = {
    Path
 
 */
-LEVEL_4_PARAMS.path = {
+LEVEL_3_PARAMS.path = {
 
   notes:['srNight1','srNight2','srNight3','srNight4'],
   pathDetail: 0,
@@ -219,14 +264,14 @@ LEVEL_4_PARAMS.path = {
     coneMesh.position.z = 2;
     coneMesh.updateMatrix();
 
-
     geo.merge(  cone , coneMesh.matrix );
 
 
 
-    for( var  i = 0; i < 300; i++ ){
+    for( var  i = 0; i < 30; i++ ){
 
       var guide = new THREE.Mesh( geo , mat );
+      guide.scale.multiplyScalar( 10 );
       guide.lifeTime = 0;
       guide.lifeSpeed = Math.random() * .5 + .5;
       guide.velocity = new THREE.Vector3();
@@ -358,37 +403,34 @@ LEVEL_4_PARAMS.path = {
 
 }
 
-LEVEL_4_PARAMS.newTypes = [
+LEVEL_3_PARAMS.newTypes = [
 
   {
-    type: 'lvl2_part2_perc',
+    type: 'lvl2_part1_drums',
     note: 'clean1',
-    loop: 'lvl2/part2/perc',
-    geo:  'feather2',
-    mat:'audioLambert',
+    loop: 'lvl2/part1/drums',
+    geo:  'feather1',
     numOf: 3,
+    mat: 'audioLambert',
     boss: false,
     startScore: 0,
-    color: new THREE.Color( 0xaa5599 ),
+    color: new THREE.Color( 0xA67F00 ),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
-     
-      console.log( this );
-      
-      mat.uniforms.t_audio.value = LOOPS[ this.loop ].texture
-  
-      var c = this.color;
-      mat.uniforms.color.value = new THREE.Vector3( c.r , c.g , c.b ); 
 
-      geo = GEOS[ 'cube' ];
+      console.log( mat );
+      console.log('aSDAS');
+      console.log( this.loop );
+      mat.uniforms.t_audio.value = this.loop.texture
+      var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
-          geo,
+          new THREE.BoxGeometry( 1 , 1 , 1 ),
           mat
       );
 
       head.scale.multiplyScalar( 1.1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
-      var m1 = new THREE.Mesh( geo , mat );
+      var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
+      var m1 = new THREE.Mesh( geo , m );
 
       m1.scale.x = 1.1;
       m1.scale.y = 1.1;
@@ -421,6 +463,7 @@ LEVEL_4_PARAMS.newTypes = [
           boss: false
         });
 
+        console.log( 'HOOSK');
         var id = Math.random();
         hook.id = id;
 
@@ -435,31 +478,28 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part2_highs',
+    type: 'lvl2_part1_perc',
     note: 'clean1',
-    loop: 'lvl2/part2/highs',
-    geo:  'logoGeo',
+    loop: 'lvl2/part1/perc',
+    geo:  'feather1',
     numOf: 3,
     boss: false,
     startScore: 1,
-    color: new THREE.Color(0x11aa99 ),
+    color: new THREE.Color( 0xA64100 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
-          geo,
+          GEOS.logoGeo,
           m
       );
 
       head.scale.multiplyScalar( .1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
+
+
       var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
-
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -500,31 +540,28 @@ LEVEL_4_PARAMS.newTypes = [
 
  
   {
-    type: 'lvl2_part2_synth1',
+    type: 'lvl2_part1_synth1',
     note: 'clean1',
-    loop: 'lvl2/part2/synth1',
-    geo:  'logoGeo',
+    loop: 'lvl2/part1/synth1',
+    geo:  'feather1',
     numOf: 3,
     boss: false,
     startScore: 2,
-    color: new THREE.Color( 0xaa5511 ),
+    color: new THREE.Color( 0x970026 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
-          geo,
+          GEOS.logoGeo,
           m
       );
 
       head.scale.multiplyScalar( .1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
+
       var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
 
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -566,31 +603,27 @@ LEVEL_4_PARAMS.newTypes = [
 
   
   {
-    type: 'lvl2_part2_synth2',
+    type: 'lvl2_part1_wood',
     note: 'clean1',
-    loop: 'lvl2/part2/synth2',
-    geo:  'logoGeo',
+    loop: 'lvl2/part1/wood',
+    geo:  'feather1',
     numOf: 3,
     boss: false,
     startScore: 3,
-    color: new THREE.Color( 0x115599 ),
+    color: new THREE.Color(0xA61700 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
-          geo,
+          GEOS.logoGeo,
           m
       );
 
       head.scale.multiplyScalar( .1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
+
       var m = new THREE.MeshLambertMaterial({ color: this.color.getHex() });
       var m1 = new THREE.Mesh( geo , m );
-
-      m1.scale.x = .1;
-      m1.scale.y = .1;
-      m1.scale.z = .1;
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);
@@ -631,15 +664,16 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part1_drums',
+    type: 'lvl2_part1_synth2',
     note: 'clean1',
-    loop: 'lvl2/part1/drums',
+    loop: 'lvl2/part1/synth2',
     geo:  'logoGeo',
+    mat: 'audioLambert',
     numOf: 1,
     boss: true,
     startScore: 4,
-    color: new THREE.Color( 0x444444 ),
-    instantiate: function( level , dragonFish , note , loop , geo ){
+    color: new THREE.Color( 0x3C6C67 ),
+    instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
@@ -664,7 +698,7 @@ LEVEL_4_PARAMS.newTypes = [
       m3.scale.multiplyScalar( .6 );
 
       m4 = m3.clone();
-      m4.scale.multiplyScalar( .6 );
+      m4.scale.multiplyScalar( 1.6 );
 
       var hooks = [];
 
@@ -681,7 +715,7 @@ LEVEL_4_PARAMS.newTypes = [
           loop:loop,
           color: this.color,
           power: 1/ this.numOf,
-          boss: this.boss
+          boss: true
         });
 
         var id = Math.random();

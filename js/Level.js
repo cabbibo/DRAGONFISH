@@ -203,7 +203,7 @@ Level.prototype.loadGeo = function( geoName ){
             GEOS[geoName].computeVertexNormals();
             var m = new THREE.Mesh( GEOS[geoName] , new THREE.MeshNormalMaterial() );
             m.scale.multiplyScalar( .00001 );
-            scene.add( m );
+            this.scene.add( m );
           }
       });
 
@@ -1046,8 +1046,6 @@ Level.prototype.checkForNewHooks = function( score ){
       this.hooksOnDeck.splice( i , 1 );
       this.hooks.push( hook );
 
-      console.log('HOOKS');
-      console.log( hook );
       hook.activate();
       this.dragonFish.addToScene( hook.vertabrae );
 

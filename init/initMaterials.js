@@ -93,6 +93,26 @@ function initMaterials(){
   });
 
 
+  var vs = shaders.vertexShaders.audioLambert; 
+  var fs = shaders.fragmentShaders.audioLambert; 
+  
+  var uniforms = {
+
+    color:{ type:"v3" , value: new THREE.Vector3( 1,0,0) },
+    t_audio:{ type:"t" , value: audioController.texture },
+    audioDisplacement: { type:"f" , value: 0 },
+    lightDirections:  lightDirections,
+    lightColors:      lightColors,
+  }
+  
+  MATS.audioLambert = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    attributes:{ normal:{type:"v3",value:null}},
+    vertexShader: vs,
+    fragmentShader: fs
+  });
+
+
     var color1 = new THREE.Vector3( 3. , .4 , 1. );
   var color2 = new THREE.Vector3( .5 , 1. , 5. );
   var color3 = new THREE.Vector3( 0. , 3 , 0. );
@@ -107,6 +127,7 @@ function initMaterials(){
     color:{ type:"v3", value: new THREE.Vector3(1,1,1)}
 
   }
+
 
 
 

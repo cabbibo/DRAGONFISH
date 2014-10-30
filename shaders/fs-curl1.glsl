@@ -10,8 +10,6 @@ uniform float custom1;
 uniform float custom2;
 uniform float custom3;
 
-uniform vec3 lightColors[6];
-uniform vec3 lightDirections[6];
 
 varying vec2 vUv;
 varying vec3 vVel;
@@ -27,6 +25,9 @@ varying vec3 vLightDir;
 varying float vLife;
 
 varying vec3 vCamVec;
+
+$lightColors
+
 
 void main(){
 
@@ -53,12 +54,12 @@ void main(){
   vec3 lC = color1 * pow( lamb , custom2 * 5. );
 
 
-  vec3 fColor = vec3( 0. );
+  vec3 fColor = lambertLightColor( vNorm );/* vec3( 0. );
   for( int i = 0; i < 6; i++ ){
 
     fColor += max( 0., dot( vNorm , normalize( lightDirections[i] ) )) * lightColors[i] * .5;
 
-  }
+  }*/
 
   //gl_FragColor = vec4( vUv.x, vLife /10000., vUv.y, 1. ); //aC ; //* vec4(  1000. - vMPos.y , 100. / vMPos.y , .3, 1. );
  // gl_FragColor = vec4( vec3( .5 , .4 , .2 ) + vec3( 1. , 1. , .6 ) * aC.xyz * aC1.xyz , 1. ); //aC ; //* vec4(  1000. - vMPos.y , 100. / vMPos.y , .3, 1. );
