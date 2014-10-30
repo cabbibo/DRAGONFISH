@@ -10,6 +10,6 @@ void main(){
 
   vec3 fColor = lambertAudioLightColor( vNorm , t_audio );
 
-  gl_FragColor = vec4( fColor * color , 1. );
+  gl_FragColor = vec4( fColor + fColor* color , 1. );
 
 }

@@ -8,6 +8,7 @@ todo:
 
 
 
+  - assignUVs  bug: somehow, this is screwing with the proper assigning of attributes? why oh why would this be?
 
   - Attribute bug: When normal material not created, doesn't properly assign normals?
 

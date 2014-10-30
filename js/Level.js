@@ -181,6 +181,8 @@ Level.prototype.loadLoop = function( loopName ){
 
 Level.prototype.loadGeo = function( geoName ){
  
+  console.log('GEOSSSS');
+  console.log( geoName );
   if( typeof geoName !== 'string' ){
 
     return;
@@ -194,13 +196,14 @@ Level.prototype.loadGeo = function( geoName ){
     var newName = 'models/' + geoName + '.obj'; 
     this.totalNeededToLoad ++;
 
-    console.log('NEASEASD'); console.log( geoName );
     loader.OBJLoader.load( newName , function( object ){
       object.traverse( function ( child ) {
           if ( child instanceof THREE.Mesh ) {
             GEOS[geoName] = child.geometry;     
             GEOS[geoName].computeFaceNormals();
             GEOS[geoName].computeVertexNormals();
+          //  assignUVs( GEOS[geoName] );
+           
             var m = new THREE.Mesh( GEOS[geoName] , new THREE.MeshNormalMaterial() );
             m.scale.multiplyScalar( .00001 );
             this.scene.add( m );
@@ -210,6 +213,13 @@ Level.prototype.loadGeo = function( geoName ){
       this.onLoad();
 
     }.bind( this ));
+
+  }
+
+  if( GEOS[ geoName] ){
+
+    console.log( geoName );
+    console.log( GEOS[ geoName ] );
 
   }
 

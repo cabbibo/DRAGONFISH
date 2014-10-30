@@ -55,7 +55,7 @@ LEVEL_4_PARAMS.skybox = {
     var m =  MATS[this.mat].clone();
     m.side = THREE.DoubleSide;
     m.uniforms.t_audio.value = audioController.texture;
-    m.uniforms.color.value =  new THREE.Vector3( 1 , 1, 1 );
+    m.uniforms.color.value =  new THREE.Vector3( .5 , .5 , .5 );
     var skybox = new THREE.Mesh( geo , m );
 
     console.log( this.scale );
@@ -96,11 +96,11 @@ LEVEL_4_PARAMS.stones = {
       color:0xffffff,
       map:audioController.texture,
       //wireframe:true,
-      depthWrite:false,
-      transparent:true,
+     // depthWrite:false,
+    //  transparent:true,
       //opacity: .1,
-      side: THREE.DoubleSide,
-      blending:THREE.AdditiveBlending
+     // side: THREE.DoubleSide,
+      //blending:THREE.AdditiveBlending
     });
 
     var geometry = new THREE.Geometry();
@@ -109,7 +109,7 @@ LEVEL_4_PARAMS.stones = {
     placingMatrix.push([[0,0,0],[0,0,0],[0,0,0]]);
 
   
-    place(placingMatrix, 0,0,0,0);
+    /*place(placingMatrix, 0,0,0,0);
     place(placingMatrix, 0,0,0,1);
     place(placingMatrix, 0,0,0,2);
     place(placingMatrix, 0,0,0,3);
@@ -117,16 +117,16 @@ LEVEL_4_PARAMS.stones = {
     place(placingMatrix, 0,0,0,5);
     place(placingMatrix, 10,0,0,0);
     place(placingMatrix, -10,0,0,1);
-    /*place(placingMatrix, 0,10,0,2);
+    /lace(placingMatrix, 0,10,0,2);
     place(placingMatrix, 0,-10,0,3);
     place(placingMatrix, 0,0,10,4);
     place(placingMatrix, 0,0,-10,5);
-    place(placingMatrix, 10,10,0,0);
+    place(placingMatrix, 10,10,0,0);*/
     place(placingMatrix, -10,10,0,1);
     place(placingMatrix, -10,10,0,2);
     place(placingMatrix, -10,-10,0,3);
     place(placingMatrix, 10,0,10,4);
-    place(placingMatrix, 10,0,-10,5);*/
+    place(placingMatrix, 10,0,-10,5);
 
     for( var i=0; i < placingMatrix.length; i++ ){
 
@@ -137,7 +137,7 @@ LEVEL_4_PARAMS.stones = {
       var r = placingMatrix[i][2];
 
       mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( 20 , 20 , 20 );
+      mesh.scale.set( 10 , 10 , 10 );
 
       mesh.lookAt( new THREE.Vector3() );
       //mesh.rotation.x = r[0]//,r[1],r[2] );
@@ -364,7 +364,7 @@ LEVEL_4_PARAMS.newTypes = [
     type: 'lvl2_part2_perc',
     note: 'clean1',
     loop: 'lvl2/part2/perc',
-    geo:  'feather2',
+    geo:  'logoGeo',
     mat:'audioLambert',
     numOf: 3,
     boss: false,
@@ -379,20 +379,22 @@ LEVEL_4_PARAMS.newTypes = [
       var c = this.color;
       mat.uniforms.color.value = new THREE.Vector3( c.r , c.g , c.b ); 
 
-      geo = GEOS[ 'cube' ];
+      var m = new THREE.MeshLambertMaterial({ map: audioController.texture });
+      //geo = new THREE.CubeGeometry( 1 , 1,1 );
+      assignUVs( geo )//.computeVertexNormals();
       var head = new THREE.Mesh(
           geo,
           mat
       );
 
-      head.scale.multiplyScalar( 1.1 );
+      head.scale.multiplyScalar( 100.1 );
 
-      var g = new THREE.IcosahedronGeometry(2);
+     // var g = new THREE.IcosahedronGeometry(2);
       var m1 = new THREE.Mesh( geo , mat );
 
-      m1.scale.x = 1.1;
-      m1.scale.y = 1.1;
-      m1.scale.z = 1.1;
+      m1.scale.x = 20.1;
+      m1.scale.y = 20.1;
+      m1.scale.z = 20.1;
 
       m2 = m1.clone();
       m2.scale.multiplyScalar( .6);

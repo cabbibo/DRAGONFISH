@@ -48,6 +48,7 @@ DragonFish.replaceMesh = function( mesh ){
 
 DragonFish.prototype.addToScene = function( object ){
 
+
   this.recursiveCall( object , function( body ){
     scene.add( body );
   });
@@ -453,6 +454,7 @@ DragonFish.prototype.removeVertabraeById = function( id ){
 DragonFish.prototype.recursiveCall = function( object , callback ){
 
   callback( object.body );
+  //console.log( object.body );
   for( var i = 0; i < object.sub.length; i++ ){
     this.recursiveCall( object.sub[i] , callback );
   }

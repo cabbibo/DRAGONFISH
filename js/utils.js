@@ -128,6 +128,7 @@
     var range   = new THREE.Vector2(max.x - min.x, max.y - min.y);
 
     geometry.faceVertexUvs[0] = [];
+
     var faces = geometry.faces;
 
     for (i = 0; i < geometry.faces.length ; i++) {
@@ -144,6 +145,7 @@
 
     }
 
+    console.log( geometry.faceVertexUvs );
     geometry.uvsNeedUpdate = true;
 
   }

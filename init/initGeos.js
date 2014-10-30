@@ -18,7 +18,7 @@ function initGeos(){
   GEOS.feather2 = feather2();
 
 
-  for( var propt in GEOS ){
+  /*for( var propt in GEOS ){
 
     console.log('YESSS');
     GEOS[ propt ].computeVertexNormals();
@@ -29,7 +29,7 @@ function initGeos(){
 
 
     assignUVs( GEOS[ propt ] );
-  }
+  }*/
 
   function feather1(){
 

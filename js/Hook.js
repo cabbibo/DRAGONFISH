@@ -273,7 +273,7 @@
 
     this.loop.gain.gain.value -= .1;
     var i = { x: 1 };
-    var t = { x:0 };
+    var t = { x:0.00001 };
 
     var tween = new TWEEN.Tween( i ).to( t , 3 * 1000 );
 
