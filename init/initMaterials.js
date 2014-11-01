@@ -107,16 +107,62 @@ function initMaterials(){
   
   MATS.audioLambert = new THREE.ShaderMaterial({
     uniforms: uniforms,
-    attributes:{ normal:{type:"v3",value:null}},
+    vertexShader: vs,
+    fragmentShader: fs
+  });
+
+  var vs = shaders.vertexShaders.audioDisplace; 
+  var fs = shaders.fragmentShaders.audioDisplace; 
+  
+  var uniforms = {
+
+    color:{ type:"v3" , value: new THREE.Vector3( 1,0,0) },
+    t_audio:{ type:"t" , value: audioController.texture },
+    displacement:{ type:"f" , value: 1 },
+    audioDisplacement: { type:"f" , value: 0 },
+    lightDirections:  lightDirections,
+    lightColors:      lightColors,
+  }
+  
+  MATS.audioDisplace = new THREE.ShaderMaterial({
+    uniforms: uniforms,
     vertexShader: vs,
     fragmentShader: fs
   });
 
 
-    var color1 = new THREE.Vector3( 3. , .4 , 1. );
-  var color2 = new THREE.Vector3( .5 , 1. , 5. );
-  var color3 = new THREE.Vector3( 0. , 3 , 0. );
-  var color4 = new THREE.Vector3( 1. , 1. , 4. );
+  var vs = shaders.vertexShaders.shineDisplace; 
+  var fs = shaders.fragmentShaders.shineDisplace; 
+  
+  var uniforms = {
+
+    color:{ type:"v3" , value: new THREE.Vector3( 1,0,0) },
+    t_audio:{ type:"t" , value: audioController.texture },
+    t_normal:{ type:"t" , value:  MATS.textures.normals.moss },
+    texScale:{ type:"f" , value: .5 },
+    normalScale:{ type:"f" , value: 6 },
+    displacement:{ type:"f" , value: 1 },
+    audioDisplacement: { type:"f" , value: 0 },
+    lightDirections:  lightDirections,
+    lightColors:      lightColors,
+  }
+  
+  MATS.shineDisplace = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: vs,
+    fragmentShader: fs
+  });
+
+
+
+
+
+
+
+
+
+
+
 
   var uniforms = {
 

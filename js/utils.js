@@ -137,6 +137,8 @@
       var v2 = geometry.vertices[faces[i].b];
       var v3 = geometry.vertices[faces[i].c];
 
+      if( range.x == 0 ) console.log('NONONOON');
+      if( range.y == 0 ) console.log( 'NOQQQQ' );
       geometry.faceVertexUvs[0].push([
         new THREE.Vector2( ( v1.x + offset.x ) / range.x , ( v1.y + offset.y ) / range.y ),
         new THREE.Vector2( ( v2.x + offset.x ) / range.x , ( v2.y + offset.y ) / range.y ),
@@ -145,7 +147,6 @@
 
     }
 
-    console.log( geometry.faceVertexUvs );
     geometry.uvsNeedUpdate = true;
 
   }

@@ -29,3 +29,19 @@ vec3 lambertAudioLightColor( vec3 normToPass , sampler2D audio ){
   return fColor;
 
 }
+
+vec3 shineAudioLightColor( vec3 normToPass, vec3 eye , sampler2D audio , float power){
+  
+  vec3 fColor = vec3( 0. );
+  for( int i = 0; i < 6; i++ ){
+
+    vec3 refl = reflect( normToPass , normalize( lightDirections[i] ) );
+    float match =  dot( eye , refl );
+    vec4 a = texture2D( audio , vec2( abs( sin(match*1.)) , 0. ) );
+    fColor += pow( max( 0. , match) , power ) *  a.xyz  * lightColors[i];
+
+  }
+
+  return fColor;
+
+}

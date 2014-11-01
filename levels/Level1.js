@@ -390,7 +390,7 @@ LEVEL_1_PARAMS.newTypes = [
     boss: false,
     startScore: 0,
     mat:'lambertWF',
-    color: new THREE.Color(0x777777),
+    color: new THREE.Color(0xcccccc),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -454,9 +454,9 @@ LEVEL_1_PARAMS.newTypes = [
     geo:  'icosa',
     numOf: 3,
     boss: false,
-    startScore: 3,
+    startScore: 1,
     mat:'lambertWF',
-    color: new THREE.Color(0xdddddd),
+    color: new THREE.Color(0xeeeeee),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -464,7 +464,6 @@ LEVEL_1_PARAMS.newTypes = [
       m.color = this.color;
       m.wireframe = true;
       m.needsUpdate = true;
-    
  
       var head = new THREE.Mesh(
           geo,
@@ -586,7 +585,7 @@ LEVEL_1_PARAMS.newTypes = [
     mat:'lambertWF',
     boss: false,
     startScore: 9,
-    color: new THREE.Color(0xdddddd),
+    color: new THREE.Color(0xffffff),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -650,7 +649,7 @@ LEVEL_1_PARAMS.newTypes = [
     boss: true,
     mat:'lambert',
     startScore: 12,
-    color: new THREE.Color( 0x555555 ),
+    color: new THREE.Color( 0xcccccc ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
       var m = mat;

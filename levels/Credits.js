@@ -3,7 +3,7 @@
 var CREDITS_PARAMS = {};
 
 
-CREDITS_PARAMS.position = new THREE.Vector3( 1000 , 0 , 0 );
+CREDITS_PARAMS.position = new THREE.Vector3( 1000 , -1000 , 0 );
 
 CREDITS_PARAMS.note = 'clean6',
 

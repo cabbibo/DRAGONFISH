@@ -335,13 +335,6 @@ Level.prototype.createDeath = function(){
 
   if( this.death.mat.uniforms ){
     if( this.death.mat.uniforms.t_audio ) this.death.mat.uniforms.t_audio.value = audioController.texture;
-    if( this.death.mat.uniforms.t_normal ){
-      
-      console.log('DAETHS');
-      console.log( MATS.textures.normals.moss );
-      this.death.mat.uniforms.t_normal.value = MATS.textures.normals.moss;
-
-    }
     if( this.death.mat.uniforms.displacement ) this.death.mat.uniforms.displacement.value = .1;
   }
   this.death.mat.color= new THREE.Color( this.params.death.color );
@@ -398,13 +391,7 @@ Level.prototype.createCrystal = function(){
     g = GEOS[this.params.crystal.geo];
   }
   if( typeof this.params.crystal.mat === 'string' ){
-    m = MATS[this.params.crystal.mat].clone();
-  }
-
-  if( m.uniforms ){
-    if( m.uniforms.t_audio ) m.uniforms.t_audio.value = audioController.texture;
-    if( m.uniforms.displacement ) m.uniforms.displacement.value = this.params.crystal.displacement || .0001;
-    if( m.uniforms.t_normal ) m.uniforms.t_normal.value = MATS.textures.normals.moss;
+    m = MATS[this.params.crystal.mat];
   }
 
   this.crystal = new THREE.Mesh( g , m );
@@ -415,9 +402,6 @@ Level.prototype.createCrystal = function(){
   this.crystal.size = this.params.crystal.size || 4;
   if( this.params.crystal.rotation ){
     this.crystal.rotation.copy( this.params.crystal.rotation );
-  }
-  if( this.params.crystal.position ){
-    this.crystal.position.copy( this.params.crystal.position);
   }
 
 }

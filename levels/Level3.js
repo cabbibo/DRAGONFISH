@@ -673,6 +673,9 @@ LEVEL_3_PARAMS.newTypes = [
 
 
       mat.uniforms.t_audio.value = LOOPS[ this.loop ].texture
+  
+      var c = this.color;
+      mat.uniforms.color.value = new THREE.Vector3( c.r , c.g , c.b ); 
       var m = new THREE.MeshPhongMaterial({color: this.color.getHex() });
       var head = new THREE.Mesh(
           geo,

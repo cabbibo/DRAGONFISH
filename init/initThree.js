@@ -34,9 +34,10 @@ function initThree(){
     document.body.appendChild( stats.domElement );
 
     // Setting up our Renderer
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ alpha: true });
 
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setClearColor( 0x000000 , 0 );
     container.appendChild( renderer.domElement );
 
     // Making sure our renderer is always the right size

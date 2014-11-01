@@ -3,7 +3,7 @@
 var LEVEL_7_PARAMS = {};
 
 
-LEVEL_7_PARAMS.position = new THREE.Vector3( 0 , 2000 , 0 );
+LEVEL_7_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
 LEVEL_7_PARAMS.note = 'clean6',
 

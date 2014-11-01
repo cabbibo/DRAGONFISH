@@ -11,6 +11,20 @@
 
     </div>
 
+    <div id = "curious">
+
+      <p> Well. You made it. </p>
+      <p> Thanks for playing, and being curious! </p>
+      <p> If you enjoyed playing, say hi on twitter: @cabbibo.</p>
+      <p> A huge thanks goes out to the following,</p>
+      <p> who helped make this project happen ( for free! ): </p>
+      <p> @L4Suicide ( Audio ) </p>
+      <p> @SteveTeeps ( Models ) </p>
+      <p> @TheSpite ( Shader Help ) </p>
+      <p> @mrdoob ( three.js ) </p>
+
+    </div>
+
 <script src = "lib/jquery.min.js"         ></script>
 <script src = "lib/Tween.js"              ></script>
 <script src = "lib/leap.js"               ></script>
@@ -118,8 +132,10 @@
 
   var textCreator = new TextCreator( 100 );
   var textParticles; 
-  var loader = new Loader();
 
+  var loader = new Loader({ numberToLoad: 0 });
+
+  //loader.beginLoading();
   var shaders = new ShaderLoader('shaders');
   shaders.beginLoad = function(){
     loader.beginLoading();
@@ -130,7 +146,8 @@
   }
 
   shaders.shaderSetLoaded = function(){
-    init();
+    //init();
+
   }
 
   shaders.load( 'vs-planet' , 'planet' , 'vertex' );
@@ -146,6 +163,12 @@
 
   shaders.load( 'fs-clueLine'   , 'clueLine'  , 'fragment'    );
   shaders.load( 'vs-clueLine'   , 'clueLine'  , 'vertex'      );
+  
+  shaders.load( 'fs-audioDisplace'   , 'audioDisplace'  , 'fragment'    );
+  shaders.load( 'vs-audioDisplace'   , 'audioDisplace'  , 'vertex'      );
+  
+  shaders.load( 'fs-shineDisplace'   , 'shineDisplace'  , 'fragment'    );
+  shaders.load( 'vs-shineDisplace'   , 'shineDisplace'  , 'vertex'      );
   
   shaders.load( 'fs-audioLambert'   , 'audioLambert'  , 'fragment'    );
   shaders.load( 'vs-audioLambert'   , 'audioLambert'  , 'vertex'      );
@@ -174,7 +197,7 @@
 
   var audioController = new AudioController();
 
-  audioController.mute.gain.value = 0;
+ // audioController.mute.gain.value = 0;
 
   t_audio.value = audioController.texture;
 
@@ -195,17 +218,19 @@
     addInstructions();
 
   }
-
+  
+  loader.beginLoading();
+  initGeos();
+  loader.endLoading();
 
 
 
   function init(){
-    
+
     initThree();
     initAudio();
     initMechanics();
     initDebug();
-    initGeos();
     initMaterials();
 
 
@@ -260,10 +285,10 @@
     LEVEL_2 = new Level( 'second level' , dragonFish , LEVEL_2_PARAMS );
     LEVEL_3 = new Level( 'third level'  , dragonFish , LEVEL_3_PARAMS );
     LEVEL_4 = new Level( 'fourth level' , dragonFish , LEVEL_4_PARAMS );
-    LEVEL_5 = new Level( 'fifth level' , dragonFish , LEVEL_5_PARAMS );
-    LEVEL_6 = new Level( 'sixth level' , dragonFish , LEVEL_6_PARAMS );
-    LEVEL_7 = new Level( 'sixth level' , dragonFish , LEVEL_7_PARAMS );
-    LEVEL_8 = new Level( 'sixth level' , dragonFish , LEVEL_8_PARAMS );
+    LEVEL_5 = new Level( 'fifth level'  , dragonFish , LEVEL_5_PARAMS );
+    LEVEL_6 = new Level( 'sixth level'  , dragonFish , LEVEL_6_PARAMS );
+    LEVEL_7 = new Level( 'sixth level'  , dragonFish , LEVEL_7_PARAMS );
+    LEVEL_8 = new Level( 'sixth level'  , dragonFish , LEVEL_8_PARAMS );
     CREDITS = new Level( 'Credit level' , dragonFish , CREDITS_PARAMS );
 
     
@@ -310,7 +335,7 @@
 
     firstLevel.beginLoading();
     firstLevel.onPrepared = function(){
-      loader.loadBarAdd();
+      loader.endLoading();
     }
     firstLevel.oldLevel = null;
 

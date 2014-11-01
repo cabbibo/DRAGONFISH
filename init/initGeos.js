@@ -16,11 +16,46 @@ function initGeos(){
 
   GEOS.feather1 = feather1();
   GEOS.feather2 = feather2();
+  GEOS.feather3 = feather3();
 
 
-  /*for( var propt in GEOS ){
 
-    console.log('YESSS');
+  var models = [
+
+    "skull",
+    "skull1",
+    "totem",
+    "bone",
+    "logoGeo"
+
+  ]
+  for( var i=0; i < models.length; i++ ){
+  
+    var geoName = models[i];
+    loader.beginLoading();
+    var x = { geoName: geoName };
+    loader.OBJLoader.load( 'models/' + geoName +'.obj' , function( object ){
+      
+      object.traverse( function ( child ) {
+          if ( child instanceof THREE.Mesh ) {
+            GEOS[this.geoName] = child.geometry;     
+            GEOS[this.geoName].computeFaceNormals();
+            GEOS[this.geoName].computeVertexNormals();
+         //   assignUVs( GEOS[this.geoName] );
+          /* 
+            var m = new THREE.Mesh( GEOS[geoName] , new THREE.MeshNormalMaterial() );
+            m.scale.multiplyScalar( .00001 );
+            this.scene.add( m );*/
+          }
+      }.bind( this ));
+
+      loader.endLoading();
+    }.bind( x ));
+
+  }
+
+  for( var propt in GEOS ){
+
     GEOS[ propt ].computeVertexNormals();
     GEOS[ propt ].computeFaceNormals();
     GEOS[ propt ].computeVertexNormals();
@@ -28,8 +63,8 @@ function initGeos(){
     GEOS[ propt ].normalsNeedUpdate = true;
 
 
-    assignUVs( GEOS[ propt ] );
-  }*/
+   //assignUVs( GEOS[ propt ] );
+  }
 
   function feather1(){
 
@@ -103,14 +138,48 @@ function initGeos(){
     g.computeFaceNormals();
     g.computeVertexNormals();
 
-
-
-
     return g;
 
 
   }
 
+  function feather3(){
+
+    var g = new THREE.Geometry();
+
+    for( var i = 0; i < 10; i++ ){
+
+      var b = new THREE.Mesh( new THREE.IcosahedronGeometry(.5,0));
+
+
+      b.scale.y = .2;
+      b.scale.x = .2;
+      b.scale.z = 1.;
+
+      b.position.z  = -i * .3;//*.1 + .3 * Math.random();
+      b.position.x = (Math.random()-.5) * i *.6;
+      b.position.y = (Math.random()-.5) * i *.6;
+
+      b.lookAt( new THREE.Vector3() );
+    //  b.rotation.x = (Math.random()-.5) * i / 10;
+    //  b.rotation.y = (Math.random()-.5)* i / 10;
+
+
+      b.updateMatrix();
+
+      g.merge( b.geometry, b.matrix );
+
+
+
+    }
+
+    g.computeFaceNormals();
+    g.computeVertexNormals();
+
+    return g;
+
+
+  }
   /*loader.addToLoadBar();
   loader.OBJLoader.load( 'lib/totem_6.obj' , function( object ){
     object.traverse( function ( child ) {

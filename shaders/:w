@@ -1,0 +1,21 @@
+
+uniform vec3 color;
+uniform sampler2D t_audio;
+uniform sampler2D t_normal;
+
+$lightColors
+$triplanarMap
+
+varying vec3 vNorm;
+varying vec3 vEye;
+varying vec3 vPos;
+
+void main(){
+
+  vec3 fColor = shineAudioLightColor( vNorm , normalize( vEye ) ,  t_audio , 1. );
+
+  vec3 norm = triplanarMap( vNorm , vPos , t_normal , 10000.1, 100000000000000000.4 );
+  //gl_FragColor = vec4( fColor + fColor* color  * vUv.x , 1. );
+  gl_FragColor = vec4( abs( norm ) , 1. );
+
+}
