@@ -13,7 +13,9 @@ varying vec3 vEye;
 varying vec3 vPos;
 void main(){
 
-  vec3 norm = triplanarMap( vNorm , vPos , t_normal , normalScale , texScale );
+ // vec3 norm = triplanarMap( vNorm , vPos , t_normal , normalScale , texScale );
+  
+  vec3 norm = vNorm;
   vec3 fColor = shineAudioLightColor( norm , normalize( vEye ) ,  t_audio , 1. );
 
 

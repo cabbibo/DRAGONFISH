@@ -57,6 +57,9 @@
 <script src = "init/initDebug.js"         ></script>
 <script src = "init/initGeos.js"          ></script>
 <script src = "init/initMaterials.js"     ></script>
+<script src = "init/initRepelers.js"     ></script>
+<script src = "init/initGems.js"     ></script>
+<script src = "init/initStones.js"     ></script>
 
 <script src = "levels/Level1.js"          ></script>
 <script src = "levels/Level2.js"          ></script>
@@ -83,6 +86,7 @@
 <script src = "js/GEM.js"                      ></script>
 <script src = "js/GUI.js"                      ></script>
 <script src = "js/CurlMesh.js"                 ></script>
+<script src = "js/RepelerMesh.js"              ></script>
 
 <script>  
 
@@ -121,6 +125,7 @@
   var SCORE = 0;
   var CURRENT_LEVEL = 0;
   var LEVELS = [];
+  var REPELERS = [];
 
   for( var i  =0; i < 6; i++ ){
 
@@ -170,6 +175,9 @@
   shaders.load( 'fs-shineDisplace'   , 'shineDisplace'  , 'fragment'    );
   shaders.load( 'vs-shineDisplace'   , 'shineDisplace'  , 'vertex'      );
   
+  shaders.load( 'fs-audioSEM'   , 'audioSEM'  , 'fragment'    );
+  shaders.load( 'vs-audioSEM'   , 'audioSEM'  , 'vertex'      );
+  
   shaders.load( 'fs-audioLambert'   , 'audioLambert'  , 'fragment'    );
   shaders.load( 'vs-audioLambert'   , 'audioLambert'  , 'vertex'      );
   
@@ -189,15 +197,16 @@
 
 
     
-  shaders.load( 'ss-curlMesh'   , 'curlMesh'  , 'simulation'  );
-  shaders.load( 'vs-curl1'      , 'curl1'     , 'vertex'      );
-  shaders.load( 'fs-curl1'      , 'curl1'     , 'fragment'    );
+  shaders.load( 'ss-curlMesh'       , 'curlMesh'  , 'simulation'  );
+  shaders.load( 'ss-repelerMesh'    , 'repelerMesh'  , 'simulation'  );
+  shaders.load( 'vs-curl1'          , 'curl1'     , 'vertex'      );
+  shaders.load( 'fs-curl1'          , 'curl1'     , 'fragment'    );
 
 
 
   var audioController = new AudioController();
 
- // audioController.mute.gain.value = 0;
+  audioController.mute.gain.value = 0;
 
   t_audio.value = audioController.texture;
 
@@ -232,6 +241,9 @@
     initMechanics();
     initDebug();
     initMaterials();
+    initRepelers();
+    initGems();
+    initStones();
 
 
 
@@ -400,6 +412,14 @@
       LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
 
+    }
+    
+    for( var i = 0; i < REPELERS.length; i++ ){        
+      var ind = i / (2 * REPELERS.length); 
+      var fI = Math.floor( ind * audioController.analyzer.array.length );
+      var p = audioController.analyzer.array[ fI ];
+      //console.log( p );
+      REPELERS[i].power.x = p / 128;
     }
 
     // Updates our explosion particles

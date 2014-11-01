@@ -71,8 +71,8 @@ LEVEL_4_PARAMS.skybox = {
 
 LEVEL_4_PARAMS.crystal = {
 
-  geo: new THREE.CylinderGeometry( 2,0,5 ),
-  mat: new THREE.MeshPhongMaterial({ side:THREE.DoubleSide }),
+  geo: new THREE.CylinderGeometry( 2,0,5, 20 ),
+  mat: 'audioLambert',
   map: 'audioController',  
   scale:.3,
   rotation: new THREE.Euler( -Math.PI / 2 , 0 , 0 )

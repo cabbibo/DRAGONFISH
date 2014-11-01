@@ -18,8 +18,10 @@ function initMaterials(){
 
   MATS.textures = {};
   MATS.textures.normals = {};
+  MATS.textures.sem = {};
 
   MATS.textures.normals.moss = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
+  MATS.textures.sem.metal = THREE.ImageUtils.loadTexture( 'img/sem_metal.jpg' );
 
 
   MATS.textures.normals.moss.wrapS = THREE.RepeatWrapping; 
@@ -125,6 +127,26 @@ function initMaterials(){
   }
   
   MATS.audioDisplace = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: vs,
+    fragmentShader: fs
+  });
+
+
+  var vs = shaders.vertexShaders.audioSEM; 
+  var fs = shaders.fragmentShaders.audioSEM; 
+  
+  var uniforms = {
+
+    color:{ type:"v3" , value: new THREE.Vector3( 1,0,0) },
+    t_audio:{ type:"t" , value: audioController.texture },
+    t_sem :{ type:"t" , value: MATS.textures.sem.metal },
+    displacement: { type:"f" , value:1 },
+    lightDirections:  lightDirections,
+    lightColors:      lightColors,
+  }
+  
+  MATS.audioSEM = new THREE.ShaderMaterial({
     uniforms: uniforms,
     vertexShader: vs,
     fragmentShader: fs

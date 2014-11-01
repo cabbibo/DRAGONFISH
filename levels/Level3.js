@@ -58,51 +58,11 @@ LEVEL_3_PARAMS.skybox = {
   note: 'srBeast1',
   map: 'audioController',
   mat: 'planet',
-  scale: 500,
+  scale: 800,
   init: function(geo){
 
-    //this.mat.map = audioController.texture;
-
-    console.log('Face Normals computed');
-    geo.computeFaceNormals();
-    geo.computeVertexNormals();
-   
-    var curlMesh = new CurlMesh( 'LEVEL 2' , new THREE.Mesh(geo) , {
-
-      soul:{
-  
-        noiseSize:{ type:"f" , value: 3. , constraints:[.0001 , .01] },
-        noiseVariation:     { type:"f" , value: .1   , constraints:[.01 , 1.] },
-        dampening:          { type:"f" , value: .9 , constraints:[.8 , .999] },
-        noisePower:         { type:"f" , value: 3   , constraints:[0 , 200.] },
-        returnPower:        { type:"f" , value: 10.   , constraints:[ .0 ,2. ] },
-        audioVelMultiplier: { type:"f" , value: .8   , constraints:[ 0 , 1 ] },
-    
-      },
-      
-      body:{
-      
-        audioDisplacement:{ type:"f" , value : 0.0 ,  constraints:[ 0 , 100 ]},
-
-        tmp_color1:{ type:"color" , value: 0xff0000 },
-        tmp_color2:{ type:"color" , value: 0x00ffe1 },
-        tmp_color3:{ type:"color" , value: 0x5500ff },
-
-        lightDirections:  lightDirections,
-        lightColors:      lightColors,
-        
-        color1:{ type:"c" , value : new THREE.Color( 0xff0000 ) },
-        color2:{ type:"c" , value : new THREE.Color( 0x00ffe1 ) },
-        color3:{ type:"c" , value : new THREE.Color( 0x5500ff ) },
-      },
-
-      //type:'points'
-
-      
-    }); 
-
-    var skybox = curlMesh.body;
-    skybox.gem = curlMesh;
+    var skybox = GEMS.level3.body;
+    skybox.gem = GEMS.level3;
  
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
@@ -150,55 +110,8 @@ LEVEL_3_PARAMS.stones = {
       //blending:THREE.AdditiveBlending
     });
 
-    var geometry = new THREE.Geometry();
-
-    var placingMatrix = [];
-    placingMatrix.push([[0,0,0],[0,0,0],[0,0,0]]);
-
-  
-    place(placingMatrix, 0,0,0,0);
-    place(placingMatrix, 0,0,0,1);
-    place(placingMatrix, 0,0,0,2);
-    place(placingMatrix, 0,0,0,3);
-    place(placingMatrix, 0,0,0,4);
-    place(placingMatrix, 0,0,0,5);
-    place(placingMatrix, 10,0,0,0);
-    place(placingMatrix, -10,0,0,1);
-    place(placingMatrix, 0,10,0,2);
-    place(placingMatrix, 0,-10,0,3);
-    place(placingMatrix, 0,0,10,4);
-    place(placingMatrix, 0,0,-10,5);
-    /*place(placingMatrix, 10,10,0,0);
-    place(placingMatrix, -10,10,0,1);
-    place(placingMatrix, -10,10,0,2);
-    place(placingMatrix, -10,-10,0,3);
-    place(placingMatrix, 10,0,10,4);
-    place(placingMatrix, 10,0,-10,5);*/
-
-    for( var i=0; i < placingMatrix.length; i++ ){
-
-      var mesh = new THREE.Mesh( geo , mat );
-
-      var p = placingMatrix[i][0];
-      var s = placingMatrix[i][1];
-      var r = placingMatrix[i][2];
-
-      mesh.position.set( p[0] , p[1] , p[2] );
-      mesh.scale.set( 5, 5, 5 );//s[0] *5, s[1] * 5 , s[2] *5);
-      mesh.rotation.x = r[0]//,r[1],r[2] );
-      mesh.rotation.y = r[1]//,r[1],r[2] );
-      mesh.rotation.z = r[2]//,r[1],r[2] );
-
-      mesh.updateMatrix();
-      geometry.merge( geo , mesh.matrix );
-
-    }
-
-    geometry.computeFaceNormals();
-    geometry.computeVertexNormals();
-
-    //assignUVs( geometry );
-    stones = new THREE.Mesh( geometry , mat );
+      //assignUVs( geometry );
+    stones = new THREE.Mesh( STONES.level3 , mat );
 
     return stones 
 

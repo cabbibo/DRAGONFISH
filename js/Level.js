@@ -405,6 +405,7 @@ Level.prototype.createCrystal = function(){
     if( m.uniforms.t_audio ) m.uniforms.t_audio.value = audioController.texture;
     if( m.uniforms.displacement ) m.uniforms.displacement.value = this.params.crystal.displacement || .0001;
     if( m.uniforms.t_normal ) m.uniforms.t_normal.value = MATS.textures.normals.moss;
+    if( m.uniforms.t_sem ) m.uniforms.t_sem.value = MATS.textures.sem.metal;
   }
 
   this.crystal = new THREE.Mesh( g , m );
@@ -556,6 +557,10 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
     if(  !verta.type || verta.type === 'alwaysSafe' ){
       saved = true;
+      if( verta.type === 'alwaysSafe' ){
+        console.log( 'WHY THE ACTUAL FUCK DOES THIS EXIST?!??!' );
+        console.log( verta );
+      }
     }
     for( var j = 0; j < this.oldTypes.length; j++ ){
 
@@ -570,7 +575,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
     if( !saved ){
 
      // console.log( 'NOT SAVED' );
-      verta.percentToDestruction = Math.random();
+      verta.percentToDestruction = .5 + Math.random() * .4;
         //this.dragonFish.removeVertabraeById( i );
         
     }else{

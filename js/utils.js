@@ -232,3 +232,14 @@ function getDir(notThis){
 function getPos(){
 	rPos=Math.floor(Math.random()*2);
 }
+
+
+function toCart( r , t , p ){
+
+  var x = r *(Math.sin(t))*(Math.cos(p));
+  var y = r *(Math.sin(t))*(Math.sin(p));
+  var z = r * (Math.cos(t));
+
+  return new THREE.Vector3(x,y,z);
+
+}

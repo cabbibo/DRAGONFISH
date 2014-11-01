@@ -75,7 +75,7 @@ LEVEL_2_PARAMS.oldTypes = [
 
 LEVEL_2_PARAMS.skybox = {
 
-  geo: 'icosa6',
+  geo: 'icosa4',
   note: 'srBeast1',
   map: 'audioController',
   mat: 'planet',
@@ -84,59 +84,10 @@ LEVEL_2_PARAMS.skybox = {
 
     //this.mat.map = audioController.texture;
 
-    console.log('Face Normals computed');
-    geo.computeFaceNormals();
-    geo.computeVertexNormals();
+    
    
-    var curlMesh = new CurlMesh( 'LEVEL 2' , new THREE.Mesh(geo) , {
-
-      soul:{
-  
-        noiseSize:{ type:"f" , value: 3. , constraints:[.0001 , .01] },
-        noiseVariation:     { type:"f" , value: .1   , constraints:[.01 , 1.] },
-        dampening:          { type:"f" , value: .9 , constraints:[.8 , .999] },
-        noisePower:         { type:"f" , value: 1   , constraints:[0 , 200.] },
-        returnPower:        { type:"f" , value: 3.   , constraints:[ .0 ,2. ] },
-        audioVelMultiplier: { type:"f" , value: .8   , constraints:[ 0 , 1 ] },
-    
-      },
-      
-      body:{
-      
-        audioDisplacement:{ type:"f" , value : 0.0 ,  constraints:[ 0 , 100 ]},
-
-        tmp_color1:{ type:"color" , value: 0xff0000 },
-        tmp_color2:{ type:"color" , value: 0x00ffe1 },
-        tmp_color3:{ type:"color" , value: 0x5500ff },
-
-        lightDirections:  lightDirections,
-        lightColors:      lightColors,
-        
-        color1:{ type:"c" , value : new THREE.Color( 0xff0000 ) },
-        color2:{ type:"c" , value : new THREE.Color( 0x00ffe1 ) },
-        color3:{ type:"c" , value : new THREE.Color( 0x5500ff ) },
-      },
-
-      //type:'points'
-
-      
-    }); 
-
-
-
-  
-    //this.mat.needsUpdate = true;
-
-   /* var mat = MATS[ this.mat ].clone();
-    mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
-    mat.uniforms.texScale.value = .1;
-    mat.uniforms.normalScale.value= .1;*/
-
-    var skybox = curlMesh.body;
-    skybox.gem = curlMesh;
+    var skybox = GEMS.level2.body;
+    skybox.gem = GEMS.level2;
  
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
