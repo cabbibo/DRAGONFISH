@@ -178,6 +178,12 @@
   shaders.load( 'fs-audioSEM'   , 'audioSEM'  , 'fragment'    );
   shaders.load( 'vs-audioSEM'   , 'audioSEM'  , 'vertex'      );
   
+  shaders.load( 'fs-audioBright'   , 'audioBright'  , 'fragment'    );
+  shaders.load( 'vs-audioBright'   , 'audioBright'  , 'vertex'      );
+  
+  shaders.load( 'fs-audioGem'   , 'audioGem'  , 'fragment'    );
+  shaders.load( 'vs-audioGem'   , 'audioGem'  , 'vertex'      );
+  
   shaders.load( 'fs-audioLambert'   , 'audioLambert'  , 'fragment'    );
   shaders.load( 'vs-audioLambert'   , 'audioLambert'  , 'vertex'      );
   
@@ -206,7 +212,7 @@
 
   var audioController = new AudioController();
 
- // audioController.mute.gain.value = 0;
+  audioController.mute.gain.value = 0;
 
   t_audio.value = audioController.texture;
 
@@ -232,6 +238,7 @@
   initGeos();
   loader.endLoading();
 
+    bait = new THREE.Object3D();
 
 
   function init(){
@@ -248,7 +255,6 @@
 
 
     // Object our dragon fish follows
-    bait = new THREE.Object3D();
     dragonFish = new DragonFish( bait );
     dragonFish.leader.position.copy( camera.position );
 
@@ -369,6 +375,7 @@
     TWEEN.update();
 
     counter += 1;
+
 
 
     updateInstructions();

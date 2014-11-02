@@ -31,26 +31,10 @@ CREDITS_PARAMS.skybox = {
   note: 'srBeast1',
   map: 'audioController',
   mat: 'lambert',
-  scale: 100,
+  scale: 1,
   init: function(geo){
-
-    //this.mat.map = audioController.texture;
-
-    geo.computeFaceNormals();
-    geo.computeVertexNormals();
     
-  //  assignUVs( geo );
-
-    var mat = MATS[ this.mat ].clone();
-    mat.side = THREE.DoubleSide;
-   /* 
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
-    mat.uniforms.texScale.value = .1;
-    mat.uniforms.normalScale.value= .1;*/
-    //this.mat.needsUpdate = true;
-    
-    var skybox = new THREE.Mesh( geo , mat );
+    var skybox = new THREE.Mesh( GEOS.logoGeo , mat );
 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
@@ -92,39 +76,13 @@ CREDITS_PARAMS.stones = {
   init:function( geo  ){
 
   
-    var geo = new THREE.Geometry();
-    for( var i= 0; i < 50; i++ ){
+      
+      var mat = MATS.audioSEM;
+        var g = STONES.credits;
 
-      for( var j = 0; j < 50; j++ ){
+      var stones = new THREE.Mesh( g , mat );
 
-        for( var k = 0; k < 50; k++ ){
-
-          vert = new THREE.Vector3();
-
-          vert.x = (i - 25)*20;
-          vert.y = (j - 25)*20;
-          vert.z = (k - 25)*20;
-  
-          geo.vertices.push( vert );
-
-
-        }
-
-      }
-
-    }
-
-    //assignUVs( geometry );
-    stones = new THREE.ParticleSystem( geo );
-
-    stones.material.map = audioController.texture;
-    stones.material.blending = THREE.AdditiveBlending;
-    stones.material.transparent = true;
-    stones.material.depthWrite = false;
-    stones.material.size = 3;
-    stones.material.color = new THREE.Color( 0xffffff );
-    return stones 
-
+     return stones 
 
   },
   

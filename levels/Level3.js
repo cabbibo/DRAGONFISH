@@ -181,7 +181,7 @@ LEVEL_3_PARAMS.path = {
 
 
 
-    for( var  i = 0; i < 30; i++ ){
+    for( var  i = 0; i < 300; i++ ){
 
       var guide = new THREE.Mesh( geo , mat );
       guide.scale.multiplyScalar( 10 );

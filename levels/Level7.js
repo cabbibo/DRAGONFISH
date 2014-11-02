@@ -31,16 +31,10 @@ LEVEL_7_PARAMS.skybox = {
   note: 'srBeast1',
   map: 'audioController',
   mat: 'audioSEM',
-  scale: 100,
+  scale: .01,
   init: function(geo){
 
     //this.mat.map = audioController.texture;
-
-    geo.computeFaceNormals();
-    geo.computeVertexNormals();
-    
-  //  assignUVs( geo );
-
     var mat = MATS[ this.mat ].clone();
     mat.side = THREE.DoubleSide;
        
@@ -48,7 +42,7 @@ LEVEL_7_PARAMS.skybox = {
     mat.uniforms.t_audio.value = audioController.texture;
 
     
-    var skybox = new THREE.Mesh( geo , mat );
+    var skybox = new THREE.Mesh( GEOS.logoGeo , mat );
 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
@@ -88,8 +82,14 @@ LEVEL_7_PARAMS.stones = {
 
   init:function( geo  ){
 
-    var mat = MATS.audioSEM;
+    var mat = MATS.audioSEM.clone();
+    mat.uniforms.t_normal.value = MATS.textures.normals.moss;
+    mat.uniforms.t_audio.value = audioController.texture;
+    mat.uniforms.t_loop.value = audioController.texture;
+    mat.uniforms.t_sem.value = MATS.textures.sem.metal;
 
+
+    STONE_MAT = mat;
     var g = STONES.level7;
 
     var stones = new THREE.Mesh( g , mat );
@@ -332,7 +332,8 @@ LEVEL_7_PARAMS.newTypes = [
       m.color = this.color;
     
       m.uniforms.t_sem.value = MATS.textures.sem.metal;
-      m.uniforms.t_audio.value = loop.texture;
+      m.uniforms.t_audio.value =audioController.texture;
+      m.uniforms.t_loop.value = loop.texture;
       
       var head = new THREE.Mesh(
           GEOS.logoGeo,//new THREE.BoxGeometry(1,1,1),
@@ -413,7 +414,8 @@ LEVEL_7_PARAMS.newTypes = [
       m.color = this.color;
     
       m.uniforms.t_sem.value = MATS.textures.sem.metal;
-      m.uniforms.t_audio.value = loop.texture;
+            m.uniforms.t_audio.value =audioController.texture;
+      m.uniforms.t_loop.value = loop.texture;
       
       var head = new THREE.Mesh(
           GEOS.logoGeo,//new THREE.BoxGeometry(1,1,1),
@@ -492,7 +494,8 @@ LEVEL_7_PARAMS.newTypes = [
       m.color = this.color;
     
       m.uniforms.t_sem.value = MATS.textures.sem.metal;
-      m.uniforms.t_audio.value = loop.texture;
+            m.uniforms.t_audio.value =audioController.texture;
+      m.uniforms.t_loop.value = loop.texture;
       
       var head = new THREE.Mesh(
           GEOS.logoGeo,//new THREE.BoxGeometry(1,1,1),
@@ -571,7 +574,8 @@ LEVEL_7_PARAMS.newTypes = [
       m.color = this.color;
     
       m.uniforms.t_sem.value = MATS.textures.sem.metal;
-      m.uniforms.t_audio.value = loop.texture;
+      m.uniforms.t_audio.value =audioController.texture;
+      m.uniforms.t_loop.value = loop.texture;
       
       var head = new THREE.Mesh(
           GEOS.logoGeo,//new THREE.BoxGeometry(1,1,1),
@@ -648,8 +652,8 @@ LEVEL_7_PARAMS.newTypes = [
      // m.side = THREE.DoubleSide;
     
       m.uniforms.t_sem.value = MATS.textures.sem.metal;
-      m.uniforms.t_audio.value = loop.texture;
-       
+          m.uniforms.t_audio.value =audioController.texture;
+      m.uniforms.t_loop.value = loop.texture;
       var head = new THREE.Mesh(
           geo,
           m

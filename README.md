@@ -11,4 +11,4 @@ todo:
   - assignUVs  bug: somehow, this is screwing with the proper assigning of attributes? why oh why would this be?
 
 
-
+  - Go through and make all the guides match the level they are being added to

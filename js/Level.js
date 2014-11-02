@@ -389,26 +389,36 @@ Level.prototype.createSkybox = function(){
 
 Level.prototype.createCrystal = function(){
 
-  var g = this.params.crystal.geo;
-  var m = this.params.crystal.mat;
+  if( !this.params.crystal.init ){
+    
+    var g = this.params.crystal.geo;
+    var m = this.params.crystal.mat;
 
 
-  // Overwrite if its a loaded geo 
-  if( typeof this.params.crystal.geo === 'string' ){
-    g = GEOS[this.params.crystal.geo];
+    // Overwrite if its a loaded geo 
+    if( typeof this.params.crystal.geo === 'string' ){
+      g = GEOS[this.params.crystal.geo];
+    }
+    if( typeof this.params.crystal.mat === 'string' ){
+      m = MATS[this.params.crystal.mat].clone();
+    }
+
+    if( m.uniforms ){
+      if( m.uniforms.t_audio ) m.uniforms.t_audio.value = audioController.texture;
+      if( m.uniforms.displacement ) m.uniforms.displacement.value = this.params.crystal.displacement || .0001;
+      if( m.uniforms.t_normal ) m.uniforms.t_normal.value = MATS.textures.normals.moss;
+      if( m.uniforms.t_sem ) m.uniforms.t_sem.value = MATS.textures.sem.metal;
+    }
+
+    this.crystal = new THREE.Mesh( g , m );
+
+
+  }else{
+    
+    this.crystal = this.params.crystal.init();
+
   }
-  if( typeof this.params.crystal.mat === 'string' ){
-    m = MATS[this.params.crystal.mat].clone();
-  }
 
-  if( m.uniforms ){
-    if( m.uniforms.t_audio ) m.uniforms.t_audio.value = audioController.texture;
-    if( m.uniforms.displacement ) m.uniforms.displacement.value = this.params.crystal.displacement || .0001;
-    if( m.uniforms.t_normal ) m.uniforms.t_normal.value = MATS.textures.normals.moss;
-    if( m.uniforms.t_sem ) m.uniforms.t_sem.value = MATS.textures.sem.metal;
-  }
-
-  this.crystal = new THREE.Mesh( g , m );
   this.crystal.scale.multiplyScalar( this.params.crystal.scale );
   this.crystal.scale.multiplyScalar( 10 );
   //this.crystal.position.z = 2;

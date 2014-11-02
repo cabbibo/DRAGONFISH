@@ -7,12 +7,15 @@ function initGeos(){
   GEOS.cube.computeFaceNormals();
   GEOS.cube.computeVertexNormals();
   GEOS.box50_50_50 = new THREE.BoxGeometry( 1 , 1 , 1, 50,50,50 );
+  GEOS.box10_10_10 = new THREE.BoxGeometry( 1 , 1 , 1, 10,10,10 );
   GEOS.box = GEOS.cube; 
   GEOS.tetra = new THREE.TetrahedronGeometry( 1 , 0 );
   GEOS.icosa = new THREE.IcosahedronGeometry( 1 , 0 );
   GEOS.icosa6 = new THREE.IcosahedronGeometry( 1 , 6 );
   GEOS.icosa5 = new THREE.IcosahedronGeometry( 1 , 5 );
+  GEOS.icosa4 = new THREE.IcosahedronGeometry( 1 , 4 );
   GEOS.octa = new THREE.OctahedronGeometry( 1 , 0 );
+  GEOS.cone500 = new THREE.CylinderGeometry( 1 , 0 , 2 , 50 , 10 );
 
   GEOS.feather1 = feather1();
   GEOS.feather2 = feather2();
@@ -25,6 +28,7 @@ function initGeos(){
   
   
   GEOS.flower = flower();
+  GEOS.fractal = fractal();
   
   
   GEOS.tetraColumn = tetraColumn();
@@ -391,6 +395,74 @@ function initGeos(){
     //var tetraCluster = geometry;
 
 
+  }
+
+  function fractal(){
+
+    var geo = new THREE.BoxGeometry( 1 , 1,1);
+
+    var cube = new THREE.Mesh( geo );
+   
+    var geometry = new THREE.Geometry();
+
+    var dirs = [
+
+      [1,0,0],
+      [0,1,0],
+      [0,0,1],
+      [-1,0,0],
+      [0,-1,0],
+      [0,0,-1],
+
+    ]
+
+    for( var i = 0; i < 6; i++ ){
+        
+      var m = cube.clone();
+      m.position.x = 1 * dirs[i][0];
+      m.position.y = 1 * dirs[i][1];
+      m.position.z = 1 * dirs[i][2];
+
+      m.scale.multiplyScalar( .333 );
+      m.updateMatrix();
+      geometry.merge( m.geometry , m.matrix );
+
+
+      for( var j = 0; j < 6; j++ ){
+
+        var m1 = m.clone();
+        m1.position.x = m.position.x + 1 * m.scale.x * dirs[j][0];
+        m1.position.y = m.position.y + 1 * m.scale.x * dirs[j][1];
+        m1.position.z = m.position.z + 1 * m.scale.x * dirs[j][2];
+
+        m1.scale.multiplyScalar( .333 );
+        m1.updateMatrix();
+        geometry.merge( m1.geometry , m1.matrix );
+
+        for( var k = 0; k < 6; k++ ){
+
+          var m2 = m1.clone();
+          m2.position.x = m1.position.x + 1 * m1.scale.x * dirs[k][0];
+          m2.position.y = m1.position.y + 1 * m1.scale.x * dirs[k][1];
+          m2.position.z = m1.position.z + 1 * m1.scale.x * dirs[k][2];
+
+          m2.scale.multiplyScalar( .333 );
+          m2.updateMatrix();
+          geometry.merge( m2.geometry , m2.matrix );
+
+
+        }
+
+      }
+
+    }
+
+    geometry.computeFaceNormals();
+    geometry.computeVertexNormals();
+
+
+
+    return geometry
   }
 
   /*loader.addToLoadBar();
