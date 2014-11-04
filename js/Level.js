@@ -701,6 +701,17 @@ Level.prototype.addPath = function(){
 
 Level.prototype.onStart = function(){
 
+  if( this.params.credits === true ){
+
+    starMap.material = new THREE.MeshBasicMaterial({
+      color:0xffffff,
+      side: THREE.BackSide,
+      depthWrite: false
+    });
+    starMap.materialNeedsUpdate = true;
+
+
+  }
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );
 
@@ -799,7 +810,7 @@ Level.prototype.startDeath = function(){
 
   /* HACKED */
 
-  deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
+ /* deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
     obj.position.copy( deathDragon.bait.position );
   });
 
@@ -810,7 +821,8 @@ Level.prototype.startDeath = function(){
 
   deathDragon.recursiveCall( deathDragon.plumeBabies[2] , function( obj ){
     obj.position.copy( deathDragon.bait.position );
-  });
+  });*/
+
 
 }
 Level.prototype.startHooks = function(){
@@ -1113,7 +1125,7 @@ Level.prototype.onHook = function( index , hook ){
       deathDragon.bait.position.add( dir );
        
       /* HACKED */
-      deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
+     /* deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
         obj.position.copy( deathDragon.bait.position );
       });
 
@@ -1125,7 +1137,7 @@ Level.prototype.onHook = function( index , hook ){
       deathDragon.recursiveCall( deathDragon.plumeBabies[2] , function( obj ){
         obj.position.copy( deathDragon.bait.position );
       });
-
+*/
 
       deathDragon.attack();
      // this.death.tilAttack = undefined;
@@ -1265,6 +1277,7 @@ Level.prototype.onComplete = function(){
   //TODO:
   //PLAY FINISH NOISE
 
+  deathDragon.bait.position.set( 0 , -10000 , -10000 );
   deathDragon.retreat();
   soulSucker.beingChased.value = 0; 
 

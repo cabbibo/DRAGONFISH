@@ -32,6 +32,20 @@ function initMaterials(){
   var color3 = new THREE.Vector3( 0. , 3 , 0. );
   var color4 = new THREE.Vector3( 1. , 1. , 4. );
 
+
+
+  var vertexShader   = shaders.vertexShaders.edge;
+  var fragmentShader = shaders.fragmentShaders.edge;
+
+  MATS.edge = new THREE.ShaderMaterial({
+
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader
+
+  });
+
+
+
   var uniforms = {
 
     lightPos: { type:"v3" , value: new THREE.Vector3(1000,0,0)},
@@ -46,6 +60,7 @@ function initMaterials(){
     color4:{ type:"v3" , value: color4 },
 
   }
+
 
 
 

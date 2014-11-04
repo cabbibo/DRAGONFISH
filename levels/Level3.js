@@ -11,12 +11,13 @@ LEVEL_3_PARAMS.death = {
 
   startScore:3,  
   note:'glassSmash',
-  geo:'skull',
-  loop:'lvl2/ambient',
-  mat:'phong',
-  color:0xee6622,
-  scale: 100,
-  position: new THREE.Vector3( 0 , -10 , 0 ),
+  geo:'skull1',
+  loop:'lvl1/ambient',
+  mat:'lambert',
+  color:0xffffff,
+  scale: .01,
+  speed: .8,
+  position: new THREE.Vector3( 0 , -3 , 0 ),
   plumeGeos:[
     'box',
     'box',
@@ -24,16 +25,16 @@ LEVEL_3_PARAMS.death = {
     'box'
   ],
   plumeMats:[
-    'basic',
-    'basic',
-    'basic',
-    'basic'
+    'lambert',
+    'lambert',
+    'lambert',
+    'lambert'
   ],
   plumeScales:[
     1,
     .5,
-    .1,
-    .1
+    .3,
+    .2
   ]
 
 

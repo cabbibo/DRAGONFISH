@@ -2,7 +2,7 @@
 
 var CREDITS_PARAMS = {};
 
-
+CREDITS_PARAMS.credits = true;
 CREDITS_PARAMS.position = new THREE.Vector3( 1000 , -1000 , 0 );
 
 CREDITS_PARAMS.note = 'clean6',
@@ -31,7 +31,7 @@ CREDITS_PARAMS.skybox = {
   note: 'srBeast1',
   map: 'audioController',
   mat: 'lambert',
-  scale: 1,
+  scale: .000001,
   init: function(geo){
     
     var skybox = new THREE.Mesh( GEOS.logoGeo , mat );
@@ -60,8 +60,8 @@ CREDITS_PARAMS.skybox = {
 
 CREDITS_PARAMS.crystal = {
 
-  geo: new THREE.CylinderGeometry( 2,0,5 ),
-  mat: new THREE.MeshBasicMaterial({ color:0xffffff }),
+  geo: new THREE.CylinderGeometry( 2,0,5 ,20 , 20 ),
+  mat: 'edge',
   map: 'audioController',  
   scale:.3,
   rotation: new THREE.Euler( -Math.PI / 2 , 0 , 0 )
@@ -77,10 +77,12 @@ CREDITS_PARAMS.stones = {
 
   
       
-      var mat = MATS.audioSEM;
+      var mat = MATS.edge;
         var g = STONES.credits;
 
-      var stones = new THREE.Mesh( g , mat );
+      
+      var stones = new THREE.Mesh( geo , mat );
+      stones.scale.multiplyScalar( .001 );
 
      return stones 
 
@@ -311,7 +313,7 @@ CREDITS_PARAMS.newTypes = [
     boss: false,
     startScore: 0,
     mat:'lambert',
-    color: new THREE.Color(0x66aacc),
+    color: new THREE.Color(0x000000),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -332,7 +334,7 @@ CREDITS_PARAMS.newTypes = [
       head.scale.multiplyScalar( .01);
       head.material.depthWrite = false;
       head.material.opacity = .9;
-      head.material.blending = THREE.AdditiveBlending
+    //  head.material.blending = THREE.AdditiveBlending
       head.material.color = this.color;
       
       var m1 = new THREE.Object3D();
@@ -406,7 +408,7 @@ CREDITS_PARAMS.newTypes = [
     boss: false,
     startScore: 0,
     mat:'lambert',
-    color: new THREE.Color(0xc0ffee),
+    color: new THREE.Color(0x000000),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;
@@ -427,7 +429,7 @@ CREDITS_PARAMS.newTypes = [
       head.scale.multiplyScalar( .01);
       head.material.depthWrite = false;
       head.material.opacity = .9;
-      head.material.blending = THREE.AdditiveBlending
+     // head.material.blending = THREE.AdditiveBlending
       head.material.color = this.color;
       
       var m1 = new THREE.Object3D();
@@ -495,7 +497,7 @@ CREDITS_PARAMS.newTypes = [
     boss: false,
     startScore: 1,
     mat:'planetDisplace',
-    color: new THREE.Color( 0xaa66cc),
+    color: new THREE.Color( 0x000000),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
     
@@ -504,7 +506,7 @@ CREDITS_PARAMS.newTypes = [
       head.scale.multiplyScalar( .01);
       head.material.depthWrite = false;
       head.material.opacity = .9;
-      head.material.blending = THREE.AdditiveBlending
+      //head.material.blending = THREE.AdditiveBlending
       head.material.color = this.color;
 
       var m1 = new THREE.Object3D();
@@ -575,7 +577,7 @@ CREDITS_PARAMS.newTypes = [
     boss: true,
     startScore: 1,
     mat:'planetDisplace',
-    color: new THREE.Color( 0xaa66cc),
+    color: new THREE.Color( 0x000000) ,
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
     
