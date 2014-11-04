@@ -393,7 +393,7 @@ LEVEL_3_PARAMS.newTypes = [
     geo:  'feather1',
     numOf: 3,
     boss: false,
-    startScore: 1,
+    startScore: 3,
     color: new THREE.Color( 0xA64100 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
@@ -455,7 +455,7 @@ LEVEL_3_PARAMS.newTypes = [
     geo:  'feather1',
     numOf: 3,
     boss: false,
-    startScore: 2,
+    startScore: 4,
     color: new THREE.Color( 0x970026 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
@@ -518,7 +518,7 @@ LEVEL_3_PARAMS.newTypes = [
     geo:  'feather1',
     numOf: 3,
     boss: false,
-    startScore: 3,
+    startScore: 7,
     color: new THREE.Color(0xA61700 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 
@@ -580,7 +580,7 @@ LEVEL_3_PARAMS.newTypes = [
     mat: 'audioLambert',
     numOf: 1,
     boss: true,
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0x3C6C67 ),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 

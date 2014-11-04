@@ -393,7 +393,7 @@ LEVEL_1_PARAMS.newTypes = [
     boss: false,
     startScore: 0,
     mat:'lambertWF',
-    color: new THREE.Color(0xcccccc),
+    color: new THREE.Color(0xffffff),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
       var m = mat;

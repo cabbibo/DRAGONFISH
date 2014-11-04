@@ -4,11 +4,11 @@ var GEOS = {};
 function initGeos(){
 
   GEOS.cube = new THREE.BoxGeometry( 1 , 1 , 1 );
-  GEOS.cube.computeFaceNormals();
-  GEOS.cube.computeVertexNormals();
+  //GEOS.cube.computeFaceNormals();
+  //GEOS.cube.computeVertexNormals();
   GEOS.box50_50_50 = new THREE.BoxGeometry( 1 , 1 , 1, 50,50,50 );
   GEOS.box10_10_10 = new THREE.BoxGeometry( 1 , 1 , 1, 10,10,10 );
-  GEOS.box = GEOS.cube; 
+  GEOS.box = GEOS.cube.clone(); 
   GEOS.tetra = new THREE.TetrahedronGeometry( 1 , 0 );
   GEOS.icosa = new THREE.IcosahedronGeometry( 1 , 0 );
   GEOS.icosa6 = new THREE.IcosahedronGeometry( 1 , 6 );
@@ -56,7 +56,7 @@ function initGeos(){
             GEOS[this.geoName] = child.geometry;     
             GEOS[this.geoName].computeFaceNormals();
             GEOS[this.geoName].computeVertexNormals();
-         //   assignUVs( GEOS[this.geoName] );
+           // assignUVs( GEOS[this.geoName] );
           /* 
             var m = new THREE.Mesh( GEOS[geoName] , new THREE.MeshNormalMaterial() );
             m.scale.multiplyScalar( .00001 );
