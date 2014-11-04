@@ -653,7 +653,7 @@ LEVEL_2_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0x307755 ),
     instantiate: function( level , dragonFish , note , loop , geo ){
 

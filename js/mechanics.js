@@ -102,7 +102,7 @@ function updateMechanics( delta ){
     }
 
 
-    deathBait.velocity.add( TMP_VECTOR_3.normalize().multiplyScalar( -.003 ) );
+    deathBait.velocity.add( TMP_VECTOR_3.normalize().multiplyScalar( -.003 * LEVELS[ CURRENT_LEVEL].death.speed  ) );
     deathBait.position.add( deathBait.velocity );
     deathBait.velocity.multiplyScalar( .99 );
 

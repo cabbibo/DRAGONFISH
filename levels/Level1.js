@@ -40,6 +40,9 @@ LEVEL_1_PARAMS.death = {
   mat:'lambertWF',
   color:0xffffff,
   scale: 50,
+  speed: .4,
+  distance: 100,
+  follow: 1,
   position: new THREE.Vector3( 0 , -5 , 0 ),
   plumeGeos:[
     'icosa',
@@ -459,12 +462,12 @@ LEVEL_1_PARAMS.newTypes = [
     color: new THREE.Color(0xeeeeee),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
-      var m = mat;
+      var m = mat.clone();
       m.side = THREE.DoubleSide;
       m.color = this.color;
       m.wireframe = true;
       m.needsUpdate = true;
- 
+
       var head = new THREE.Mesh(
           geo,
           m

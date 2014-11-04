@@ -160,11 +160,11 @@ LEVEL_7_PARAMS.path = {
 
     var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
    
-    var mat = MATS[ 'planet' ].clone();
-   // mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+       var mat = MATS.audioSEM.clone();
+    mat.uniforms.t_normal.value = MATS.textures.normals.moss;
     mat.uniforms.t_audio.value = audioController.texture;
+    mat.uniforms.t_loop.value = audioController.texture;
+    mat.uniforms.t_sem.value = MATS.textures.sem.metal;
 
 
 
@@ -644,7 +644,7 @@ LEVEL_7_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'audioSEM',
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0xcc66aa ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 

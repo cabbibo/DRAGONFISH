@@ -9,14 +9,35 @@ LEVEL_4_PARAMS.note = 'clean6',
 
 LEVEL_4_PARAMS.death = {
 
-  startScore:3,    
+  startScore:3,
   note:'glassSmash',
+  loop:'lvl1/ambient',
   geo:'skull1',
-  mat:'phong',
-  loop:'lvl2/ambient',
-  color:0xee6622,
-  scale: 100,
-  position: new THREE.Vector3( 0 , -10 , 0 )
+  mat:'audioLambert',
+  color:0xffffff,
+  scale: .01,
+  speed: .8,
+  distance: 100,
+  follow: 1,
+  position: new THREE.Vector3( 0 , -2 , 0 ),
+  plumeGeos:[
+    'feather1',
+    'feather1',
+    'feather1',
+    'feather1'
+  ],
+  plumeMats:[
+    'audioLambert',
+    'audioLambert',
+    'audioLambert',
+    'audioLambert'
+  ],
+  plumeScales:[
+    1,
+    .5,
+    1.1,
+    1.1
+  ]
 
 }
 
@@ -207,7 +228,9 @@ LEVEL_4_PARAMS.path = {
     var guides = [];
 
         var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
-    var mat = new THREE.MeshPhongMaterial();
+    var mat = MATS['audioLambert'].clone();
+    mat.uniforms.t_audio.value = audioController.texture;// new THREE.MeshPhongMaterial();
+
 
 
 

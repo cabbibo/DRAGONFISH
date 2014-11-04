@@ -16,7 +16,28 @@ LEVEL_6_PARAMS.death = {
   mat:'shineDisplace',
   color:0xee6622,
   scale: .02,
-  position: new THREE.Vector3( 0 , -6 , 0 )
+  speed: 2.4,
+  dist: 200,
+  
+  position: new THREE.Vector3( 0 , -6 , 0 ),
+  plumeGeos:[
+    'feather2',
+    'feather2',
+    'feather2',
+    'feather2'
+  ],
+  plumeMats:[
+    'shineDisplace',
+    'shineDisplace',
+    'shineDisplace',
+    'shineDisplace'
+  ],
+  plumeScales:[
+    1,
+    .5,
+    1.1,
+    1.1
+  ]
 
 }
 
@@ -108,39 +129,20 @@ LEVEL_6_PARAMS.stones = {
 
   init:function( geo  ){
 
-  
-    var geo = new THREE.Geometry();
-    for( var i= 0; i < 50; i++ ){
 
-      for( var j = 0; j < 50; j++ ){
+      var m = MATS[ 'shineDisplace'].clone();
+      m.side = THREE.DoubleSide;
+      //m.color = this.color;
+    
+      m.uniforms.t_normal.value = MATS.textures.normals.moss;
+      m.uniforms.t_audio.value = audioController.texture;
+      m.uniforms.normalScale.value = 5.;
+      m.uniforms.texScale.value = .3;
+      m.uniforms.displacement.value = .01;
 
-        for( var k = 0; k < 50; k++ ){
+      var stones = new THREE.Mesh( STONES.level6 , m );
 
-          vert = new THREE.Vector3();
-
-          vert.x = (i - 25)*20;
-          vert.y = (j - 25)*20;
-          vert.z = (k - 25)*20;
-  
-          geo.vertices.push( vert );
-
-
-        }
-
-      }
-
-    }
-
-    //assignUVs( geometry );
-    stones = new THREE.ParticleSystem( geo );
-
-    stones.material.map = audioController.texture;
-    stones.material.blending = THREE.AdditiveBlending;
-    stones.material.transparent = true;
-    stones.material.depthWrite = false;
-    stones.material.size = 3;
-    stones.material.color = new THREE.Color( 0xffffff );
-    return stones 
+      return stones 
 
 
   },
@@ -206,13 +208,15 @@ LEVEL_6_PARAMS.path = {
 
     var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
    
-    var mat = MATS[ 'planet' ].clone();
-   // mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
+  
+    var mat = MATS[ 'shineDisplace' ].clone();
+    mat.side = THREE.DoubleSide;
     mat.uniforms.t_audio.value = audioController.texture;
-
-
+    mat.uniforms.displacement.value = .001;
+    mat.uniforms.normalScale.value = 1.4;
+    mat.uniforms.texScale.value = .01;
+    mat.uniforms.t_normal.value = MATS.textures.normals.moss;
+    
 
    
     var cone = new THREE.CylinderGeometry( 1 , 0 , 3);
@@ -734,7 +738,7 @@ LEVEL_6_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'shineDisplace',
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0xcc8833),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 

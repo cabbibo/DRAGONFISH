@@ -17,7 +17,28 @@ LEVEL_5_PARAMS.death = {
   mat:'audioDisplace',
   color:0xee6622,
   scale: .02,
-  position: new THREE.Vector3( 0 , -6 , 0 )
+  speed: 1.4,
+  
+  position: new THREE.Vector3( 0 , -6 , 0 ),
+  plumeGeos:[
+    'feather2',
+    'feather2',
+    'feather2',
+    'feather2'
+  ],
+  plumeMats:[
+    'audioDisplace',
+    'audioDisplace',
+    'audioDisplace',
+    'audioDisplace'
+  ],
+  plumeScales:[
+    1,
+    .5,
+    1.1,
+    1.1
+  ]
+
 
 }
 
@@ -94,40 +115,16 @@ LEVEL_5_PARAMS.stones = {
 
   init:function( geo  ){
 
-  
-    var geo = new THREE.Geometry();
-    for( var i= 0; i < 50; i++ ){
+    
+    //v      //assignUVs( geometry )
+    //
+    var mat = MATS.audioDisplace.clone();
+    mat.uniforms.t_audio.value = audioController.texture;
+    mat.uniforms.displacement.value = .0001;
 
-      for( var j = 0; j < 50; j++ ){
+    var stones = new THREE.Mesh( STONES.level5 , mat );
 
-        for( var k = 0; k < 50; k++ ){
-
-          vert = new THREE.Vector3();
-
-          vert.x = (i - 25)*20;
-          vert.y = (j - 25)*20;
-          vert.z = (k - 25)*20;
-  
-          geo.vertices.push( vert );
-
-
-        }
-
-      }
-
-    }
-
-    //assignUVs( geometry );
-    stones = new THREE.ParticleSystem( geo );
-
-    stones.material.map = audioController.texture;
-    stones.material.blending = THREE.AdditiveBlending;
-    stones.material.transparent = true;
-    stones.material.depthWrite = false;
-    stones.material.size = 3;
-    stones.material.color = new THREE.Color( 0xffffff );
     return stones 
-
 
   },
   
@@ -135,7 +132,7 @@ LEVEL_5_PARAMS.stones = {
   onHook : function ( hook ){
 
     var c = hook.color.getHex();
-    this.material.color = hook.color;
+  //  this.material.uniforms.color.value = hook.color;
     //resetColorUniform( this.material.uniforms.color1 , c , 1.4 );
     //resetColorUniform( this.material.uniforms.color2 , c , 1.4 );
     //resetColorUniform( this.material.uniforms.color3 , c , 1.4 );
@@ -192,11 +189,11 @@ LEVEL_5_PARAMS.path = {
 
     var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
    
-    var mat = MATS[ 'planet' ].clone();
-   // mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
+        
+    var mat = MATS['audioLambert'].clone();
+    mat.uniforms.t_audio.value = audioController.texture;// new THREE.MeshPhongMaterial();
+
+
 
 
 
@@ -432,7 +429,7 @@ LEVEL_5_PARAMS.newTypes = [
     geo:  'bone',
     numOf: 3,
     boss: false,
-    startScore: 1,
+    startScore: 3,
     mat:'audioDisplace',
     color: new THREE.Color( 0x550000),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
@@ -505,7 +502,7 @@ LEVEL_5_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     mat:'audioDisplace',
-    startScore: 2,
+    startScore: 4,
     color: new THREE.Color( 0x880000),
    instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -577,7 +574,7 @@ LEVEL_5_PARAMS.newTypes = [
     numOf: 3,
     mat:'audioDisplace',
     boss: false,
-    startScore: 3,
+    startScore: 6,
     color: new THREE.Color( 0x660000),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -648,7 +645,7 @@ LEVEL_5_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'shineDisplace',
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0x550000 ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 

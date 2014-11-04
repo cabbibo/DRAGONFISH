@@ -62,12 +62,10 @@ LEVEL_8_PARAMS.skybox = {
 
 LEVEL_8_PARAMS.crystal = {
 
-  geo: new THREE.CylinderGeometry( 2,0,5 ),
+  geo: 'fractal',
   mat: 'audioBright',
-  map: 'audioController',  
-  scale:.3,
-  rotation: new THREE.Euler( -Math.PI / 2 , 0 , 0 ),
- 
+  scale:1,
+  position: new THREE.Vector3( 0 , 0 , 0 )
 }
 
 LEVEL_8_PARAMS.stones = {
@@ -154,17 +152,16 @@ LEVEL_8_PARAMS.path = {
 
     var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
    
-    var mat = MATS[ 'planet' ].clone();
    // mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
+     var m = MATS.audioBright.clone();
+      m.uniforms.t_audio.value = audioController.texture;
+      m.uniforms.displacement.value = 0//.21; 
 
 
 
    
     var cone = new THREE.CylinderGeometry( 1 , 0 , 3);
-    var coneMesh = new THREE.Mesh( cone , mat );
+    var coneMesh = new THREE.Mesh( cone , m);
     coneMesh.rotation.set(  -Math.PI / 2 , 0 ,0);
     coneMesh.position.z = 2;
     coneMesh.updateMatrix();
@@ -176,7 +173,7 @@ LEVEL_8_PARAMS.path = {
 
     for( var  i = 0; i < 300; i++ ){
 
-      var guide = new THREE.Mesh( geo , mat );
+      var guide = new THREE.Mesh( geo , m );
       guide.lifeTime = 0;
       guide.lifeSpeed = Math.random() * .5 + .5;
       guide.velocity = new THREE.Vector3();
@@ -381,7 +378,7 @@ color: new THREE.Color( 0xffffff ),
     geo:  'fractal',
     numOf: 3,
     boss: false,
-    startScore: 1,
+    startScore: 3,
     mat:'audioBright',
   color: new THREE.Color( 0xffffff ),
    instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -447,7 +444,7 @@ color: new THREE.Color( 0xffffff ),
     numOf: 3,
     boss: false,
     mat:'audioBright',
-    startScore: 2,
+    startScore: 6,
      color: new THREE.Color( 0xffffff ),
 
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
@@ -514,7 +511,7 @@ color: new THREE.Color( 0xffffff ),
     numOf: 3,
     mat:'audioBright',
     boss: false,
-    startScore: 3,
+    startScore: 9,
      color: new THREE.Color( 0xffffff ),
    instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -577,7 +574,7 @@ color: new THREE.Color( 0xffffff ),
     numOf: 1,
     boss: true,
     mat:'audioBright',
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0xffffff ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 

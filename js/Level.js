@@ -333,6 +333,10 @@ Level.prototype.createDeath = function(){
   this.death.geo = GEOS[ this.params.death.geo ];
   this.death.mat = MATS[ this.params.death.mat ].clone();
 
+  this.death.speed    = this.params.death.speed || 1;
+  this.death.distance = this.params.death.distance || 100;
+  this.death.follow   = this.params.death.follow || 1;
+
   if( this.death.mat.uniforms ){
     if( this.death.mat.uniforms.t_audio ) this.death.mat.uniforms.t_audio.value = audioController.texture;
     if( this.death.mat.uniforms.t_normal ){
@@ -366,7 +370,13 @@ Level.prototype.createDeath = function(){
 
       var p = this.params.death;
       var geo = GEOS[p.plumeGeos[i]];
-      var mat = MATS[p.plumeMats[i]];
+      var mat = MATS[p.plumeMats[i]].clone();
+
+      if( mat.uniforms ){
+
+        if( mat.uniforms.t_audio ) mat.uniforms.t_audio.value = audioController.texture;
+
+      }
       var scale = p.plumeScales[i];
 
       var m = new THREE.Mesh( geo , mat );
@@ -770,8 +780,37 @@ Level.prototype.startDeath = function(){
     deathDragon.initPlume();
 
   }
+
+  deathDragon.bait.position.copy( dragonFish.bait.position );
+ 
+  var x =( Math.random() - .5 );
+  var y =( Math.random() - .5 );
+  var z =( Math.random() - .5 );
+
+  var dir = new THREE.Vector3( 0, 0, -1 );
+  dir.applyQuaternion( camera.quaternion );
+  dir.multiplyScalar( this.death.distance );
+
+
+  deathDragon.bait.position.add( dir );
+
   
   deathDragon.attack();
+
+  /* HACKED */
+
+  deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
+    obj.position.copy( deathDragon.bait.position );
+  });
+
+  deathDragon.recursiveCall( deathDragon.plumeBabies[1] , function( obj ){
+    obj.position.copy( deathDragon.bait.position );
+  });
+  
+
+  deathDragon.recursiveCall( deathDragon.plumeBabies[2] , function( obj ){
+    obj.position.copy( deathDragon.bait.position );
+  });
 
 }
 Level.prototype.startHooks = function(){
@@ -1054,6 +1093,47 @@ Level.prototype.onHook = function( index , hook ){
 
   }
 
+  if( this.deathStarted && this.death.tilAttack ){
+
+    this.death.tilAttack -= 1;
+
+    if( this.death.tilAttack === 0 ){
+
+      console.log('REATTRAC');
+       deathDragon.bait.position.copy( dragonFish.bait.position );
+ 
+      var x =( Math.random() - .5 );
+      var y =( Math.random() - .5 );
+      var z =( Math.random() - .5 );
+
+      var dir = new THREE.Vector3( 0, 0, 1 );
+      dir.applyQuaternion( camera.quaternion );
+      dir.multiplyScalar( this.death.distance );
+
+      deathDragon.bait.position.add( dir );
+       
+      /* HACKED */
+      deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
+        obj.position.copy( deathDragon.bait.position );
+      });
+
+      deathDragon.recursiveCall( deathDragon.plumeBabies[1] , function( obj ){
+        obj.position.copy( deathDragon.bait.position );
+      });
+      
+
+      deathDragon.recursiveCall( deathDragon.plumeBabies[2] , function( obj ){
+        obj.position.copy( deathDragon.bait.position );
+      });
+
+
+      deathDragon.attack();
+     // this.death.tilAttack = undefined;
+
+    }
+
+  }
+
   /*if( cs === (this.params.death.startScore + 2 ) && this.deathText.active === true ){
 
     this.deathText.kill();
@@ -1149,8 +1229,8 @@ Level.prototype.onDeath = function(){
 
         }
 
-        deathDragon.attack();
-
+        this.death.tilAttack = this.params.death.startScore;
+       
         this.tmpHooks = null;
         this.hookedHooks = [];
 

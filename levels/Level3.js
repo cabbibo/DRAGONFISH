@@ -46,7 +46,7 @@ LEVEL_3_PARAMS.geo = 'totem';
 
 LEVEL_3_PARAMS.oldTypes = [
 
-  'lvl1_part2_drums',
+  //'lvl1_part2_drums',
   'lvl1_part2_vox',
 
 ] 
