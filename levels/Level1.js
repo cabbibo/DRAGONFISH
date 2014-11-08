@@ -651,7 +651,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'lambert',
-    startScore: 0,
+    startScore: 12,
     color: new THREE.Color( 0xcccccc ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
