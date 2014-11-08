@@ -748,7 +748,7 @@ Level.prototype.onStart = function(){
 
   this.checkForNewHooks( this.currentScore );
 
-  this.startHooks();
+ // this.startHooks();
 
   this.active = true;
 
@@ -834,8 +834,8 @@ Level.prototype.startHooks = function(){
 
     this.dragonFish.addToScene( hook.vertabrae );
     hook.activate();
-    this.dragonFish.addToScene( hook.vertabrae );
-    this.dragonFish.addToScene( hook.vertabrae );
+  //  this.dragonFish.addToScene( hook.vertabrae );
+  //  this.dragonFish.addToScene( hook.vertabrae );
     //setTimeout( function(){
    // }.bind( this ) , 1000 )
 

@@ -149,12 +149,9 @@ CREDITS_PARAMS.path = {
 
     var geo = new THREE.BoxGeometry( .5 , .5 , 3.5 );
    
-    var mat = MATS[ 'planet' ].clone();
-   // mat.side = THREE.DoubleSide;
-    
-    mat.uniforms.tNormal.value = MATS.textures.normals.moss;
-    mat.uniforms.t_audio.value = audioController.texture;
-
+    var mat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color( 0xffffff )
+    });
 
 
    

@@ -4,7 +4,7 @@
         ["Download" , "download_1.png" , "audio/dragonfish.mp3"],
         ["Share on Twitter" ,"twitter_1.png" , "http://twitter.com/share?text=Psychedelic%20Snake%20with%20audio%20from%20@L4Suicide%20coded%20by%20@cabbibo%20&url=http://cabbibo.com/DRAGONFISH"],
         ["Share on Facebook", "facebook_1.png" , 'http://www.facebook.com/sharer.php?u=http://cabbibo.com/DRAGONFISH'],
-        ["Autograf on Soundcloud" ,"soundcloud_1.png" , "https://soundcloud.com/pinknoiseordinance"],
+        ["DRAGONFISH on Soundcloud" ,"soundcloud_1.png" , "https://soundcloud.com/pinknoiseordinance"],
         ["Cabbibo" , "cabbibo_1.png" , "http://cabbibo.com"],
         ["Information" , "info_1.png" , "" ],
       ]
@@ -31,7 +31,7 @@
 
         if( i != smArray.length -1 ){
           a.href = smArray[i][2];
-          if( i != 0 )
+         // if( i != 0 )
             a.target = '_blank';
         }else{
           a.onClick = "function(){ console.log('hello')}";
