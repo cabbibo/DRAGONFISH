@@ -810,11 +810,25 @@ Level.prototype.startDeath = function(){
 
   /* HACKED */
 
- /* deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
+  //setTimeout( function(){
+ //   console.log( 'yes');
+
+  /*
+
+     Making sure everything arrives together
+  */
+  deathDragon.recursiveCall( deathDragon.leader , function( three , obj ){
+    obj.velocity.set( 0 , 0 , 0 );
+  });
+
+  deathDragon.recursiveCall( deathDragon.leader , function( three , obj ){
     obj.position.copy( deathDragon.bait.position );
   });
 
-  deathDragon.recursiveCall( deathDragon.plumeBabies[1] , function( obj ){
+
+
+
+ /* deathDragon.recursiveCall( deathDragon.plumeBabies[1] , function( obj ){
     obj.position.copy( deathDragon.bait.position );
   });
   
@@ -1125,6 +1139,20 @@ Level.prototype.onHook = function( index , hook ){
       deathDragon.bait.position.add( dir );
        
       /* HACKED */
+      
+      /*
+
+         Making sure everything arrives together
+      */
+      deathDragon.recursiveCall( deathDragon.leader , function( three , obj ){
+        obj.velocity.set( 0 , 0 , 0 );
+      });
+
+      deathDragon.recursiveCall( deathDragon.leader , function( three , obj ){
+        obj.position.copy( deathDragon.bait.position );
+      });
+
+
      /* deathDragon.recursiveCall( deathDragon.plumeBabies[0] , function( obj ){
         obj.position.copy( deathDragon.bait.position );
       });

@@ -145,6 +145,16 @@
 
     scene.add( this.head );
     scene.add( this.clueLine );
+
+    dragonFish.recursiveCall( this.vertabrae , function(three , obj ){
+
+      console.log( 'called');
+      console.log( this.head );
+      obj.position.copy( this.head.position );
+      obj.velocity.set( 0 ,  0 , 0 );
+
+
+    }.bind( this ));
     this.active = true;
 
   }

@@ -651,7 +651,7 @@ LEVEL_1_PARAMS.newTypes = [
     numOf: 1,
     boss: true,
     mat:'lambert',
-    startScore: 12,
+    startScore: 0,
     color: new THREE.Color( 0xcccccc ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -670,13 +670,13 @@ LEVEL_1_PARAMS.newTypes = [
       m1.scale.multiplyScalar( .1 );
 
       var m2 = new THREE.Mesh( geo , m );
-      m2.scale.multiplyScalar( .03 );
-          
+      m2.scale.multiplyScalar( .08 );
+      
       var m3 = new THREE.Mesh( geo , m );
-      m3.scale.multiplyScalar( .01 );
+      m3.scale.multiplyScalar( .05 );
 
       var m4 = new THREE.Mesh( geo , m );
-      m4.scale.multiplyScalar( .005 );
+      m4.scale.multiplyScalar( .1 );
 
 
       var hooks = [];

@@ -453,7 +453,7 @@ DragonFish.prototype.removeVertabraeById = function( id ){
 
 DragonFish.prototype.recursiveCall = function( object , callback ){
 
-  callback( object.body );
+  callback( object.body , object );
   //console.log( object.body );
   for( var i = 0; i < object.sub.length; i++ ){
     this.recursiveCall( object.sub[i] , callback );
