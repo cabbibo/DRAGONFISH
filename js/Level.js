@@ -703,6 +703,7 @@ Level.prototype.onStart = function(){
 
   if( this.params.credits === true ){
 
+   // starMap.material.map = MATS.textures.starMapWhite
     starMap.material = new THREE.MeshBasicMaterial({
       color:0xffffff,
       side: THREE.BackSide,
@@ -710,6 +711,10 @@ Level.prototype.onStart = function(){
     });
     starMap.materialNeedsUpdate = true;
 
+    var cab = new THREE.Mesh( GEOS['logoGeo'] , MATS['normal'] );
+    cab.position.z = 4000;
+    cab.scale.multiplyScalar( 6 );
+    scene.add( cab );
 
   }
   // puts the crystal on the head of the dragonfish

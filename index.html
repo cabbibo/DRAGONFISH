@@ -57,9 +57,10 @@
 <script src = "init/initDebug.js"         ></script>
 <script src = "init/initGeos.js"          ></script>
 <script src = "init/initMaterials.js"     ></script>
-<script src = "init/initRepelers.js"     ></script>
-<script src = "init/initGems.js"     ></script>
-<script src = "init/initStones.js"     ></script>
+<script src = "init/initRepelers.js"      ></script>
+<script src = "init/initGems.js"          ></script>
+<script src = "init/initStones.js"        ></script>
+<script src = "init/initEasterEgg.js"     ></script>
 
 <script src = "levels/Level1.js"          ></script>
 <script src = "levels/Level2.js"          ></script>
@@ -79,6 +80,10 @@
 
 <script src = "js/mechanics.js"           ></script>
 <script src = "js/utils.js"               ></script>
+
+<script src = "js/FurryGroup.js"        ></script>
+<script src = "js/FurryTail.js"        ></script>
+<script src = "js/FurryHead.js"        ></script>
 
 <script src = "js/instructions.js"        ></script>
 <script src = "js/addSocialMedia.js"      ></script>
@@ -114,7 +119,9 @@
   var mouse =  new THREE.Vector2();
   var counter = 0;
   var time = { type:"f" , value:0 }
+  var timer = time;
   var dT = { type:"f" , value:0 }
+  var dpr = { type:"f" , value: window.devicePixelRatio || 1 }
   var t_audio = { type:"t" , value:null }
   var lightColors = { type:"v3v" , value:[] }; 
   var lightDirections = { type:"v3v" , value:[] }; 
@@ -136,7 +143,8 @@
   var startingCrystal;
 
   var textCreator = new TextCreator( 100 );
-  var textParticles; 
+  var textParticles;// = new TextParticles(); 
+
 
   var loader = new Loader({ numberToLoad: 0 });
 
@@ -190,6 +198,9 @@
   shaders.load( 'fs-edge'   , 'edge'  , 'fragment'    );
   shaders.load( 'vs-edge'   , 'edge'  , 'vertex'      );
   
+  shaders.load( 'fs-easter'   , 'easter'  , 'fragment'    );
+  shaders.load( 'vs-easter'   , 'easter'  , 'vertex'      );
+  
   shaders.load( 'fs-render'   , 'render'  , 'fragment'    );
   shaders.load( 'vs-render'   , 'render'  , 'vertex'      );
   shaders.load( 'curlSim'   , 'curlSim' , 'simulation'  );
@@ -197,13 +208,22 @@
   shaders.load( 'fs-deathParticles'   , 'deathParticles'  , 'fragment'    );
   shaders.load( 'vs-deathParticles'   , 'deathParticles'  , 'vertex'      );
   shaders.load( 'deathSim'            , 'deathSim'        , 'simulation'  );
-      
   
   
   shaders.load( 'ss-text'   , 'text' , 'simulation'  );
   shaders.load( 'fs-text'   , 'text' , 'fragment'  );
   shaders.load( 'vs-text'   , 'text' , 'vertex'  );
+  
+  shaders.load( 'ss-furryTail'   , 'furryTail' , 'simulation'  );
+  shaders.load( 'fs-furryTail'   , 'furryTail' , 'fragment'  );
+  shaders.load( 'vs-furryTail'   , 'furryTail' , 'vertex'  );
 
+  shaders.load( 'ss-furryHead'   , 'furryHead' , 'simulation'  );
+  shaders.load( 'fs-furryHead'   , 'furryHead' , 'fragment'  );
+  shaders.load( 'vs-furryHead'   , 'furryHead' , 'vertex'  );
+
+  shaders.load( 'fs-furryParticles'   , 'furryParticles' , 'fragment'  );
+  shaders.load( 'vs-furryParticles'   , 'furryParticles' , 'vertex'  );
 
     
   shaders.load( 'ss-curlMesh'       , 'curlMesh'  , 'simulation'  );
@@ -215,7 +235,7 @@
 
   var audioController = new AudioController();
 
-  //audioController.mute.gain.value = 0;
+ // audioController.mute.gain.value = 0;
 
   t_audio.value = audioController.texture;
 
@@ -246,6 +266,11 @@
 
   function init(){
 
+    textParticles = new TextParticles({
+      vertexShader: shaders.vertexShaders.text, 
+      fragmentShader: shaders.fragmentShaders.text, 
+    }); 
+
     initThree();
     initAudio();
     initMechanics();
@@ -254,6 +279,7 @@
     initRepelers();
     initGems();
     initStones();
+    initEasterEgg();
 
 
 
@@ -396,6 +422,7 @@
     counter += 1;
 
 
+    EasterEgg.checkForAdd();
 
     updateInstructions();
 

@@ -20,7 +20,7 @@ function RepelerMesh( title , mesh , repelers , extraParams ){
   this.rotationSpeed = .1;
 
   var extraParams = extraParams || {};
-  console.log( extraParams );
+  //console.log( extraParams );
   var params =  {
 
     rotationSpeed: .1,

@@ -22,6 +22,7 @@ function initMaterials(){
 
   MATS.textures.normals.moss = THREE.ImageUtils.loadTexture( 'img/normals/moss_normal_map.jpg' );
   MATS.textures.sem.metal = THREE.ImageUtils.loadTexture( 'img/sem_metal.jpg' );
+  MATS.textures.starMapWhite = THREE.ImageUtils.loadTexture( 'img/starMapWhite.png' );
 
 
   MATS.textures.normals.moss.wrapS = THREE.RepeatWrapping; 
@@ -214,6 +215,29 @@ function initMaterials(){
   }
   
   MATS.audioBright = new THREE.ShaderMaterial({
+    uniforms: uniforms,
+    vertexShader: vs,
+    fragmentShader: fs
+  });
+
+
+    
+  var vs = shaders.vertexShaders.audioBright; 
+  var fs = shaders.fragmentShaders.audioBright; 
+  
+  var uniforms = {
+
+    color:{ type:"v3" , value: new THREE.Vector3( 1,0,0) },
+    t_audio:{ type:"t" , value: audioController.texture },
+    t_normal:{ type:"t" , value:  MATS.textures.normals.moss },
+    texScale:{ type:"f" , value: .5 },
+    normalScale:{ type:"f" , value: 6 },
+    displacement: { type:"f" , value: 0 },
+    lightDirections:  lightDirections,
+    lightColors:      lightColors,
+  }
+  
+  MATS.easter = new THREE.ShaderMaterial({
     uniforms: uniforms,
     vertexShader: vs,
     fragmentShader: fs

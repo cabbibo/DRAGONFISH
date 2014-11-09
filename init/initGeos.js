@@ -36,14 +36,14 @@ function initGeos(){
 
 
   var models = [
-
     "skull",
     "skull1",
     "totem",
     "bone",
-    "logoGeo"
-
+    "logoGeo",
+    "hand",
   ]
+
   for( var i=0; i < models.length; i++ ){
   
     var geoName = models[i];
@@ -71,7 +71,6 @@ function initGeos(){
 
   for( var propt in GEOS ){
 
-    GEOS[ propt ].computeVertexNormals();
     GEOS[ propt ].computeFaceNormals();
     GEOS[ propt ].computeVertexNormals();
     GEOS[ propt ].verticesNeedUpdate = true;

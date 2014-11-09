@@ -7,7 +7,7 @@ function GUI( PARAMS ,  params ){
   });
 
 
-  console.log( this.params );
+  //console.log( this.params );
   this.PARAMS = PARAMS;
 
   this.gui = new dat.GUI({autoPlace:false});
