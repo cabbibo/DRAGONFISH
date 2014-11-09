@@ -711,8 +711,9 @@ Level.prototype.onStart = function(){
     });
     starMap.materialNeedsUpdate = true;
 
-    var cab = new THREE.Mesh( GEOS['logoGeo'] , MATS['normal'] );
-    cab.position.z = 4000;
+    var b = new THREE.MeshBasicMaterial({ color:0x000000 });
+    var cab = new THREE.Mesh( GEOS['logoGeo'] , b );
+    cab.position.z = 3990;
     cab.scale.multiplyScalar( 6 );
     scene.add( cab );
 
