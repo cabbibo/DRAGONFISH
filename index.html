@@ -461,7 +461,7 @@
 
       }
 
-      var newGain = Math.min( 1.5 , 30 / length );
+      var newGain = Math.min( 10. , 1000 / ( length * length ));
       LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
 

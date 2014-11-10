@@ -717,6 +717,11 @@ Level.prototype.onStart = function(){
     cab.scale.multiplyScalar( 6 );
     scene.add( cab );
 
+    /*MATS.clueLine.blending = THREE.NoBlending;
+    MATS.clueLine.transparent = false;
+    MATS.clueLine.needsUpdate = true;*/
+   // MATS.clueLine.
+   // MATS.clueLine.tranparent
   }
   // puts the crystal on the head of the dragonfish
   scene.remove( this.crystal );

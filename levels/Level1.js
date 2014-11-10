@@ -35,7 +35,7 @@ LEVEL_1_PARAMS.death = {
 
   startScore:3,
   note:'glassSmash',
-  loop:'lvl1/ambient',
+  loop:'lvl1/death',
   geo:'skull',
   mat:'lambertWF',
   color:0xffffff,
@@ -74,7 +74,7 @@ LEVEL_1_PARAMS.geo = 'totem';
 LEVEL_1_PARAMS.skybox = {
 
   geo:'cube',
-  note: 'srBeast1',
+  note: 'ambient',
   map: 'audioController',
   mat: 'basic',
   scale:.000001,
@@ -198,7 +198,7 @@ LEVEL_1_PARAMS.stones = {
 */
 LEVEL_1_PARAMS.path = {
 
-  notes:['srNight1','srNight2','srNight3','srNight4'],
+  notes:[],
   pathDetail: 0,
 
   markerMat: new THREE.MeshNormalMaterial(),
