@@ -106,7 +106,11 @@ Level.prototype.beginLoading = function(){
 
   this.loadGeo(   this.params.path.markerGeo  );  
   this.loadNote(  this.params.note            ); 
-  
+  this.loadLoop(  this.params.ambient         ); 
+ 
+  console.log( 'AMBINES' );
+  console.log( this.params );
+  console.log( this.params.ambient );
   this.loadNote(  this.params.skybox.note     ); 
   this.loadGeo(   this.params.skybox.geo      );
   
@@ -539,6 +543,16 @@ Level.prototype.initialize = function(){
     this.crystalAdded = true;
 
 
+    console.log('STARSTS');
+    console.log(  LOOPS[ this.params.ambient ] );
+
+    LOOPS[ this.params.ambient ].play();
+    LOOPS[ this.params.ambient ].gain.gain.value = 0;
+    var gainNode = LOOPS[ this.params.ambient ].gain;
+    var t = audioController.ctx.currentTime;
+    gainNode.gain.linearRampToValueAtTime(0, audioController.ctx.currentTime  );
+    gainNode.gain.linearRampToValueAtTime(.5,  audioController.ctx.currentTime  + 10 ); 
+
     if( this.nextLevel ){
 
       this.nextLevel.beginLoading();
@@ -634,7 +648,8 @@ Level.prototype.addSkybox = function(){
   }.bind( marker ));
 
   tween.onComplete( function(){
-    tween.note.play();
+   // console.log( 'NOTE PLAYEd');
+    //tween.note.play();
   }.bind( tween ));
 
   tween.start();
@@ -1115,6 +1130,28 @@ Level.prototype.onHook = function( index , hook ){
 
   this.currentScore = SCORE - this.startScore;
 
+  // when we hook the first, fade out our ambient loop
+  if( this.currentScore == 1 ){
+
+  
+    var l = LOOPS[ this.params.ambient ];
+//     LOOPS[ this.params.ambient ].play();
+//    LOOPS[ this.params.ambient ].gain.gain.value = 0;
+    var gainNode = LOOPS[ this.params.ambient ].gain;
+    var t = audioController.ctx.currentTime;
+    gainNode.gain.linearRampToValueAtTime(.5, audioController.ctx.currentTime  );
+    gainNode.gain.linearRampToValueAtTime(0,  audioController.ctx.currentTime  + 6 ); 
+    /*setTimeout( function(){
+
+
+      console.log('hello' );
+      LOOPS[ this.params.ambient ].stop();
+
+    }.bind( this ) , 6000 );
+    console.log( 'FIRST' );*/
+
+  }
+
   this.percentComplete = this.currentScore / this.length;
 
   this.checkForNewHooks( this.currentScore );
@@ -1318,6 +1355,8 @@ Level.prototype.onComplete = function(){
 
   deathDragon.bait.position.set( 0 , -10000 , -10000 );
   deathDragon.retreat();
+
+  this.death.loop.gain.gain.value = 0; 
   soulSucker.beingChased.value = 0; 
 
   if( this.nextLevel ){

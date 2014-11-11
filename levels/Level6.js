@@ -6,12 +6,14 @@ var LEVEL_6_PARAMS = {};
 LEVEL_6_PARAMS.position = new THREE.Vector3( 0 , 3000 , 0 );
 LEVEL_6_PARAMS.lightUncertainty = .3;
 LEVEL_6_PARAMS.note = 'clean6',
+LEVEL_6_PARAMS.ambient = 'lvl3/ambient';
+  
 
 LEVEL_6_PARAMS.death = {
 
   note:'b7',
   startScore: 1,
-  loop:'lvl1/ambient',
+  loop:'lvl3/death',
   geo:'skull1',
   mat:'shineDisplace',
   color:0xee6622,

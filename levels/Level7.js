@@ -5,12 +5,13 @@ var LEVEL_7_PARAMS = {};
 
 LEVEL_7_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
-LEVEL_7_PARAMS.note = 'clean6',
+LEVEL_7_PARAMS.note = 'clean6';
+LEVEL_7_PARAMS.ambient = 'lvl4/ambient';
 
 LEVEL_7_PARAMS.death = {
 
   note:'b7',
-  loop:'lvl4/ambient',
+  loop:'lvl1/ambient', // unneccesary
   geo:'skull1',
   mat:'planet',
   color:0xee6622,

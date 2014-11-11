@@ -7,6 +7,7 @@ LEVEL_1_PARAMS.lightUncertainty = .001;
 LEVEL_1_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
 LEVEL_1_PARAMS.note = 'clean6',
+LEVEL_1_PARAMS.ambient = 'lvl1/ambient';
 
 
 LEVEL_1_PARAMS.startText = [

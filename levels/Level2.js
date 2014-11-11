@@ -6,6 +6,7 @@ LEVEL_2_PARAMS.lightUncertainty = .001;
 LEVEL_2_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
 
 LEVEL_2_PARAMS.note = 'clean6',
+LEVEL_2_PARAMS.ambient = 'lvl1/ambient';
 
 LEVEL_2_PARAMS.startText = [
   
@@ -32,7 +33,7 @@ LEVEL_2_PARAMS.death = {
   startScore:3,  
   note:'glassSmash',
   geo:'skull1',
-  loop:'lvl1/ambient',
+  loop:'lvl1/death',
   mat:'lambert',
   color:0xcccccc,
   scale: .01,

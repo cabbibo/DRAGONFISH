@@ -6,6 +6,8 @@ CREDITS_PARAMS.credits = true;
 CREDITS_PARAMS.position = new THREE.Vector3( 1000 , -1000 , 0 );
 
 CREDITS_PARAMS.note = 'clean6',
+CREDITS_PARAMS.ambient = 'credits/ambient';
+  
 
 CREDITS_PARAMS.death = {
 

@@ -6,12 +6,14 @@ var LEVEL_5_PARAMS = {};
 LEVEL_5_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
 LEVEL_5_PARAMS.note = 'clean6',
+LEVEL_5_PARAMS.ambient = 'lvl3/ambient';
+  
 LEVEL_5_PARAMS.lightUncertainty = .2;
 
 LEVEL_5_PARAMS.death = {
 
   note:'b7',
-  loop:'lvl1/ambient',
+  loop:'lvl3/death',
   startScore:1,      
   geo:'skull1',
   mat:'audioDisplace',
