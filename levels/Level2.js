@@ -70,8 +70,8 @@ LEVEL_2_PARAMS.geo = 'totem';
 LEVEL_2_PARAMS.oldTypes = [
 
   //'lvl1_part1_synth',
-  'lvl1_part1_drums',
-  'lvl1_part1_perc',
+  //'lvl1_part1_drums',
+  //'lvl1_part1_perc',
 
 ] 
 

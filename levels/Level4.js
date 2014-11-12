@@ -50,7 +50,7 @@ LEVEL_4_PARAMS.geo = 'totem';
 
 LEVEL_4_PARAMS.oldTypes = [
 
-  'lvl2_part1_drums',
+  //'lvl2_part1_drums',
   //'lvl2_part1_synth1',
 
 ] 
@@ -666,9 +666,9 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part1_drums',
+    type: 'lvl2_part2_drums',
     note: 'clean1',
-    loop: 'lvl2/part1/drums',
+    loop: 'lvl2/part2/drums',
     geo:  'logoGeo',
     mat:  'audioDisplace',
     numOf: 1,

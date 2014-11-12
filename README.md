@@ -6,7 +6,7 @@ todo:
  
   - first set of objects added to scene 2 times? figure out what is different for this set than the rest, and you will have your answer!
 
-  - Death dragon needs to be placed properly for each level! ( now the plume must be placed properly too... ) ( could also remove.... would certainly be more efficient.... )
+ /* - Death dragon needs to be placed properly for each level! ( now the plume must be placed properly too... ) ( could also remove.... would certainly be more efficient.... )*/
 
 
   - assignUVs  bug: somehow, this is screwing with the proper assigning of attributes? why oh why would this be?
@@ -20,3 +20,8 @@ todo:
 
 
   - Go through and make all the guides match the level they are being added to
+
+  - Death for 2nd part of every level not working...
+
+
+    - One of the loops keeps playing? think it appears LVL2 Part 1 drums
