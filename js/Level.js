@@ -257,7 +257,7 @@ Level.prototype.instantiate = function(){
   
 
   var l = this.newTypes.length;
-  if( levelDebug ) l = 1;
+  if( levelDebug ) l = 2;
   for( var  i = 0; i < l; i++ ){
 
     var loop  = LOOPS[ this.newTypes[i].loop ];
@@ -768,7 +768,10 @@ Level.prototype.onStart = function(){
   
   dragonFish.leader.body.add( this.crystal );
 
+  this.note.gain.gain.vaue = .1;
   this.note.play();
+    this.note.gain.gain.value = .1;
+  
 
   this.removePath();
 
@@ -1356,7 +1359,7 @@ Level.prototype.onComplete = function(){
   deathDragon.bait.position.set( 0 , -10000 , -10000 );
   deathDragon.retreat();
 
-  this.death.loop.gain.gain.value = 0; 
+  //this.death.loop.gain.gain.value = 0; 
   soulSucker.beingChased.value = 0; 
 
   if( this.nextLevel ){

@@ -5,14 +5,14 @@ LEVEL_4_PARAMS.lightUncertainty = .5;
 
 LEVEL_4_PARAMS.position = new THREE.Vector3( 0, 1000 , 0 );
 
-LEVEL_4_PARAMS.note = 'clean6',
+LEVEL_4_PARAMS.note = 'lvl/4',
 LEVEL_4_PARAMS.ambient = 'lvl2/ambient';
   
 
 LEVEL_4_PARAMS.death = {
 
   startScore:3,
-  note:'glassSmash',
+  note:'death',
   loop:'lvl2/death',
   geo:'skull1',
   mat:'audioLambert',

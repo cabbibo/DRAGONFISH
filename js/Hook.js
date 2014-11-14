@@ -176,7 +176,9 @@
 
   Hook.prototype.explode = function(){
 
+    this.note.gain.gain.value = .2;
     this.note.play();
+    this.note.gain.gain.value = .2;
 
     if( this.boss ){
     

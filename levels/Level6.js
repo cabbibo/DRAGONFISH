@@ -5,13 +5,13 @@ var LEVEL_6_PARAMS = {};
 
 LEVEL_6_PARAMS.position = new THREE.Vector3( 0 , 3000 , 0 );
 LEVEL_6_PARAMS.lightUncertainty = .3;
-LEVEL_6_PARAMS.note = 'clean6',
+LEVEL_6_PARAMS.note = 'lvl/6',
 LEVEL_6_PARAMS.ambient = 'lvl3/ambient';
   
 
 LEVEL_6_PARAMS.death = {
 
-  note:'b7',
+  note:'death',
   startScore: 1,
   loop:'lvl3/death',
   geo:'skull1',
@@ -369,7 +369,7 @@ LEVEL_6_PARAMS.newTypes = [
 
   {
     type: 'lvl3_part2_kick',
-    note: 'clean1',
+    note: 'lvl/6',
     loop: 'lvl3/part2/kick',
     geo:  'bone',
     numOf: 3,
@@ -462,7 +462,7 @@ LEVEL_6_PARAMS.newTypes = [
 
   {
     type: 'lvl3_part2_squishy',
-    note: 'clean1',
+    note: 'lvl/6',
     loop: 'lvl3/part2/squishy',
     geo:  'bone',
     numOf: 3,
@@ -553,7 +553,7 @@ LEVEL_6_PARAMS.newTypes = [
  
   {
     type: 'lvl3_part2_vox',
-    note: 'clean1',
+    note: 'lvl/6',
     loop: 'lvl3/part2/vox',
     geo:  'bone',
     numOf: 3,
@@ -644,7 +644,7 @@ LEVEL_6_PARAMS.newTypes = [
 
   {
     type: 'lvl3_part2_drums',
-    note: 'clean1',
+    note: 'lvl/6',
     loop: 'lvl3/part2/drums',
     geo:  'bone',
     numOf: 3,
@@ -734,7 +734,7 @@ LEVEL_6_PARAMS.newTypes = [
 
    {
     type: 'lvl3_part2_brush',
-    note: 'clean4',
+    note: 'lvl/7',
     loop: 'lvl3/part2/bass',
     geo:  'logoGeo',
     numOf: 1,

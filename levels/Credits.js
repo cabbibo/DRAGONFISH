@@ -3,9 +3,9 @@
 var CREDITS_PARAMS = {};
 
 CREDITS_PARAMS.credits = true;
-CREDITS_PARAMS.position = new THREE.Vector3( 1000 , -1000 , 0 );
+CREDITS_PARAMS.position = new THREE.Vector3( 2000 , -1000 , 0 );
 
-CREDITS_PARAMS.note = 'clean6',
+CREDITS_PARAMS.note = 'lvl/9',
 CREDITS_PARAMS.ambient = 'credits/ambient';
   
 
@@ -305,7 +305,7 @@ CREDITS_PARAMS.newTypes = [
 
   {
     type: 'credits_bass',
-    note: 'clean1',
+    note: 'lvl/9',
     loop: 'credits/bass',
     geo:  'bone',
     numOf: 3,
@@ -400,7 +400,7 @@ CREDITS_PARAMS.newTypes = [
 
   {
     type: 'credits_kick',
-    note: 'clean1',
+    note: 'lvl/9',
     loop: 'credits/kick',
     geo:  'bone',
     numOf: 3,
@@ -489,7 +489,7 @@ CREDITS_PARAMS.newTypes = [
 
   {
     type: 'credits_clap',
-    note: 'clean1',
+    note: 'lvl/9',
     loop: 'credits/clap',
     geo:  'logoGeo',
     numOf: 1,
@@ -569,7 +569,7 @@ CREDITS_PARAMS.newTypes = [
 
   {
     type: 'credits_anime',
-    note: 'clean1',
+    note: 'lvl/9',
     loop: 'credits/anime',
     geo:  'logoGeo',
     numOf: 1,

@@ -3,15 +3,15 @@
 var LEVEL_8_PARAMS = {};
 
 
-LEVEL_8_PARAMS.position = new THREE.Vector3( 0 , -1000 , 0 );
+LEVEL_8_PARAMS.position = new THREE.Vector3( 0 , -2000 , 0 );
 
-LEVEL_8_PARAMS.note = 'clean6';
-LEVEL_8_PARAMS.ambient = 'lvl4/ambient';
+LEVEL_8_PARAMS.note = 'lvl/8';
+LEVEL_8_PARAMS.ambient = 'lvl4/ambient1';
   
 
 LEVEL_8_PARAMS.death = {
 
-  note:'b7',
+  note:'death',
   loop:'lvl1/ambient',
   geo:'skull1',
   mat:'planet',
@@ -310,7 +310,7 @@ LEVEL_8_PARAMS.newTypes = [
 
   {
     type: 'lvl4_part2_highSynth',
-    note: 'clean1',
+    note: 'lvl/8',
     loop: 'lvl4/part2/highSynth',
     geo:  'fractal',
     numOf: 3,
@@ -375,7 +375,7 @@ color: new THREE.Color( 0xffffff ),
 
   {
     type: 'lvl4_part2_hats',
-    note: 'clean1',
+    note: 'lvl/8',
     loop: 'lvl4/part2/hats',
     geo:  'fractal',
     numOf: 3,
@@ -440,7 +440,7 @@ color: new THREE.Color( 0xffffff ),
  
   {
     type: 'lvl4_part2_vox',
-    note: 'clean1',
+    note: 'lvl/8',
     loop: 'lvl4/part2/vox',
     geo:  'fractal',
     numOf: 3,
@@ -507,7 +507,7 @@ color: new THREE.Color( 0xffffff ),
 
   {
     type: 'lvl4_part2_lowSynth',
-    note: 'clean1',
+    note: 'lvl/8',
     loop: 'lvl4/part2/lowSynth',
     geo:  'fractal',
     numOf: 3,
@@ -570,7 +570,7 @@ color: new THREE.Color( 0xffffff ),
 
    {
     type: 'lvl4_part2_drums',
-    note: 'clean4',
+    note: 'lvl/9',
     loop: 'lvl4/part2/drums',
     geo:  'fractal',
     numOf: 1,

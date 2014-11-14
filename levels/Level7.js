@@ -5,7 +5,7 @@ var LEVEL_7_PARAMS = {};
 
 LEVEL_7_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
-LEVEL_7_PARAMS.note = 'clean6';
+LEVEL_7_PARAMS.note = 'lvl/7';
 LEVEL_7_PARAMS.ambient = 'lvl4/ambient';
 
 LEVEL_7_PARAMS.death = {
@@ -318,7 +318,7 @@ LEVEL_7_PARAMS.newTypes = [
 
   {
     type: 'lvl4_part1_highSynth',
-    note: 'clean1',
+    note: 'lvl/7',
     loop: 'lvl4/part1/highSynth',
     geo:  'mandala3',
     numOf: 3,
@@ -400,7 +400,7 @@ LEVEL_7_PARAMS.newTypes = [
 
   {
     type: 'lvl4_part1_hats',
-    note: 'clean1',
+    note: 'lvl/7',
     loop: 'lvl4/part1/hats',
     geo:  'mandala2',
     numOf: 3,
@@ -480,7 +480,7 @@ LEVEL_7_PARAMS.newTypes = [
  
   {
     type: 'lvl4_part1_vox',
-    note: 'clean1',
+    note: 'lvl/7',
     loop: 'lvl4/part1/vox',
     boss: false,
       geo:  'mandala1',
@@ -560,7 +560,7 @@ LEVEL_7_PARAMS.newTypes = [
 
   {
     type: 'lvl4_part1_lowSynth',
-    note: 'clean1',
+    note: 'lvl/7',
     loop: 'lvl4/part1/lowSynth',
     geo:  'mandala3',
     numOf: 3,
@@ -639,7 +639,7 @@ LEVEL_7_PARAMS.newTypes = [
 
    {
     type: 'lvl4_part1_drums',
-    note: 'clean4',
+    note: 'lvl/8',
     loop: 'lvl4/part1/drums',
     geo:  'flower',
     numOf: 1,

@@ -31,7 +31,7 @@ LEVEL_2_PARAMS.deathText = [
 LEVEL_2_PARAMS.death = {
 
   startScore:3,  
-  note:'glassSmash',
+  note:'death',
   geo:'skull1',
   loop:'lvl1/death',
   mat:'lambert',
@@ -394,7 +394,7 @@ LEVEL_2_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part2_synth',
-    note: 'clean1',
+    note: 'lvl/2',
     loop: 'lvl1/part2/synth',
     geo:  'box',
     numOf: 3,
@@ -459,7 +459,7 @@ LEVEL_2_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part2_lead',
-    note: 'clean1',
+    note: 'lvl/2',
     loop: 'lvl1/part2/lead',
     geo:  'box',
     numOf: 3,
@@ -523,7 +523,7 @@ LEVEL_2_PARAMS.newTypes = [
  
   {
     type: 'lvl1_part2_vox',
-    note: 'clean1',
+    note: 'lvl/2',
     loop: 'lvl1/part2/vox',
     geo:  'box',
     numOf: 3,
@@ -587,7 +587,7 @@ LEVEL_2_PARAMS.newTypes = [
   
   {
     type: 'lvl1_part2_toms',
-    note: 'clean1',
+    note: 'lvl/2',
     loop: 'lvl1/part2/toms',
     geo:  'box',
     numOf: 3,
@@ -650,7 +650,7 @@ LEVEL_2_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part2_drums',
-    note: 'clean1',
+    note: 'lvl/3',
     loop: 'lvl1/part2/drums',
     geo:  'logoGeo',
     numOf: 1,

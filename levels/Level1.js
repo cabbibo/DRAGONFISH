@@ -6,7 +6,7 @@ LEVEL_1_PARAMS.lightUncertainty = .001;
 
 LEVEL_1_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
-LEVEL_1_PARAMS.note = 'clean6',
+LEVEL_1_PARAMS.note = 'lvl/1',
 LEVEL_1_PARAMS.ambient = 'lvl1/ambient';
 
 
@@ -35,7 +35,7 @@ LEVEL_1_PARAMS.deathText = [
 LEVEL_1_PARAMS.death = {
 
   startScore:3,
-  note:'glassSmash',
+  note:'death',
   loop:'lvl1/death',
   geo:'skull',
   mat:'lambertWF',
@@ -387,7 +387,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_synth',
-    note: 'clean1',
+    note: 'lvl/1',
     loop: 'lvl1/part1/synth',
     geo:  'box',
     numOf: 3,
@@ -453,7 +453,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_perc',
-    note: 'clean1',
+    note: 'lvl/1',
     loop: 'lvl1/part1/perc',
     geo:  'icosa',
     numOf: 3,
@@ -517,7 +517,7 @@ LEVEL_1_PARAMS.newTypes = [
  
   {
     type: 'lvl1_part1_lead',
-    note: 'clean1',
+    note: 'lvl/1',
     loop: 'lvl1/part1/lead',
     geo:  'tetra',
     numOf: 3,
@@ -582,7 +582,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_drums',
-    note: 'clean1',
+    note: 'lvl/1',
     loop: 'lvl1/part1/drums',
     geo:  'octa',
     numOf: 3,
@@ -646,7 +646,7 @@ LEVEL_1_PARAMS.newTypes = [
 
    {
     type: 'lvl1_part1_brush',
-    note: 'clean4',
+    note: 'lvl/2',
     loop: 'lvl1/part1/brush',
     geo:  'logoGeo',
     numOf: 1,
