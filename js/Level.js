@@ -56,6 +56,8 @@ function Level( name , dragonFish , params ){
   this.crystalAdded = false;
   this.active = false;
 
+    this.firstHook = false;
+  
   this.startScore = 0;
   this.restartScore = 0;
   this.currentScore = 0;
@@ -1134,8 +1136,9 @@ Level.prototype.onHook = function( index , hook ){
   this.currentScore = SCORE - this.startScore;
 
   // when we hook the first, fade out our ambient loop
-  if( this.currentScore == 1 ){
+  if( this.currentScore == 1 && this.firstHook === false ){
 
+    this.firstHook = true;
   
     var l = LOOPS[ this.params.ambient ];
 //     LOOPS[ this.params.ambient ].play();
