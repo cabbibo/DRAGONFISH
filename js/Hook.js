@@ -183,9 +183,18 @@
 
   Hook.prototype.explode = function(){
 
-    this.note.gain.gain.value = .2;
+    //this.note.gain.gain.value = .2;
+
+    var i = Math.ceil( Math.random() * 6 );
+    var s = 'a'+i;
+    var n = NOTES[s];
+
+    /*this.note.gain.gain.value = .2;
     this.note.play();
-    this.note.gain.gain.value = .2;
+    this.note.gain.gain.value = .2;*/
+    n.gain.gain.value = .2;
+    n.play();
+    n.gain.gain.value = .2;
 
     if( this.boss ){
     

@@ -264,6 +264,8 @@
     bait = new THREE.Object3D();
 
 
+  initAudio();
+
   function init(){
 
     textParticles = new TextParticles({
@@ -272,7 +274,6 @@
     }); 
 
     initThree();
-    initAudio();
     initMechanics();
     initDebug();
     initMaterials();
@@ -462,8 +463,9 @@
       }
 
       var newGain = Math.min( 1. , 2000 / ( length * length * length  ));
-      LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
+     // LEVELS[ CURRENT_LEVEL ].death.loop.gain.gain.value = newGain
 
+      LOOPS['death'].gain.gain.value = newGain;
 
     }
     
@@ -498,6 +500,9 @@
     looper.start();
     animate();
 
+    LOOPS['death'].gain.gain.value = 0;
+    LOOPS['death'].play();
+    LOOPS['death'].gain.gain.value = 0;
     onStart();
   
   });

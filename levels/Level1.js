@@ -387,7 +387,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_synth',
-    note: 'lvl/1',
+    note: '2',
     loop: 'lvl1/part1/synth',
     geo:  'box',
     numOf: 3,
@@ -453,7 +453,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_perc',
-    note: 'lvl/1',
+    note: '6',
     loop: 'lvl1/part1/perc',
     geo:  'icosa',
     numOf: 3,
@@ -517,7 +517,7 @@ LEVEL_1_PARAMS.newTypes = [
  
   {
     type: 'lvl1_part1_lead',
-    note: 'lvl/1',
+    note: '5',
     loop: 'lvl1/part1/lead',
     geo:  'tetra',
     numOf: 3,
@@ -582,7 +582,7 @@ LEVEL_1_PARAMS.newTypes = [
 
   {
     type: 'lvl1_part1_drums',
-    note: 'lvl/1',
+    note: '4',
     loop: 'lvl1/part1/drums',
     geo:  'octa',
     numOf: 3,
@@ -646,7 +646,7 @@ LEVEL_1_PARAMS.newTypes = [
 
    {
     type: 'lvl1_part1_brush',
-    note: 'lvl/2',
+    note: '1',
     loop: 'lvl1/part1/brush',
     geo:  'logoGeo',
     numOf: 1,

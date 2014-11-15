@@ -104,7 +104,7 @@ Level.prototype.beginLoading = function(){
  
   this.loadNote(  this.params.death.note );
   this.loadGeo(  this.params.death.geo );
-  this.loadLoop( this.params.death.loop );
+  //this.loadLoop( this.params.death.loop );
 
   this.loadGeo(   this.params.path.markerGeo  );  
   this.loadNote(  this.params.note            ); 
@@ -126,7 +126,7 @@ Level.prototype.beginLoading = function(){
     this.loadLoop( loopName ); 
     // Loading Notes
     var noteName = this.newTypes[i].note;
-    this.loadNote( noteName );
+    //this.loadNote( noteName );
 
     // LoadingGeometry
     var geoName = this.newTypes[i].geo;
@@ -334,7 +334,7 @@ Level.prototype.createStones = function(){
 Level.prototype.createDeath = function(){
 
   this.death = {};
-  this.death.loop = LOOPS[ this.params.death.loop ];
+  //this.death.loop = LOOPS[ this.params.death.loop ];
   this.death.note = NOTES[ this.params.death.note ];
   this.death.geo = GEOS[ this.params.death.geo ];
   this.death.mat = MATS[ this.params.death.mat ].clone();
@@ -361,12 +361,12 @@ Level.prototype.createDeath = function(){
 
   this.death.mesh.position.copy(this.params.death.position);
 
-  if( !this.death.loop.playing ){
+  /*if( !this.death.loop.playing ){
 
     this.death.loop.play();
     this.death.loop.gain.gain.value = 0;
 
-  }
+  }*/
 
   this.death.plume = []
 
@@ -750,7 +750,7 @@ Level.prototype.onStart = function(){
   if( this.oldLevel ){
     this.oldLevel.removeSkybox();
     this.oldLevel.removeStones();
-    this.oldLevel.death.loop.playing = false;
+    //this.oldLevel.death.loop.playing = false;
   }
 
   for( var i =0; i < this.hookedHooks.length; i++ ){

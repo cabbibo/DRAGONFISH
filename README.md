@@ -1,7 +1,12 @@
 todo:
+  
+
+    - getting matrix inverses for 0 for some of the objects
+  - Sometimes restarting death takes 1 extra collection, when this happens, and you are caught again, than it kills all the loops, but forgets one, and you can't beat the level!!!!
+
+
 
  // - death dragon not attacking properly
-  - getting matrix inverses for 0 for some of the objects
 //  - objets not showing up when added to next scene. // This is happening when a geometry is instantiated the level before, but for some reason it doesn't change for this level... ( hacked by creating geometry, than removing it )
  
  // - first set of objects added to scene 2 times? figure out what is different for this set than the rest, and you will have your answer!
@@ -21,9 +26,8 @@ todo:
 
   //- Go through and make all the guides match the level they are being added to
 
-  - Death for 2nd part of every level not working...
+ // - Death for 2nd part of every level not working...
 
-  - Sometimes restarting death takes 1 extra collection, when this happens, and you are caught again, than it kills all the loops, but forgets one, and you can't beat the level!!!!
 
-  - notes should be randomized
+ // - notes should be randomized
 
