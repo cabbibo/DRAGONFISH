@@ -7,16 +7,37 @@ LEVEL_7_PARAMS.position = new THREE.Vector3( 0 , 0 , 0 );
 
 LEVEL_7_PARAMS.note = 'lvl/7';
 LEVEL_7_PARAMS.ambient = 'lvl4/ambient';
-
 LEVEL_7_PARAMS.death = {
 
-  note:'b7',
-  loop:'lvl1/ambient', // unneccesary
+  note:'death',
+  startScore: 1,
+  loop:'lvl3/death',
   geo:'skull1',
-  mat:'planet',
+  mat:'audioSEM',
   color:0xee6622,
-  scale: .01,
-  position: new THREE.Vector3( 0 , -3 , 0 )
+  scale: .03,
+  speed: 6,
+  dist: 200,
+  
+  position: new THREE.Vector3( 0 , -6 , 0 ),
+  plumeGeos:[
+    'mandala2',
+    'mandala2',
+    'mandala2',
+    'mandala2'
+  ],
+  plumeMats:[
+    'audioSEM',
+    'audioSEM',
+    'audioSEM',
+    'audioSEM'
+  ],
+  plumeScales:[
+    20,
+    10,
+    7,
+    3
+  ]
 
 }
 

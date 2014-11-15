@@ -23,4 +23,7 @@ todo:
 
   - Death for 2nd part of every level not working...
 
+  - Sometimes restarting death takes 1 extra collection, when this happens, and you are caught again, than it kills all the loops, but forgets one, and you can't beat the level!!!!
+
+  - notes should be randomized
 

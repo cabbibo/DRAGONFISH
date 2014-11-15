@@ -1136,7 +1136,7 @@ Level.prototype.onHook = function( index , hook ){
   this.currentScore = SCORE - this.startScore;
 
   // when we hook the first, fade out our ambient loop
-  if( this.currentScore == 1 && this.firstHook === false ){
+  if( this.currentScore == 1 && this.firstHook === false && this.params.credits !== true  ){
 
     this.firstHook = true;
   

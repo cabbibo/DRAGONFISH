@@ -458,14 +458,14 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part2_highs',
+    type: 'lvl2_part2_drums',
     note: 'clean1',
-    loop: 'lvl2/part2/highs',
+    loop: 'lvl2/part2/drums',
     geo:  'feather3',
     numOf: 3,
     boss: false,
     mat:'audioLambert',
-    startScore: 1,
+    startScore: 3,
     color: new THREE.Color(0x11aa99 ),
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
 
@@ -533,7 +533,7 @@ LEVEL_4_PARAMS.newTypes = [
     numOf: 3,
     boss: false,
     mat:'audioLambert',
-    startScore: 2,
+    startScore: 6,
     color: new THREE.Color( 0xaa5511 ),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 
@@ -604,7 +604,7 @@ LEVEL_4_PARAMS.newTypes = [
     boss: false,
     mat:'audioLambert',
 
-    startScore: 3,
+    startScore: 6,
     color: new THREE.Color( 0x115599 ),
     instantiate: function( level , dragonFish , note , loop , geo,mat ){
 
@@ -666,14 +666,14 @@ LEVEL_4_PARAMS.newTypes = [
 
 
   {
-    type: 'lvl2_part2_drums',
+    type: 'lvl2/part2/highs',
     note: 'clean1',
-    loop: 'lvl2/part2/drums',
+    loop: 'lvl2/part2/highs',
     geo:  'logoGeo',
     mat:  'audioDisplace',
     numOf: 1,
     boss: true,
-    startScore: 4,
+    startScore: 12,
     color: new THREE.Color( 0x440000 ),
     instantiate: function( level , dragonFish , note , loop , geo , mat ){
 

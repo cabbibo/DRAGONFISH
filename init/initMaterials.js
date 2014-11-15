@@ -280,6 +280,19 @@ function initMaterials(){
 
   });
 
+  MATS.creditClueLine = new THREE.ShaderMaterial({
+
+    uniforms: uniforms,
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    linewidth:10,
+   // blending:THREE.AdditiveBlending,
+   // transparent:true
+
+  });
+
+
+
 
   
 

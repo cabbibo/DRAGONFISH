@@ -7,6 +7,7 @@
     this.id = Math.random();
     this.level = level;
 
+
     this.type = type || 'THIS HAS NO TYPE';
     this.params = _.defaults( params || {} , {
     
@@ -75,8 +76,14 @@
 
     }
 
-    
-    var mat = MATS.clueLine.clone();
+   
+
+    var mat; 
+    if( this.level.name === 'Credit level' ){
+      mat = MATS.creditClueLine.clone();
+    }else{
+      mat = MATS.clueLine.clone();
+    }
     mat.uniforms.to.value = this.dragonFish.leader.position;
     mat.uniforms.from.value = this.position;
 
