@@ -5,7 +5,7 @@ var LEVEL_2_PARAMS = {};
 LEVEL_2_PARAMS.lightUncertainty = .001;
 LEVEL_2_PARAMS.position = new THREE.Vector3( 0 , 1000 , 0 );
 
-LEVEL_2_PARAMS.note = 'clean6',
+LEVEL_2_PARAMS.note = '1',
 LEVEL_2_PARAMS.ambient = 'lvl1/ambient';
 
 LEVEL_2_PARAMS.startText = [

@@ -12,12 +12,34 @@ LEVEL_8_PARAMS.ambient = 'lvl4/ambient1';
 LEVEL_8_PARAMS.death = {
 
   note:'death',
-  loop:'lvl1/ambient',
+  startScore: 1,
+  loop:'lvl3/death',
   geo:'skull1',
-  mat:'planet',
+  mat:'audioBright',
   color:0xee6622,
-  scale: .01,
-  position: new THREE.Vector3( 0 , -3 , 0 )
+  scale: .02,
+  speed: 6,
+  dist: 200,
+  
+  position: new THREE.Vector3( 0 , -6 , 0 ),
+  plumeGeos:[
+    'fractal',
+    'fractal',
+    'fractal',
+    'fractal'
+  ],
+  plumeMats:[
+    'audioBright',
+    'audioBright',
+    'audioBright',
+    'audioBright'
+  ],
+  plumeScales:[
+    5,
+    4,
+    2,
+    3
+  ]
 
 }
 

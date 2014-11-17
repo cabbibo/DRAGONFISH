@@ -35,7 +35,7 @@ var FURRY_HEAD_GEO , FURRY_HEAD_POS;
 
     var t_normal =  MATS.textures.normals.moss;
 
-    console.log( t_normal );
+    //console.log( t_normal );
 
     var uniforms = {
       

@@ -289,8 +289,13 @@
     var dif = this.position.clone().sub( this.dragonFish.leader.position );
 
     if( dif.length() <= size ){
-     
-      this.level.onHook( index , this );
+    
+      if( this.deadNow == true ){
+        console.log('FUCK NO');
+      }else{
+        this.level.onHook( index , this );
+
+      }
 
     }
 

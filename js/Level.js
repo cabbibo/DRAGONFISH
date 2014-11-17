@@ -110,9 +110,9 @@ Level.prototype.beginLoading = function(){
   this.loadNote(  this.params.note            ); 
   this.loadLoop(  this.params.ambient         ); 
  
-  console.log( 'AMBINES' );
+  /*console.log( 'AMBINES' );
   console.log( this.params );
-  console.log( this.params.ambient );
+  console.log( this.params.ambient );*/
   this.loadNote(  this.params.skybox.note     ); 
   this.loadGeo(   this.params.skybox.geo      );
   
@@ -545,8 +545,8 @@ Level.prototype.initialize = function(){
     this.crystalAdded = true;
 
 
-    console.log('STARSTS');
-    console.log(  LOOPS[ this.params.ambient ] );
+    //console.log('STARSTS');
+    //console.log(  LOOPS[ this.params.ambient ] );
 
     LOOPS[ this.params.ambient ].play();
     LOOPS[ this.params.ambient ].gain.gain.value = 0;
@@ -1094,7 +1094,8 @@ Level.prototype.updateHooks = function(){
   for( var i= 0; i < this.hooks.length; i++ ){
 
     this.hooks[i].updatePosition();
-    this.hooks[i].checkForCollision( 2 , i );
+    this.hooks[i].checkForCollision( 4 , i );
+
   }
 
   //console.log( this.hooks[0].position.x );
@@ -1179,7 +1180,6 @@ Level.prototype.onHook = function( index , hook ){
 
     if( this.death.tilAttack === 0 ){
 
-      console.log('REATTRAC');
        deathDragon.bait.position.copy( dragonFish.bait.position );
  
       var x =( Math.random() - .5 );
@@ -1301,6 +1301,7 @@ Level.prototype.onDeath = function(){
       for( var  i =0; i < this.hookedHooks.length; i++ ){
         
         var h = this.hookedHooks[i];
+        h.deadNow = true;
         this.deactivateHookUI( h );
 
         this.tmpHooks.push( h );
@@ -1308,6 +1309,7 @@ Level.prototype.onDeath = function(){
       }
 
 
+      this.hookedHooks = [];
 
       window.setTimeout( function(){
         
@@ -1315,7 +1317,9 @@ Level.prototype.onDeath = function(){
 
           var h = this.tmpHooks[i];
 
+          h.deadNow = false;
           this.hooks.push( h );
+
 
           h.activate();
           this.dragonFish.addToScene( h.vertabrae );
@@ -1326,7 +1330,7 @@ Level.prototype.onDeath = function(){
         this.death.tilAttack = this.params.death.startScore;
        
         this.tmpHooks = null;
-        this.hookedHooks = [];
+       // this.hookedHooks = [];
 
       }.bind( this ) , 5000 );
 
@@ -1347,7 +1351,7 @@ Level.prototype.onDeath = function(){
 
       this.dead = false;
 
-    }.bind( this ) , 1000 );
+    }.bind( this ) , 5000 );
 
   }
 
