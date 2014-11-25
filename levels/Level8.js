@@ -17,11 +17,11 @@ LEVEL_8_PARAMS.death = {
   geo:'skull1',
   mat:'audioBright',
   color:0xee6622,
-  scale: .02,
+  scale: .006,
   speed: 6,
   dist: 200,
   
-  position: new THREE.Vector3( 0 , -6 , 0 ),
+  position: new THREE.Vector3( 0 , -.1 , 0 ),
   plumeGeos:[
     'fractal',
     'fractal',
@@ -35,10 +35,10 @@ LEVEL_8_PARAMS.death = {
     'audioBright'
   ],
   plumeScales:[
-    5,
-    4,
-    2,
-    3
+    1,
+    .5,
+    .3,
+    .5
   ]
 
 }

@@ -15,11 +15,11 @@ LEVEL_7_PARAMS.death = {
   geo:'skull1',
   mat:'audioSEM',
   color:0xee6622,
-  scale: .03,
+  scale: .01,
   speed: 6,
   dist: 200,
   
-  position: new THREE.Vector3( 0 , -6 , 0 ),
+  position: new THREE.Vector3( 0 , -1 , 0 ),
   plumeGeos:[
     'mandala2',
     'mandala2',
@@ -33,10 +33,10 @@ LEVEL_7_PARAMS.death = {
     'audioSEM'
   ],
   plumeScales:[
-    20,
-    10,
-    7,
-    3
+    2,
+    1,
+    .8,
+    .2
   ]
 
 }

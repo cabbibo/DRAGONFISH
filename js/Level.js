@@ -551,9 +551,10 @@ Level.prototype.initialize = function(){
     LOOPS[ this.params.ambient ].play();
     LOOPS[ this.params.ambient ].gain.gain.value = 0;
     var gainNode = LOOPS[ this.params.ambient ].gain;
-    var t = audioController.ctx.currentTime;
-    gainNode.gain.linearRampToValueAtTime(0, audioController.ctx.currentTime  );
-    gainNode.gain.linearRampToValueAtTime(.5,  audioController.ctx.currentTime  + 10 ); 
+    gainNode.gain.value = 0;
+   // var t = audioController.ctx.currentTime;
+    //gainNode.gain.linearRampToValueAtTime(0, audioController.ctx.currentTime  );
+    //gainNode.gain.linearRampToValueAtTime(.5,  audioController.ctx.currentTime  + 10 ); 
 
     if( this.nextLevel ){
 
@@ -569,6 +570,8 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
   var from;
 
+  this.vertaToDestroy = 0;
+  this.vertaDestroyed = 0;
   if( this.oldLevel ){
     from = this.oldLevel.scene.position.clone();
 
@@ -581,7 +584,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
 
   }else{
-    from = new THREE.Vector3();
+    from = new THREE.Vector3( 1000 , 0 , 0);
   }
   this.distanceFromPreviousLevel = from.sub( this.scene.position ).length();
     //TODO: Make sure this works
@@ -610,6 +613,7 @@ Level.prototype.prepareVertabraeForDestruction = function(){
 
     if( !saved ){
 
+      this.vertaToDestroy ++;
      // console.log( 'NOT SAVED' );
       verta.percentToDestruction = .5 + Math.random() * .4;
         //this.dragonFish.removeVertabraeById( i );
@@ -1043,6 +1047,8 @@ Level.prototype.update = function(){
 
 }
 
+
+// Also contains gain for loop
 Level.prototype.checkVertabraeForDestruction = function(){
 
 
@@ -1050,9 +1056,28 @@ Level.prototype.checkVertabraeForDestruction = function(){
   var dif = from.sub( this.scene.position );
 
 
-  
-  var length = 1 - dif.length() / this.distanceFromPreviousLevel;
+
+    
+  var length = 1 - dif.length() / this.distanceFromPreviousLevel
+
+  //  console.log( length );
+  /*if( this.distanceFromPreviousLevel == 0 ){
+
+    length = 1 - this.dragonFish.leader.position.clone();
+
+  }*/
+
   var percentToLocation = length; 
+
+  if(  this.vertaToDestroy == 0 ){
+
+
+    LOOPS[this.params.ambient].gain.gain.value = percentToLocation * .5
+
+
+
+  }
+ // console.log( LOOPS[this.params.ambient].gain.gain.value );
   for( var i = 0; i < this.dragonFish.spine.length; i++ ){
 
    var verta = this.dragonFish.spine[i];
@@ -1063,6 +1088,21 @@ Level.prototype.checkVertabraeForDestruction = function(){
    
      this.dragonFish.removeVertabraeById( i );
      this.removeHookUI( verta );
+   
+     var oGain =  this.vertaDestoyed / this.vertaToDestroy;
+      this.vertaDestroyed ++;
+
+
+      var toGain = (this.vertaDestroyed / this.vertaToDestroy) * .5
+     console.log( this.vertaToDestroy );
+     console.log( this.vertaDestroyed );
+     console.log( toGain );
+
+      var gainNode = LOOPS[ this.params.ambient ].gain;
+      var t = audioController.ctx.currentTime;
+
+      gainNode.gain.linearRampToValueAtTime( gainNode.gain.value , audioController.ctx.currentTime  );
+      gainNode.gain.linearRampToValueAtTime(  toGain ,  audioController.ctx.currentTime  + .04 ); 
 
      for( var j=0; j < this.hookedHooks.length; j++ ){
 
@@ -1137,7 +1177,7 @@ Level.prototype.onHook = function( index , hook ){
   this.currentScore = SCORE - this.startScore;
 
   // when we hook the first, fade out our ambient loop
-  if( this.currentScore == 1 && this.firstHook === false && this.params.credits !== true  ){
+  if( this.currentScore == 1 && this.firstHook === false  ){
 
     this.firstHook = true;
   
