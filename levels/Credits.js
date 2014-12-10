@@ -492,7 +492,7 @@ CREDITS_PARAMS.newTypes = [
     note: 'lvl/9',
     loop: 'credits/clap',
     geo:  'logoGeo',
-    numOf: 1,
+    numOf: 3,
     boss: false,
     startScore: 1,
     mat:'planetDisplace',
@@ -565,6 +565,85 @@ CREDITS_PARAMS.newTypes = [
     }
   },
 
+  {
+    type: 'credits_vox',
+    note: 'lvl/9',
+    loop: 'credits/vox',
+    geo:  'logoGeo',
+    numOf: 3,
+    boss: false,
+    startScore: 1,
+    mat:'planetDisplace',
+    color: new THREE.Color( 0x000000),
+    instantiate: function( level , dragonFish , note , loop , geo, mat ){
+
+    
+      var head = textCreator.createMesh('THANKS');
+
+      head.scale.multiplyScalar( .01);
+      head.material.depthWrite = false;
+      head.material.opacity = .9;
+      //head.material.blending = THREE.AdditiveBlending
+      head.material.color = this.color;
+
+      var m1 = new THREE.Object3D();
+      
+      var mesh = textCreator.createMesh('      @TheSpite');
+
+      mesh.material.depthWrite = false;
+      mesh.material.opacity = .9;
+      //mesh.material.blending = THREE.AdditiveBlending
+      mesh.material.color = this.color;
+
+      mesh.rotation.y = Math.PI / 2;
+      m1.add( mesh );
+
+      //m1.rotation.x = Math.PI
+      m1.scale.x = .02;
+      m1.scale.y = .02;
+      m1.scale.z = .02;
+
+      m1.rotation.y = Math.PI / 2; 
+
+      m2 = m1.clone();
+      m2.scale.multiplyScalar( .6);
+
+      m3 = m2.clone();
+      m3.scale.multiplyScalar( .6 );
+
+      m4 = m3.clone();
+      m4.scale.multiplyScalar( .6 );
+
+      var hooks = [];
+
+      for( var i = 0; i < this.numOf; i++ ){
+
+        var hook = new Hook( dragonFish, level , this.type , {
+          head:head.clone(),
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          m4: m4,
+          note:note,
+          startScore: this.startScore,
+          loop:loop,
+          color: this.color,
+          power: 1/ this.numOf,
+          boss: false,//true,
+          maxSpeed: .5
+        });
+
+        var id = Math.random();
+        hook.id = id;
+
+        hooks.push( hook );
+      }
+  
+      return hooks;
+    }
+  },
+
+
    
 
   {
@@ -574,7 +653,7 @@ CREDITS_PARAMS.newTypes = [
     geo:  'logoGeo',
     numOf: 1,
     boss: true,
-    startScore: 1,
+    startScore: 12,
     mat:'planetDisplace',
     color: new THREE.Color( 0x000000) ,
     instantiate: function( level , dragonFish , note , loop , geo, mat ){
