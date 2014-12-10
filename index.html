@@ -274,6 +274,7 @@
       vertexShader: shaders.vertexShaders.text, 
       fragmentShader: shaders.fragmentShaders.text, 
     }); 
+    console.log( 'PRE INIT' );
 
     initThree();
     initMechanics();
@@ -285,6 +286,7 @@
     initEasterEgg();
 
 
+    console.log( 'POST INIT' );
 
     // Object our dragon fish follows
     dragonFish = new DragonFish( bait );
@@ -414,7 +416,8 @@
     recreateLights( 0x777777 , .1 );
     
     addSocialMedia( SOCIAL_MEDIA );
-    
+
+    console.log( 'end init' );
 
   }
 
