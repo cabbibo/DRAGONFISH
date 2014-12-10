@@ -259,8 +259,8 @@ display:none;
 
 .social{
 
-  width:25px;
-  height:25px;
+  width:50px;
+  height:50px;
   display: block;
 
   opacity:.3;
@@ -294,7 +294,7 @@ display:none;
   position: absolute;
   right: 5px;
   font-size: 23px;
-  bottom: 35px;
+  bottom: 65px;
   opacity: .6;
   color: #fff;
 }
@@ -316,6 +316,7 @@ display:none;
   left:0px;
   bottom:0px;
   z-index:999;
+  display:none;
 
 }
 
