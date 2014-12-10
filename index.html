@@ -134,6 +134,8 @@
   var LEVELS = [];
   var REPELERS = [];
 
+  var controller = new Leap.Controller();
+  controller.connect();
   for( var i  =0; i < 6; i++ ){
 
     lightColors.value.push( new THREE.Vector3() );

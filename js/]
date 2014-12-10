@@ -70,22 +70,11 @@ function updateMechanics( delta ){
       //console.log( frame.hands[0].palmPosition );
 
       var p = frame.interactionBox.normalizePoint( frame.hands[0].palmPosition );
-      //console.log( p );
+      console.log( p );
 
-      console.log( frame.hands[0] );
-      var d = frame.hands[0].direction;
-      var n = frame.hands[0].palmNormal;
-    
+      RV.x = (p[1]-.5) * .01;
+      RV.y = -(p[0]-.5) * .01;
 
-    
-      RV.x = d[1] * .02;
-      RV.y = -d[0] * .02;
-      RV.x += (p[1]-.5) * .02; 
-      RV.y += -(p[0]-.5) * .02;
-
-      RV.z =  n[0] * .01;
-
-      CAM_SPEED = -(p[2]-.5) * 1;
     }
 
     
@@ -99,32 +88,9 @@ function updateMechanics( delta ){
 
     camera.position.add( MV );
 
-    CAM_SPEED *= .99;
+    CAM_SPEED *= .9;
 
     RV.multiplyScalar( .97 );
-
-
-    tv.set( 0 , 0 , -1 );
-    tv.applyQuaternion( camera.quaternion );
-
-    tv.multiplyScalar( CAM_SPEED * CAM_SPEED * CAM_SPEED * 100. + 20 );
-    tv1.copy( camera.position );
-    tv1.add( tv );
-
-    bait.position.copy( tv1 );
-
-    if( deathDragon.attacking === true ){
-      TMP_VECTOR_3.copy( deathBait.position ).sub( bait.position );
-    }else{
-      TMP_VECTOR_3.set( 0 , 10000 , 0 );
-    }
-
-
-
-
-    deathBait.velocity.add( TMP_VECTOR_3.normalize().multiplyScalar( -.003 * LEVELS[ CURRENT_LEVEL].death.speed  ) );
-    deathBait.position.add( deathBait.velocity );
-    deathBait.velocity.multiplyScalar( .99 );
 
 
   }else{

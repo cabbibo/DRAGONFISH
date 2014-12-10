@@ -259,7 +259,7 @@ Level.prototype.instantiate = function(){
   
 
   var l = this.newTypes.length;
-  if( levelDebug ) l = 2;
+  if( levelDebug ) l = 1;
   for( var  i = 0; i < l; i++ ){
 
     var loop  = LOOPS[ this.newTypes[i].loop ];

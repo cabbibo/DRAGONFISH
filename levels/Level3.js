@@ -3,7 +3,7 @@ var LEVEL_3_PARAMS = {};
 
 LEVEL_3_PARAMS.lightUncertainty = .3;
 
-LEVEL_3_PARAMS.position = new THREE.Vector3( 0,2000, 0 );
+LEVEL_3_PARAMS.position = new THREE.Vector3( 0,2500, 0 );
 
 LEVEL_3_PARAMS.note = 'lvl/3',
 LEVEL_3_PARAMS.ambient = 'lvl2/ambient';

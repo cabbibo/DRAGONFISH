@@ -41,6 +41,7 @@ function initGeos(){
     "totem",
     "bone",
     "logoGeo",
+    "pod",
     "hand",
   ]
 

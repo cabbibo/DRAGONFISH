@@ -52,7 +52,7 @@ function addInstructions(){
 
 function updateInstructions(){
 
-  if( !instructionsComplete ){
+/*  if( !instructionsComplete ){
 
 
     instructionsTimer += 1;
@@ -66,7 +66,7 @@ function updateInstructions(){
       }else{
 
 
-        if( !intructionsZMovementComplete ){
+        if( !instructionsZMovementComplete ){
 
           addZMovementInstructions();
 
@@ -89,7 +89,7 @@ function updateInstructions(){
 
     }
 
-  }
+  }*/
 
 }
 

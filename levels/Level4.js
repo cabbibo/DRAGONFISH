@@ -58,11 +58,11 @@ LEVEL_4_PARAMS.oldTypes = [
 
 LEVEL_4_PARAMS.skybox = {
 
-  geo:'totem',
+  geo:'pod',
   note: 'srBeast1',
   map: 'audioController',
   mat:'audioLambert',
-  scale: 100,
+  scale: 300,
   init: function(geo){
 
     //this.mat.map = audioController.texture;
@@ -80,6 +80,8 @@ LEVEL_4_PARAMS.skybox = {
     m.uniforms.t_audio.value = audioController.texture;
     m.uniforms.color.value =  new THREE.Vector3( .5 , .5 , .5 );
     var skybox = new THREE.Mesh( geo , m );
+    skybox.rotation.x = -Math.PI / 2;
+    skybox.updateMatrix();
 
     skybox.note = this.note;
     skybox.scale.multiplyScalar( this.scale );
