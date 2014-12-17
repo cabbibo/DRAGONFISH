@@ -738,6 +738,9 @@ Level.prototype.onStart = function(){
     cab.scale.multiplyScalar( 6 );
     scene.add( cab );
 
+    var div = document.getElementById('social');
+    div.style.background = "#000";
+
     /*MATS.clueLine.blending = THREE.NoBlending;
     MATS.clueLine.transparent = false;
     MATS.clueLine.needsUpdate = true;*/
